@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Emoji from 'react-native-emoji';
 import {useTheme} from '@react-navigation/native';
+import Center from '../Center';
 
 export default function DaySchedule({data}) {
   const {colors} = useTheme();
@@ -41,18 +42,25 @@ export default function DaySchedule({data}) {
       </View>
     );
   };
-
-  return (
-    <View style={styles.container}>
-      <Text style={[styles.title, {color: colors.notification}]}>Dnes</Text>
-      <FlatList
-        horizontal={true}
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.SubjectId}
-      />
-    </View>
-  );
+  if (data !== null) {
+    return (
+      <View style={{alignItems: 'center'}}>
+        <Emoji name=":man-shrugging:" style={{fontSize: 50}} />
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <Text style={[styles.title, {color: colors.notification}]}>Dnes</Text>
+        <FlatList
+          horizontal={true}
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.SubjectId}
+        />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

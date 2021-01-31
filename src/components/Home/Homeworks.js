@@ -1,11 +1,9 @@
-import React, {useState, useContext, useEffect} from 'react';
-import {MyContext} from '../../AuthProvider';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState} from 'react';
 import {
   Text,
   FlatList,
-  Button,
   View,
-  StatusBar,
   StyleSheet,
   TouchableOpacity,
   TouchableHighlight,
@@ -15,7 +13,6 @@ import {
 import HTMLView from 'react-native-htmlview';
 import {editTime} from '../../utilz';
 import {useTheme} from '@react-navigation/native';
-import {color} from 'react-native-reanimated';
 
 export default function Homeworks({data}) {
   const {colors} = useTheme();
@@ -68,11 +65,14 @@ export default function Homeworks({data}) {
             </ScrollView>
 
             <TouchableHighlight
+              underlayColor="#2196F3"
               style={{...styles.openButton, backgroundColor: colors.background}}
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={[styles.textStyle, {color: colors.text}]}>
+                Hide Modal
+              </Text>
             </TouchableHighlight>
           </View>
         </View>
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   subject: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: 'bold',
     //color: '#3d3c3c',
   },
@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 200,
     backgroundColor: 'white',
-    borderRadius: 20,
     padding: 15,
     alignItems: 'flex-start',
     shadowColor: '#000',
@@ -141,9 +140,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#FFFF',
   },
   openButton: {
-    //backgroundColor: '#F194FF',
+    backgroundColor: '#F194FF',
     borderRadius: 20,
     padding: 10,
     elevation: 2,
@@ -157,4 +159,16 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
+  removeButton: {
+    width: 20,
+    height: 20,
+    borderRadius: 20,
+  },
 });
+/*const test = {
+  Info:
+    '<p>Dobr&#253; den,</p>                                                                                                                                                                                                                                                                                                                                                                                                                       <p>pos&#237;l&#225;m &#250;kol do VV k d&#283;jin&#225;m um&#283;n&#237;. P&#345;ilo&#382;en&#253; pracovn&#237; list Funkcionalimus&#160;vypl&#328;te - vyhledejte informace na internetu nebo v literatu&#345;e. Obr&#225;zky vlo&#382;te z internetu (ke ka&#382;d&#233;mu autorovi 2 - 3 obr&#225;zky). Vypln&#283;n&#253; pracovn&#237; list si zalo&#382;&#237;te a odevzd&#225;te jakmile p&#345;ijdeme do &#353;koly.</p>                                                                                                                                                                                                                                                                                                               <p>Richard Tribula</p>',
+  Name: 'Funkcionalismus - pracovní list',
+  TimeTo: '2021-02-01T23:59:00',
+  id: '306a1991-4376-4209-8874-a27e14e9feb6',
+};*/

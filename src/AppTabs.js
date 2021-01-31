@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Center from './components/Center';
 import {
@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStack from './HomeStack';
 import {MyContext} from './AuthProvider';
 import {gql, useQuery} from '@apollo/client';
-import {ActivityIndicator, Appearance} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
 import {ThemeContext} from './components/theme/ThemeProvider';
@@ -44,6 +44,7 @@ const darkTheme = {
     ...DarkTheme.colors,
     text: 'rgb(255, 255, 255)',
     notification: 'rgb(204, 204, 204)',
+    border: 'rgb(255, 255, 255)',
   },
 };
 
@@ -64,7 +65,7 @@ export default function AppTabs() {
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <Tabs.Navigator
-        initialRouteName={'Home'}
+        initialRouteName={'Calendar'}
         screenOptions={({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
             let iconName;
