@@ -13,6 +13,8 @@ import {ActivityIndicator} from 'react-native';
 import {MyContext} from '../../AuthProvider';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useFocusEffect} from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
+import DayItem from './DayItem';
 
 const getData = gql`
   query($date: String!, $key: String!) {
@@ -23,6 +25,7 @@ const getData = gql`
 `;
 // PROBLEM WITH PARAMETR TO FETCH RIGHT DAY
 export default function Day({navigation, route, id}) {
+  const {colors} = useTheme();
   const {date} = route.params;
   const {info} = useContext(MyContext);
   const {loading, error, data, refetch} = useQuery(getData, {
@@ -43,17 +46,6 @@ export default function Day({navigation, route, id}) {
     });
   }, [navigation]);
 
-  const renderItem = ({item}) => {
-    return (
-      <View style={styles.rowContainer}>
-        <Text style={styles.subject}>{item.Name}</Text>
-        <Text>{item.From.substring(11, 16)}</Text>
-        <Text>{item.Teacher}</Text>
-        <Text>{item.Class}</Text>
-      </View>
-    );
-  };
-
   if (loading) {
     return (
       <Center>
@@ -65,7 +57,7 @@ export default function Day({navigation, route, id}) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, colors.background]}>
       <View style={styles.arrows}>
         <TouchableOpacity onPress={() => console.log('left')}>
           <Icon name="arrow-back-outline" size={30} color="blue" />
@@ -78,7 +70,7 @@ export default function Day({navigation, route, id}) {
 
       <FlatList
         data={data.Calendar.schedule}
-        renderItem={renderItem}
+        renderItem={({item}) => <DayItem item={item} />}
         keyExtractor={(item) => item.Id + item.Order}
       />
     </View>
@@ -88,7 +80,7 @@ export default function Day({navigation, route, id}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    //backgroundColor: '#FFFFFF',
   },
   rowContainer: {
     backgroundColor: '#F0F0F0',
@@ -99,11 +91,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingLeft: 15,
     paddingTop: 8,
-  },
-  subject: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#3d3c3c',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   teacher: {
     marginTop: 2.5,
@@ -125,10 +114,17 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'black',
   },
   arrows: {
     justifyContent: 'space-between',
     flexDirection: 'row',
+  },
+  number: {
+    fontSize: 25,
+    paddingTop: 8,
+  },
+  subject: {
+    paddingTop: 5,
+    paddingLeft: 25,
   },
 });

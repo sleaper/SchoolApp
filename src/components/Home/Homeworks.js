@@ -59,7 +59,7 @@ export default function Homeworks({data}) {
             <ScrollView>
               <HTMLView
                 textComponentProps={{style: {color: colors.text}}}
-                value={modalData}
+                value={modalData === null ? '' : modalData.replace(/\s+/g, ' ')} // removes spaces between words
                 addLineBreaks={false}
               />
             </ScrollView>

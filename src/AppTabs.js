@@ -65,7 +65,7 @@ export default function AppTabs() {
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <Tabs.Navigator
-        initialRouteName={'Calendar'}
+        initialRouteName={'Home'}
         screenOptions={({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
             let iconName;
