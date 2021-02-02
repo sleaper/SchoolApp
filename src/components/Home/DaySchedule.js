@@ -33,7 +33,7 @@ export default function DaySchedule({data}) {
   const renderItem = ({item}) => {
     return (
       <View style={createColor()}>
-        <Text style={styles.time}>{item.TimeFrom.substring(11, 1)}</Text>
+        <Text style={styles.time}>{item.TimeFrom.substring(11, 16)}</Text>
         <View style={styles.rowText}>
           <Text style={styles.subject}>{item.Name.substring(0, 3)}</Text>
           <Text style={styles.teacher}>{item.Teacher}</Text>

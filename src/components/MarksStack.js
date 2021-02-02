@@ -2,7 +2,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React, {useContext} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import Marks from './Marks/Marks';
-import {useTheme} from '@react-navigation/native';
 import AvarageMarks from './Marks/AvarageMarks';
 
 const Stack = createStackNavigator();

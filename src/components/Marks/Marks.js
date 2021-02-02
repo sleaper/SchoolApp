@@ -4,6 +4,7 @@ import {MyContext} from '../../AuthProvider';
 import {gql, useQuery} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
 import Center from '../Center';
+import {useTheme} from '@react-navigation/native';
 
 const getData = gql`
   query($key: String!) {
@@ -14,6 +15,7 @@ const getData = gql`
 `;
 
 export default function AvarageMarks({navigation, route}) {
+  const {colors} = useTheme();
   const {info} = useContext(MyContext);
   const {loading, error, data} = useQuery(getData, {
     variables: {key: info.key},
@@ -40,13 +42,17 @@ export default function AvarageMarks({navigation, route}) {
 
   const renderItem = ({item}) => {
     return (
-      <View style={styles.item}>
+      <View style={[styles.item, {backgroundColor: colors.card}]}>
         <View>
-          <Text style={styles.subject}>{item.Name}</Text>
-          <Text style={styles.teacher}>{item.Date}</Text>
+          <Text style={[styles.subject, {color: colors.text}]}>
+            {item.Name}
+          </Text>
+          <Text style={[styles.teacher, {color: colors.text}]}>
+            {item.Date}
+          </Text>
         </View>
         <View style={styles.Mark}>
-          <Text style={styles.Mark}>{item.Mark}</Text>
+          <Text style={[styles.Mark, {color: colors.text}]}>{item.Mark}</Text>
         </View>
       </View>
     );
@@ -66,7 +72,7 @@ export default function AvarageMarks({navigation, route}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    //backgroundColor: '#FFFFFF',
   },
   item: {
     backgroundColor: '#F0F0F0',
