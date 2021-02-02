@@ -30,10 +30,14 @@ export default function Homeworks({data}) {
           setModalData(item.Info);
           setModalVisible(true);
         }}>
-        <Text style={[styles.subject, {color: colors.text}]}>{item.Name}</Text>
-        <Text style={[styles.time, {color: colors.text}]}>
-          {editTime(item.TimeTo)}
-        </Text>
+        <View style={{paddingBottom: 10}}>
+          <Text style={[styles.subject, {color: colors.text}]}>
+            {item.Name}
+          </Text>
+          <Text style={[styles.time, {color: colors.text}]}>
+            {editTime(item.TimeTo)}
+          </Text>
+        </View>
       </TouchableOpacity>
     );
   };
@@ -66,7 +70,10 @@ export default function Homeworks({data}) {
 
             <TouchableHighlight
               underlayColor="#2196F3"
-              style={{...styles.openButton, backgroundColor: colors.background}}
+              style={{
+                ...styles.openButton,
+                backgroundColor: colors.background,
+              }}
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}>
@@ -102,7 +109,6 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     //backgroundColor: '#F0F0F0',
-    height: 80,
     width: '90%',
     marginLeft: 20,
     marginTop: 10,
@@ -110,6 +116,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingLeft: 20,
     alignItems: 'flex-start',
+    alignSelf: 'flex-start',
   },
   subject: {
     fontSize: 16,
@@ -117,7 +124,7 @@ const styles = StyleSheet.create({
     //color: '#3d3c3c',
   },
   time: {
-    textAlign: 'center',
+    //textAlign: 'center',
   },
   centeredView: {
     flex: 1,
@@ -128,7 +135,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: '90%',
-    height: 200,
+    height: 250,
     backgroundColor: 'white',
     padding: 15,
     alignItems: 'flex-start',
@@ -149,6 +156,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
+    position: 'absolute',
+    right: 30,
+    bottom: 30,
   },
   textStyle: {
     color: 'white',

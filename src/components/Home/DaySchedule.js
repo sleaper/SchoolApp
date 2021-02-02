@@ -42,7 +42,7 @@ export default function DaySchedule({data}) {
       </View>
     );
   };
-  if (data !== null) {
+  if (data == null) {
     return (
       <View style={{alignItems: 'center'}}>
         <Emoji name=":man-shrugging:" style={{fontSize: 50}} />
