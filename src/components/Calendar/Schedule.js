@@ -100,11 +100,13 @@ export default function Schedule({id, navigation}) {
         <Calendar
           enableSwipeMonths={true}
           onDayPress={(day) => {
-            navigation.navigate('Day', {date: day.dateString});
+            navigation.navigate('Day', {
+              date: [day.year, day.month, day.day],
+            });
           }}
           theme={dark}
         />
-        <AddButton />
+        {/* <AddButton /> */}
       </View>
     );
   } else {
@@ -113,11 +115,14 @@ export default function Schedule({id, navigation}) {
         <Calendar
           enableSwipeMonths={true}
           onDayPress={(day) => {
-            navigation.navigate('Day', {date: day.dateString});
+            console.log(day);
+            navigation.navigate('Day', {
+              date: [day.year, day.month, day.day],
+            });
           }}
           theme={light}
         />
-        <AddButton />
+        {/* <AddButton /> Think about what you whant */}
       </View>
     );
   }

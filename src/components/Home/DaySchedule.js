@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   Text,
   FlatList,
@@ -11,11 +11,16 @@ import {
 import Emoji from 'react-native-emoji';
 import {useTheme} from '@react-navigation/native';
 import Center from '../Center';
+import {ThemeContext} from '../theme/ThemeProvider';
 
 export default function DaySchedule({data}) {
   const {colors} = useTheme();
+  const {theme} = useContext(ThemeContext);
   function randomHsl() {
-    return 'hsla(' + Math.random() * 360 + ', 100%, 50%, 1)';
+    if (theme === 'dark') {
+      return 'hsla(' + Math.random() * 360 + ', 100%, 50%, 1)';
+    }
+    return 'hsla(' + Math.random() * 360 + ', 100%, 50%, 0.69)';
   }
 
   const createColor = () => {

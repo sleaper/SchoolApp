@@ -1,11 +1,11 @@
 // Use in CalendarStack
 export const getDate = () => {
   let today = new Date();
-  let dd = String(today.getDate());
-  let mm = String(today.getMonth() + 1); //January is 0!
+  let dd = today.getDate();
+  let mm = today.getMonth() + 1; //January is 0!
   let yyyy = today.getFullYear();
 
-  return yyyy + '-' + mm + '-' + dd;
+  return [yyyy, mm, dd];
 };
 
 //Use in homewroks
@@ -16,3 +16,5 @@ export const editTime = (time) => {
 
   return nameOfDay + ' ' + day + '.' + month;
 };
+
+export const test = (arr) => {};

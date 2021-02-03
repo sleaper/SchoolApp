@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -23,13 +23,22 @@ const getData = gql`
     }
   }
 `;
+
+const week = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 // PROBLEM WITH PARAMETR TO FETCH RIGHT DAY
+function useForceUpdate() {
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue((value) => value + 1); // update the state to force render
+}
+
 export default function Day({navigation, route, id}) {
+  const forceUpdate = useForceUpdate();
   const {colors} = useTheme();
   const {date} = route.params;
+  console.log(route.params);
   const {info} = useContext(MyContext);
   const {loading, error, data, refetch} = useQuery(getData, {
-    variables: {date: date, key: info.key},
+    variables: {date: date[0] + '-' + date[1] + '-' + date[2], key: info.key},
   });
 
   useFocusEffect(
@@ -59,11 +68,56 @@ export default function Day({navigation, route, id}) {
   return (
     <View style={[styles.container, colors.background]}>
       <View style={styles.arrows}>
-        <TouchableOpacity onPress={() => console.log('left')}>
+        <TouchableOpacity
+          onPress={() => {
+            date[2] -= 1;
+            if (date[2] >= 1) {
+              refetch({
+                variables: {
+                  date: date[0] + '-' + date[1] + '-' + date[2],
+                  key: info.key,
+                },
+              });
+              forceUpdate();
+            } else {
+              date[1] -= 1;
+              date[2] = 1;
+              refetch({
+                variables: {
+                  date: date[0] + '-' + date[1] + '-' + date[2],
+                  key: info.key,
+                },
+              });
+              forceUpdate();
+            }
+            console.log('left');
+          }}>
           <Icon name="arrow-back-outline" size={30} color="blue" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => console.log('right')}>
+        <TouchableOpacity
+          onPress={() => {
+            date[2] += 1;
+            if (date[2] <= week[date[1] - 1]) {
+              refetch({
+                variables: {
+                  date: date[0] + '-' + date[1] + '-' + date[2],
+                  key: info.key,
+                },
+              });
+              forceUpdate();
+            } else {
+              date[1] -= 1;
+              date[2] = 1;
+              refetch({
+                variables: {
+                  date: date[0] + '-' + date[1] + '-' + date[2],
+                  key: info.key,
+                },
+              });
+              forceUpdate();
+            }
+          }}>
           <Icon name="arrow-forward-outline" size={30} color="blue" />
         </TouchableOpacity>
       </View>
