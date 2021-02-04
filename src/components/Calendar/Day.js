@@ -41,11 +41,11 @@ export default function Day({navigation, route, id}) {
     variables: {date: date[0] + '-' + date[1] + '-' + date[2], key: info.key},
   });
 
-  useFocusEffect(
+  /*useFocusEffect(
     React.useCallback(() => {
       refetch();
     }, [refetch]),
-  );
+  );*/
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -94,7 +94,9 @@ export default function Day({navigation, route, id}) {
           }}>
           <Icon name="arrow-back-outline" size={30} color="blue" />
         </TouchableOpacity>
-
+        <Text style={[styles.dateText, {color: colors.text}]}>
+          {date[2] + '. ' + date[1] + '. ' + date[0]}
+        </Text>
         <TouchableOpacity
           onPress={() => {
             date[2] += 1;
@@ -172,6 +174,7 @@ const styles = StyleSheet.create({
   arrows: {
     justifyContent: 'space-between',
     flexDirection: 'row',
+    alignItems: 'center',
   },
   number: {
     fontSize: 25,
@@ -180,5 +183,9 @@ const styles = StyleSheet.create({
   subject: {
     paddingTop: 5,
     paddingLeft: 25,
+  },
+  dateText: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });

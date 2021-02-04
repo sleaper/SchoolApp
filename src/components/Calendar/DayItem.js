@@ -1,12 +1,41 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {ThemeContext} from '../theme/ThemeProvider';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+
+function Event({item}) {
+  const eventStyle = {
+    marginTop: 8,
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: `rgb(${item.Events.Color})`,
+    borderRadius: 20,
+    paddingLeft: 6,
+    paddingRight: 5,
+  };
+
+  return (
+    <View style={eventStyle}>
+      <Icon name={'book'} size={15} color={'black'} />
+      <Text>{item.Events.Event}</Text>
+    </View>
+  );
+}
 
 export default function DayItem({item}) {
+  console.log(item);
+  const [active, setActive] = useState(item.Notes ? true : false);
+  const {theme} = useContext(ThemeContext);
   const {colors} = useTheme();
+  console.log(active);
   return (
-    <View style={[styles.rowContainer, {backgroundColor: colors.card}]}>
+    // <View style={[styles.rowContainer, {backgroundColor: colors.card}]}>
+    <TouchableOpacity
+      disabled={!active}
+      style={[styles.rowContainer, {backgroundColor: colors.card}]}>
       <View style={{flexDirection: 'row'}}>
         <View>
           <Text style={[styles.number, {color: colors.text}]}>
@@ -14,8 +43,14 @@ export default function DayItem({item}) {
           </Text>
         </View>
         <View style={styles.subject}>
-          <Text style={[{color: colors.text, fontSize: 20}]}>{item.Name}</Text>
+          <Text style={[{color: colors.text}, styles.subjectText]}>
+            {item.Name}
+          </Text>
           <Text style={[{color: colors.notification}]}>{item.Teacher}</Text>
+          {item.Events && <Event item={item} />}
+          {active && (
+            <Icon name={'information-circle'} size={20} color={'#2A64FF'} />
+          )}
         </View>
       </View>
       <View style={{justifyContent: 'space-around', alignItems: 'flex-end'}}>
@@ -26,7 +61,8 @@ export default function DayItem({item}) {
           {item.Class}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
+    // </View>
   );
 }
 
@@ -37,13 +73,13 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     backgroundColor: '#F0F0F0',
-    height: 100,
     width: '90%',
     marginLeft: 20,
     marginTop: 10,
     borderRadius: 20,
     paddingLeft: 15,
     paddingTop: 8,
+    paddingBottom: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -62,12 +98,6 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
   },
-  title: {
-    paddingLeft: 20,
-    paddingTop: 10,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
   arrows: {
     justifyContent: 'space-between',
     flexDirection: 'row',
@@ -78,6 +108,10 @@ const styles = StyleSheet.create({
   },
   subject: {
     paddingTop: 5,
-    paddingLeft: 25,
+    paddingLeft: 13,
+  },
+  subjectText: {
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });

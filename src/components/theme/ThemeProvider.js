@@ -7,7 +7,7 @@ export const ThemeContext = createContext({});
 
 export default function ThemeProvider({children}) {
   const scheme = useColorScheme();
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(scheme);
 
   // For tooggling the Theme
   /*const toggleTheme = () => {

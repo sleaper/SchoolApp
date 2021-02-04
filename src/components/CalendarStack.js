@@ -9,7 +9,6 @@ const Stack = createStackNavigator();
 
 export default function HomeStack({id}) {
   const Date = getDate();
-  console.log('Frist', Date);
   return (
     <Stack.Navigator
       screenOptions={{headerStatusBarHeight: 0}}

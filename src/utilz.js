@@ -17,4 +17,4 @@ export const editTime = (time) => {
   return nameOfDay + ' ' + day + '.' + month;
 };
 
-export const test = (arr) => {};
+export const chooseColor = (arr) => {};
