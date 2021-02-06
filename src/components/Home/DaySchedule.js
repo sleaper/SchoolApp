@@ -16,6 +16,7 @@ import {ThemeContext} from '../theme/ThemeProvider';
 export default function DaySchedule({data}) {
   const {colors} = useTheme();
   const {theme} = useContext(ThemeContext);
+
   function randomHsl() {
     if (theme === 'dark') {
       return 'hsla(' + Math.random() * 360 + ', 100%, 50%, 1)';
@@ -47,7 +48,7 @@ export default function DaySchedule({data}) {
       </View>
     );
   };
-  if (data == null) {
+  if (data[0] == null) {
     return (
       <View style={{alignItems: 'center'}}>
         <Emoji name=":man-shrugging:" style={{fontSize: 50}} />

@@ -14,7 +14,7 @@ const getData = gql`
   }
 `;
 
-export default function AvarageMarks({navigation, route}) {
+export default function Marks({navigation, route}) {
   const {colors} = useTheme();
   const {info} = useContext(MyContext);
   const {loading, error, data} = useQuery(getData, {
@@ -47,9 +47,10 @@ export default function AvarageMarks({navigation, route}) {
           <Text style={[styles.subject, {color: colors.text}]}>
             {item.Name}
           </Text>
-          <Text style={[styles.teacher, {color: colors.text}]}>
-            {item.Date}
+          <Text style={[styles.time, {color: colors.text}]}>
+            {item.Value.NAZEV}
           </Text>
+          <Text style={[styles.time, {color: colors.text}]}>{item.Date}</Text>
         </View>
         <View style={styles.Mark}>
           <Text style={[styles.Mark, {color: colors.text}]}>{item.Mark}</Text>
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
   },
-  teacher: {
+  time: {
     marginTop: 2.5,
     paddingLeft: 10,
     fontSize: 14,

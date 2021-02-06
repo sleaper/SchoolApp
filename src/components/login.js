@@ -5,8 +5,10 @@ import {useState} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {MyContext} from '../AuthProvider';
+import {useTheme} from '@react-navigation/native';
 
 export default function login({navigation}) {
+  const {colors} = useTheme();
   const {LogIn} = useContext(MyContext);
   const [name, setName] = useState('spac.petr');
   const [passw, setPassw] = useState('n2a4RV33');
@@ -15,7 +17,7 @@ export default function login({navigation}) {
     <View style={styles.container}>
       <Text style={styles.logo}>App</Text>
 
-      <View style={styles.inputView}>
+      <View style={[styles.inputView]}>
         <TextInput
           onChangeText={(text) => setName(text)}
           value={name}
@@ -24,7 +26,7 @@ export default function login({navigation}) {
         />
       </View>
 
-      <View style={styles.inputView}>
+      <View style={[styles.inputView]}>
         <TextInput
           onChangeText={(password) => setPassw(password)}
           value={passw}

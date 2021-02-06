@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useContext, useEffect} from 'react';
 import AppTabs from './AppTabs';
-import AuthTabs from './components/AuthTabs';
+import AuthTabs from './AuthTabs';
 import {MyContext} from './AuthProvider';
 import AsyncStorage from '@react-native-community/async-storage';
 

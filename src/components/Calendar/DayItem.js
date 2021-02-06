@@ -26,11 +26,10 @@ function Event({item}) {
 }
 
 export default function DayItem({item}) {
-  console.log(item);
   const [active, setActive] = useState(item.Notes ? true : false);
   const {theme} = useContext(ThemeContext);
   const {colors} = useTheme();
-  console.log(active);
+
   return (
     // <View style={[styles.rowContainer, {backgroundColor: colors.card}]}>
     <TouchableOpacity

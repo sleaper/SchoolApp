@@ -90,9 +90,9 @@ const dark = {
 export default function Schedule({id, navigation}) {
   const {theme} = useContext(ThemeContext);
   const {info} = useContext(MyContext);
-  const {loading, error, data} = useQuery(getData, {
+  /*const {loading, error, data} = useQuery(getData, {
     variables: {id: id, key: info.key},
-  });
+  });*/
 
   if (theme === 'dark') {
     return (

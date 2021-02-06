@@ -1,19 +1,17 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Center from './components/Center';
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from '@react-navigation/native';
+import {NavigationContainer, DarkTheme} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import HomeStack from './HomeStack';
+import HomeStack from './components/HomeStack';
 import {MyContext} from './AuthProvider';
-import {gql, useQuery} from '@apollo/client';
+import {gql, useQuery, useMutation} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
 import {ThemeContext} from './components/theme/ThemeProvider';
+import {lightTheme, darkTheme} from './components/theme/Themes';
+import messaging from '@react-native-firebase/messaging';
 
 const Tabs = createBottomTabNavigator();
 
@@ -26,34 +24,33 @@ const GET_USER = gql`
   }
 `;
 
-const lightTheme = {
-  dark: false,
-  colors: {
-    text: 'rgb(28, 28, 30)',
-    primary: 'rgb(255, 45, 85)',
-    card: 'rgb(238, 238, 238)',
-    background: 'rgb(255, 255, 255)',
-    border: 'rgb(255, 255, 255)',
-    notification: '#3d3c3c',
-  },
-};
-
-const darkTheme = {
-  dark: true,
-  colors: {
-    ...DarkTheme.colors,
-    text: 'rgb(255, 255, 255)',
-    notification: 'rgb(204, 204, 204)',
-    border: 'rgb(255, 255, 255)',
-  },
-};
+const SEND_TOKEN = gql`
+  mutation($name: String!, $key: String!, $token: String!) {
+    addUser(name: $name, key: $key, token: $token) {
+      Result
+    }
+  }
+`;
 
 export default function AppTabs() {
   const {theme} = useContext(ThemeContext);
   const {info} = useContext(MyContext);
-  const {loading, error, data} = useQuery(GET_USER, {
+  const {loading, data} = useQuery(GET_USER, {
     variables: info,
   });
+
+  const [addToken] = useMutation(SEND_TOKEN, {ignoreResults: true});
+
+  useEffect(() => {
+    async function geToken() {
+      const token = await messaging().getToken();
+      //console.log(info.name, info.key, token);
+      addToken({variables: {name: info.name, key: info.key, token: token}});
+    }
+
+    geToken();
+  });
+
   if (loading) {
     return (
       <Center>
@@ -65,7 +62,7 @@ export default function AppTabs() {
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <Tabs.Navigator
-        initialRouteName={'Calendar'}
+        initialRouteName={'Home'}
         screenOptions={({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
             let iconName;

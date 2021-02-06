@@ -1,8 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useContext} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
-import {MyContext} from './AuthProvider';
-import Home from './components/Home/Home';
+import {MyContext} from '../AuthProvider';
+import Home from './Home/Home';
 import {useTheme} from '@react-navigation/native';
 
 const Stack = createStackNavigator();
