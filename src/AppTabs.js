@@ -24,7 +24,7 @@ const GET_USER = gql`
   }
 `;
 
-const SEND_TOKEN = gql`
+const GET_DEVICE = gql`
   mutation($name: String!, $key: String!, $token: String!) {
     addUser(name: $name, key: $key, token: $token) {
       Result
@@ -39,7 +39,7 @@ export default function AppTabs() {
     variables: info,
   });
 
-  const [addToken] = useMutation(SEND_TOKEN, {ignoreResults: true});
+  const [addToken] = useMutation(GET_DEVICE, {ignoreResults: true});
 
   useEffect(() => {
     async function geToken() {

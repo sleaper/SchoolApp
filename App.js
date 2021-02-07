@@ -22,7 +22,6 @@ import messaging from '@react-native-firebase/messaging';
 export default function App() {
   async function requestUserPermission() {
     const token = await messaging().getToken();
-    console.log(token);
     const authStatus = await messaging().requestPermission();
     const enabled =
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
@@ -35,6 +34,12 @@ export default function App() {
 
   useEffect(() => {
     requestUserPermission();
+
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+
+    return unsubscribe;
   }, []);
 
   return <Providers />;
