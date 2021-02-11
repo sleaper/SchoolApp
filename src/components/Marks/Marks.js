@@ -43,7 +43,7 @@ export default function Marks({navigation, route}) {
   const renderItem = ({item}) => {
     return (
       <View style={[styles.item, {backgroundColor: colors.card}]}>
-        <View>
+        <View style={{maxWidth: '80%'}}>
           <Text style={[styles.subject, {color: colors.text}]}>
             {item.Name}
           </Text>
@@ -53,7 +53,9 @@ export default function Marks({navigation, route}) {
           <Text style={[styles.time, {color: colors.text}]}>{item.Date}</Text>
         </View>
         <View style={styles.Mark}>
-          <Text style={[styles.Mark, {color: colors.text}]}>{item.Mark}</Text>
+          <Text style={[styles.Mark, {color: colors.text}]}>
+            {item.Mark ? item.Mark : '-'}
+          </Text>
         </View>
       </View>
     );
@@ -91,6 +93,7 @@ const styles = StyleSheet.create({
   },
 
   Mark: {
+    paddingTop: 5,
     fontSize: 20,
     fontWeight: 'bold',
     marginRight: 18,

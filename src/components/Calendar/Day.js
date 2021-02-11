@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Text,
   View,
@@ -6,6 +6,9 @@ import {
   FlatList,
   Button,
   TouchableOpacity,
+  Modal,
+  ScrollView,
+  TouchableHighlight,
 } from 'react-native';
 import {gql, useQuery} from '@apollo/client';
 import Center from '../Center';
@@ -15,6 +18,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {useFocusEffect} from '@react-navigation/native';
 import {useTheme} from '@react-navigation/native';
 import DayItem from './DayItem';
+import Arrows from './Arrows';
+import HTMLView from 'react-native-htmlview';
 
 const getData = gql`
   query($date: String!, $key: String!) {
@@ -40,12 +45,66 @@ export default function Day({navigation, route, id}) {
   const {loading, error, data, refetch} = useQuery(getData, {
     variables: {date: date[0] + '-' + date[1] + '-' + date[2], key: info.key},
   });
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalData, setModalData] = useState('');
 
-  /*useFocusEffect(
-    React.useCallback(() => {
-      refetch();
-    }, [refetch]),
-  );*/
+  const leftArrow = () => {
+    date[2] -= 1;
+    if (date[2] >= 1) {
+      refetch({
+        variables: {
+          date: date[0] + '-' + date[1] + '-' + date[2],
+          key: info.key,
+        },
+      });
+      forceUpdate();
+    } else {
+      date[1] -= 1;
+      date[2] = week[date[1] - 1];
+      if (date[1] === 0) {
+        date[0] = date[0] - 1;
+        date[1] = week.length;
+        date[2] = week[week.length - 1];
+      }
+      refetch({
+        variables: {
+          date: date[0] + '-' + date[1] + '-' + date[2],
+          key: info.key,
+        },
+      });
+      forceUpdate();
+    }
+    console.log('left');
+  };
+
+  const rightArrow = () => {
+    date[2] += 1;
+    if (date[2] <= week[date[1] - 1]) {
+      refetch({
+        variables: {
+          date: date[0] + '-' + date[1] + '-' + date[2],
+          key: info.key,
+        },
+      });
+      forceUpdate();
+    } else {
+      date[1] += 1;
+      date[2] = 1;
+      if (date[1] > 12) {
+        date[0] += 1;
+        date[1] = 1;
+        date[2] = 1;
+      }
+      refetch({
+        variables: {
+          date: date[0] + '-' + date[1] + '-' + date[2],
+          key: info.key,
+        },
+      });
+      forceUpdate();
+    }
+  };
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -57,9 +116,26 @@ export default function Day({navigation, route, id}) {
 
   if (loading) {
     return (
-      <Center>
+      <View style={[styles.container, colors.background]}>
+        <View style={styles.arrows}>
+          <TouchableOpacity
+            onPress={() => {
+              leftArrow();
+            }}>
+            <Icon name="arrow-back-outline" size={30} color="blue" />
+          </TouchableOpacity>
+          <Text style={[styles.dateText, {color: colors.text}]}>
+            {date[2] + '. ' + date[1] + '. ' + date[0]}
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              rightArrow();
+            }}>
+            <Icon name="arrow-forward-outline" size={30} color="blue" />
+          </TouchableOpacity>
+        </View>
         <ActivityIndicator size="large" color="#0000ff" />
-      </Center>
+      </View>
     );
   } else if (error) {
     console.error(error);
@@ -70,27 +146,7 @@ export default function Day({navigation, route, id}) {
       <View style={styles.arrows}>
         <TouchableOpacity
           onPress={() => {
-            date[2] -= 1;
-            if (date[2] >= 1) {
-              refetch({
-                variables: {
-                  date: date[0] + '-' + date[1] + '-' + date[2],
-                  key: info.key,
-                },
-              });
-              forceUpdate();
-            } else {
-              date[1] -= 1;
-              date[2] = 1;
-              refetch({
-                variables: {
-                  date: date[0] + '-' + date[1] + '-' + date[2],
-                  key: info.key,
-                },
-              });
-              forceUpdate();
-            }
-            console.log('left');
+            leftArrow();
           }}>
           <Icon name="arrow-back-outline" size={30} color="blue" />
         </TouchableOpacity>
@@ -99,34 +155,60 @@ export default function Day({navigation, route, id}) {
         </Text>
         <TouchableOpacity
           onPress={() => {
-            date[2] += 1;
-            if (date[2] <= week[date[1] - 1]) {
-              refetch({
-                variables: {
-                  date: date[0] + '-' + date[1] + '-' + date[2],
-                  key: info.key,
-                },
-              });
-              forceUpdate();
-            } else {
-              date[1] -= 1;
-              date[2] = 1;
-              refetch({
-                variables: {
-                  date: date[0] + '-' + date[1] + '-' + date[2],
-                  key: info.key,
-                },
-              });
-              forceUpdate();
-            }
+            rightArrow();
           }}>
           <Icon name="arrow-forward-outline" size={30} color="blue" />
         </TouchableOpacity>
       </View>
 
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={[styles.modalView, {backgroundColor: colors.card}]}>
+            <Text style={[styles.subject, {color: colors.text}]}>
+              {modalTitle}
+            </Text>
+            <ScrollView>
+              <HTMLView
+                textComponentProps={{style: {color: colors.text}}}
+                //value={modalData === null ? '' : modalData.replace(/\s+/g, ' ')} // removes spaces between words
+                value={modalData}
+                addLineBreaks={false}
+              />
+            </ScrollView>
+
+            <TouchableHighlight
+              underlayColor="#2196F3"
+              style={{
+                ...styles.openButton,
+                backgroundColor: colors.background,
+              }}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}>
+              <Text style={[styles.textStyle, {color: colors.text}]}>
+                Hide Modal
+              </Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      </Modal>
+
       <FlatList
         data={data.Calendar.schedule}
-        renderItem={({item}) => <DayItem item={item} />}
+        renderItem={({item}) => (
+          <DayItem
+            item={item}
+            setModalVisible={setModalVisible}
+            setModalTitle={setModalTitle}
+            setModalData={setModalData}
+          />
+        )}
         keyExtractor={(item) => item.Id + item.Order}
       />
     </View>
@@ -181,11 +263,54 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   subject: {
-    paddingTop: 5,
-    paddingLeft: 25,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   dateText: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginTop: 22,
+    marginBottom: 50,
+  },
+  modalView: {
+    width: '90%',
+    height: 250,
+    backgroundColor: 'white',
+    padding: 15,
+    alignItems: 'flex-start',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#FFFF',
+  },
+  openButton: {
+    backgroundColor: '#F194FF',
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    position: 'absolute',
+    right: 30,
+    bottom: 30,
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 });

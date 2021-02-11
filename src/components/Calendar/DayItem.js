@@ -25,15 +25,24 @@ function Event({item}) {
   );
 }
 
-export default function DayItem({item}) {
+export default function DayItem({
+  item,
+  setModalVisible,
+  setModalTitle,
+  setModalData,
+}) {
   const [active, setActive] = useState(item.Notes ? true : false);
-  const {theme} = useContext(ThemeContext);
   const {colors} = useTheme();
 
   return (
     // <View style={[styles.rowContainer, {backgroundColor: colors.card}]}>
     <TouchableOpacity
       disabled={!active}
+      onPress={() => {
+        setModalVisible(true);
+        setModalTitle('Poznámka');
+        setModalData(item.Notes.Note);
+      }}
       style={[styles.rowContainer, {backgroundColor: colors.card}]}>
       <View style={{flexDirection: 'row'}}>
         <View>

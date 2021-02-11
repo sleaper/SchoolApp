@@ -26,7 +26,7 @@ const GET_USER = gql`
 
 const GET_DEVICE = gql`
   mutation($name: String!, $key: String!, $token: String!) {
-    addUser(name: $name, key: $key, token: $token) {
+    AddUser(name: $name, key: $key, token: $token) {
       Result
     }
   }
@@ -62,7 +62,7 @@ export default function AppTabs() {
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <Tabs.Navigator
-        initialRouteName={'Home'}
+        initialRouteName={'Calendar'}
         screenOptions={({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
             let iconName;
