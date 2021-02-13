@@ -5,7 +5,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {onError} from '@apollo/client/link/error';
 
 const makeApolloClient = () => {
-  const httpLink = createHttpLink({uri: 'http://localhost:3000/graphql'});
+  const httpLink = createHttpLink({
+    uri: 'https://school-proxy-api.herokuapp.com/graphql',
+  });
   const middlewareLink = new ApolloLink(async (operation, forward) => {
     operation.setContext({
       headers:

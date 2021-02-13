@@ -38,7 +38,6 @@ export default function AppTabs() {
   const {loading, data} = useQuery(GET_USER, {
     variables: info,
   });
-
   const [addToken] = useMutation(GET_DEVICE, {ignoreResults: true});
 
   useEffect(() => {
@@ -62,7 +61,7 @@ export default function AppTabs() {
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <Tabs.Navigator
-        initialRouteName={'Calendar'}
+        initialRouteName={'Home'}
         screenOptions={({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
             let iconName;
