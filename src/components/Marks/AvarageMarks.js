@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     //backgroundColor: '#FFFFFF',
   },
   item: {
-    backgroundColor: '#F0F0F0',
+    //backgroundColor: '#F0F0F0',
     height: 100,
     width: '90%',
     marginLeft: 20,
@@ -73,6 +73,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    shadowColor: 'rgb(0, 0, 0)',
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 3,
   },
   rowText: {
     paddingTop: 5,

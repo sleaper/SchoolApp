@@ -38,7 +38,7 @@ export default function Home({id}) {
     <View style={[styles.container, colors.background]}>
       <DaySchedule data={data.Home.schedule} />
       {/* {<Tests />} */}
-      <Homeworks data={data.Home.homeworks} />
+      <Homeworks data={data.Home.homeworks} id={id} />
     </View>
   );
 }

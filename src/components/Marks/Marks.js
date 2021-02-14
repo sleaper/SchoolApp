@@ -87,11 +87,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    shadowColor: 'rgb(0, 0, 0)',
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 3,
   },
   rowText: {
     paddingTop: 5,
   },
-
   Mark: {
     paddingTop: 5,
     fontSize: 20,
