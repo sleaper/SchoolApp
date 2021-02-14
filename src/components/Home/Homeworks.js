@@ -9,36 +9,66 @@ import {
   TouchableHighlight,
   Modal,
   ScrollView,
+  Animated,
+  Platform,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 import {editTime} from '../../utilz';
 import {useTheme} from '@react-navigation/native';
+import Swipable from 'react-native-gesture-handler/Swipeable';
 
 export default function Homeworks({data}) {
   const {colors} = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalData, setModalData] = useState('');
+  const [items, setItems] = useState(data);
 
-  //Add room
+  const LeftActions = (progress, dragX) => {
+    const scale = dragX.interpolate({
+      inputRange: [0, 100],
+      outputRange: [0, 1],
+      extrapolate: 'clamp',
+    });
+    return (
+      <View style={styles.leftAction}>
+        <Animated.Text
+          style={[
+            styles.actionText,
+            {color: colors.text, transform: [{scale}]},
+          ]}>
+          Removed
+        </Animated.Text>
+      </View>
+    );
+  };
+
+  const deleteItembyId = (id) => {
+    const filteredData = items.filter((item) => item.id !== id);
+    setItems(filteredData);
+  };
+
   const renderItem = ({item}) => {
     return (
-      <TouchableOpacity
-        style={[styles.rowContainer, {backgroundColor: colors.card}]}
-        onPress={() => {
-          setModalTitle(item.Name);
-          setModalData(item.Info);
-          setModalVisible(true);
-        }}>
-        <View style={{paddingBottom: 10}}>
-          <Text style={[styles.subject, {color: colors.text}]}>
-            {item.Name}
-          </Text>
-          <Text style={[styles.time, {color: colors.text}]}>
-            {editTime(item.TimeTo)}
-          </Text>
-        </View>
-      </TouchableOpacity>
+      <Swipable
+        renderLeftActions={LeftActions}
+        onSwipeableLeftOpen={() => deleteItembyId(item.id)}>
+        <TouchableOpacity
+          style={[styles.rowContainer, {backgroundColor: colors.card}]}
+          onPress={() => {
+            setModalTitle(item.Name);
+            setModalData(item.Info);
+            setModalVisible(true);
+          }}>
+          <View style={[styles.itemStripe, {backgroundColor: 'blue'}]} />
+          <View style={{paddingBottom: 10, paddingLeft: 15, paddingTop: 15}}>
+            <Text style={[styles.subject, {color: colors.text}]}>
+              {item.Name}
+            </Text>
+            <Text style={{color: colors.text}}>{editTime(item.TimeTo)}</Text>
+          </View>
+        </TouchableOpacity>
+      </Swipable>
     );
   };
 
@@ -86,11 +116,12 @@ export default function Homeworks({data}) {
       </Modal>
 
       <FlatList
-        data={data}
+        data={items}
         renderItem={renderItem}
         keyExtractor={(item) => {
           return item.id;
         }}
+        ItemSeparatorComponent={() => <View style={{height: 15}} />}
       />
     </View>
   );
@@ -99,7 +130,6 @@ export default function Homeworks({data}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: '#FFFFFF',
   },
   title: {
     paddingLeft: 20,
@@ -108,23 +138,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   rowContainer: {
-    //backgroundColor: '#F0F0F0',
     width: '90%',
     marginLeft: 20,
-    marginTop: 10,
     borderRadius: 20,
-    paddingTop: 15,
-    paddingLeft: 20,
+    paddingLeft: 15,
     alignItems: 'flex-start',
     alignSelf: 'flex-start',
+    flexDirection: 'row',
+    shadowColor: 'rgb(0, 0, 0)',
+    shadowOffset: {
+      width: 3,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 2,
   },
   subject: {
     fontSize: 16,
     fontWeight: 'bold',
-    //color: '#3d3c3c',
-  },
-  time: {
-    //textAlign: 'center',
   },
   centeredView: {
     flex: 1,
@@ -173,6 +205,23 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 20,
+  },
+  leftAction: {
+    backgroundColor: '#dd2c00',
+    justifyContent: 'center',
+    width: '90%',
+    marginLeft: 20,
+    borderRadius: 20,
+    padding: 20,
+  },
+  actionText: {
+    fontWeight: '600',
+    fontSize: 15,
+    padding: 15,
+  },
+  itemStripe: {
+    width: 5,
+    height: '99%',
   },
 });
 /*const test = {

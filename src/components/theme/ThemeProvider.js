@@ -7,17 +7,17 @@ export const ThemeContext = createContext({});
 
 export default function ThemeProvider({children}) {
   const scheme = useColorScheme();
-  const [theme, setTheme] = useState(scheme);
+  const [theme, setTheme] = useState('light');
 
   // For tooggling the Theme
-  /*const toggleTheme = () => {
+  const toggleTheme = () => {
     if (theme === 'light') {
       setTheme('dark');
     } else {
       setTheme('light');
     }
   };
-*/
+
   /*useEffect(() => {
     if (scheme === 'dark') {
       setTheme('dark');
@@ -27,6 +27,8 @@ export default function ThemeProvider({children}) {
   }, [scheme]);*/
 
   return (
-    <ThemeContext.Provider value={{theme}}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={{theme, toggleTheme}}>
+      {children}
+    </ThemeContext.Provider>
   );
 }

@@ -1,4 +1,4 @@
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import React from 'react';
 import Schedule from './Calendar/Schedule';
 import Day from './Calendar/Day';
@@ -11,7 +11,13 @@ export default function HomeStack({id}) {
   const Date = getDate();
   return (
     <Stack.Navigator
-      screenOptions={{headerStatusBarHeight: 0}}
+      screenOptions={{
+        headerShown: true,
+        gestureEnabled: true,
+        cardOverlayEnabled: true,
+        ...TransitionPresets.ModalPresentationIOS,
+      }}
+      mode="modal"
       initialRouteName="Day">
       <Stack.Screen
         name="Day"

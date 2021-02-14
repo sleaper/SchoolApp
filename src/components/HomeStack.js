@@ -27,7 +27,13 @@ export default function HomeStack({id, name}) {
               </TouchableOpacity>
             );
           },
-          title: name,
+          headerTitle: () => {
+            return (
+              <TouchableOpacity onPress={() => {}}>
+                <Text style={{color: colors.text, fontSize: 23}}>{name}</Text>
+              </TouchableOpacity>
+            );
+          },
         }}>
         {(props) => <Home {...props} id={id} />}
       </Stack.Screen>

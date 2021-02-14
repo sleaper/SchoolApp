@@ -18,6 +18,6 @@ export const darkTheme = {
     ...DarkTheme.colors,
     text: 'rgb(255, 255, 255)',
     notification: 'rgb(204, 204, 204)',
-    border: 'rgb(255, 255, 255)',
+    //border: 'rgb(255, 255, 255)',
   },
 };
