@@ -6462,6 +6462,11 @@
   "resolved" "https://registry.npmjs.org/react-native-screens/-/react-native-screens-2.14.0.tgz"
   "version" "2.14.0"
 
+"react-native-sensitive-info@^6.0.0-alpha.9":
+  "integrity" "sha512-W2R1gUHgBAmy+wVl0BvA7s01SqqTitnG4Sdj2zmck0OS5a54kq+pTnXRqDljMa2NQs4Mue2IHyvd+Tf0X1ZL6Q=="
+  "resolved" "https://registry.npmjs.org/react-native-sensitive-info/-/react-native-sensitive-info-6.0.0-alpha.9.tgz"
+  "version" "6.0.0-alpha.9"
+
 "react-native-swipe-gestures@^1.0.5":
   "integrity" "sha512-Ns7Bn9H/Tyw278+5SQx9oAblDZ7JixyzeOczcBK8dipQk2pD7Djkcfnf1nB/8RErAmMLL9iXgW0QHqiII8AhKw=="
   "resolved" "https://registry.npmjs.org/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.5.tgz"

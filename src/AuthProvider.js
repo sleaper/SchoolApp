@@ -5,6 +5,7 @@ import base64 from 'react-native-base64';
 import {ActivityIndicator} from 'react-native';
 import Center from './components/Center';
 import {useApolloClient} from '@apollo/client';
+import SInfo from 'react-native-sensitive-info';
 
 export const MyContext = createContext({});
 
@@ -22,12 +23,17 @@ export default function AuthProvider({children}) {
   const [user, setUser] = useState(null);
   const [info, setInfo] = useState(null);
 
-  const resetStorage = async () => {
+  /*const resetStorage = async () => {
     await AsyncStorage.removeItem('user', (err) => {
       if (err) {
         console.log(err);
       }
     });
+    console.log('cleared');
+  };*/
+
+  const resetStorage = async () => {
+    await SInfo.deleteItem('user', {});
     console.log('cleared');
   };
 
@@ -72,11 +78,13 @@ export default function AuthProvider({children}) {
           const info = {name: HashedName, key: key};
           setInfo(info);
           // storing UserInfo, because of authorization
-          await AsyncStorage.setItem('user', JSON.stringify(info), (err) => {
+          /*await AsyncStorage.setItem('user', JSON.stringify(info), (err) => {
             if (err) {
               console.error(err);
             }
-          });
+          });*/
+
+          await SInfo.setItem('user', JSON.stringify(info), {});
 
           callData({
             variables: {name: HashedName, key: key},
@@ -86,11 +94,12 @@ export default function AuthProvider({children}) {
         LogOut: async () => {
           await client.clearStore();
           setUser(null);
-          await AsyncStorage.removeItem('user', (err) => {
+          /*await AsyncStorage.removeItem('user', (err) => {
             if (err) {
               console.error(err);
             }
-          });
+          });*/
+          await SInfo.deleteItem('user', {});
         },
       }}>
       {children}

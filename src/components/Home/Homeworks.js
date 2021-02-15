@@ -110,20 +110,21 @@ export default function Homeworks({data}) {
                 addLineBreaks={false}
               />
             </ScrollView>
-
-            <TouchableHighlight
-              underlayColor="#2196F3"
-              style={{
-                ...styles.openButton,
-                backgroundColor: colors.background,
-              }}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}>
-              <Text style={[styles.textStyle, {color: colors.text}]}>
-                Hide Modal
-              </Text>
-            </TouchableHighlight>
+            <View style={{alignSelf: 'flex-end'}}>
+              <TouchableHighlight
+                underlayColor="#2196F3"
+                style={{
+                  ...styles.openButton,
+                  backgroundColor: colors.background,
+                }}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}>
+                <Text style={[styles.textStyle, {color: colors.text}]}>
+                  Hide Modal
+                </Text>
+              </TouchableHighlight>
+            </View>
           </View>
         </View>
       </Modal>
@@ -203,9 +204,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-    position: 'absolute',
-    right: 30,
-    bottom: 30,
+    /*position: 'absolute',
+    right: 2,
+    bottom: 2,*/
   },
   textStyle: {
     color: 'white',

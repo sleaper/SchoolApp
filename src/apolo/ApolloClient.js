@@ -3,6 +3,7 @@ import {ApolloClient, InMemoryCache, ApolloLink, from} from '@apollo/client';
 import {createHttpLink} from 'apollo-link-http';
 import AsyncStorage from '@react-native-community/async-storage';
 import {onError} from '@apollo/client/link/error';
+import RNSInfo from 'react-native-sensitive-info';
 
 const makeApolloClient = () => {
   const httpLink = createHttpLink({
@@ -13,11 +14,7 @@ const makeApolloClient = () => {
     operation.setContext({
       headers:
         {
-          authorization: await AsyncStorage.getItem('user', (err, result) => {
-            if (err) {
-              console.error(err);
-            }
-          }),
+          authorization: await RNSInfo.getItem('user', {}),
         } || null,
     });
     return forward(operation);
@@ -51,6 +48,15 @@ const makeApolloClient = () => {
 
 export const apoloCLient = makeApolloClient();
 
+/*
+
+await AsyncStorage.getItem('user', (err, result) => {
+            if (err) {
+              console.error(err);
+            }
+          }),
+
+*/
 //export default makeApolloClient;
 /*onError(({graphQLErrors, networkError}) => {
         if (graphQLErrors) {
