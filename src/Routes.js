@@ -40,5 +40,3 @@ export default function Routes() {
   }, []);
   return <>{user ? <AppTabs /> : <AuthTabs />}</>;
 }
-
-//JSON.parse(userToken)

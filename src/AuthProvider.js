@@ -2,7 +2,7 @@ import React, {useState, useEffect, createContext} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import {gql, useLazyQuery} from '@apollo/client';
 import base64 from 'react-native-base64';
-import {ActivityIndicator} from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
 import Center from './components/Center';
 import {useApolloClient} from '@apollo/client';
 import SInfo from 'react-native-sensitive-info';

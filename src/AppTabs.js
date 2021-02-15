@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStack from './components/HomeStack';
 import {MyContext} from './AuthProvider';
 import {gql, useQuery, useMutation} from '@apollo/client';
-import {ActivityIndicator} from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
 import {ThemeContext} from './components/theme/ThemeProvider';
@@ -53,7 +53,7 @@ export default function AppTabs() {
   if (loading) {
     return (
       <Center>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="blue" />
       </Center>
     );
   }
@@ -107,10 +107,3 @@ export default function AppTabs() {
     </NavigationContainer>
   );
 }
-
-/*
- background: 'rgb(43, 42, 42)',
-    card: 'rgb(0, 0, 0)',
-    text: 'rgb(255, 255, 255)',
-    border: 'rgb(199, 199, 204)',
-    notification: 'rgb(255, 69, 58)',*/

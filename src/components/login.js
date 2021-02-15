@@ -14,36 +14,39 @@ export default function login({navigation}) {
   const [passw, setPassw] = useState('n2a4RV33');
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.logo}>App</Text>
+    <View style={[styles.container, {backgroundColor: colors.background}]}>
+      <Text style={[styles.logo, {color: colors.primary}]}>Škola-Offline</Text>
 
-      <View style={[styles.inputView]}>
+      <View style={[styles.inputView, {backgroundColor: colors.card}]}>
         <TextInput
+          textContentType={'username'}
           onChangeText={(text) => setName(text)}
           value={name}
-          style={styles.inputText}
+          style={[styles.inputText, {color: colors.text}]}
           placeholder="Name.."
         />
       </View>
 
-      <View style={[styles.inputView]}>
+      <View style={[styles.inputView, {backgroundColor: colors.card}]}>
         <TextInput
+          secureTextEntry={true}
+          textContentType={'password'}
           onChangeText={(password) => setPassw(password)}
           value={passw}
-          style={styles.inputText}
+          style={[styles.inputText, {color: colors.text}]}
           placeholder="Password.."
         />
       </View>
 
       <TouchableOpacity
-        style={styles.loginBtn}
+        style={[styles.loginBtn, {backgroundColor: colors.primary}]}
         onPress={() => LogIn(name, passw)}>
         <Text style={styles.loginText} title="Log in">
           Log In
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.loginBtn}
         onPress={async () => {
           await AsyncStorage.removeItem('user', (err) => {
@@ -71,7 +74,7 @@ export default function login({navigation}) {
         <Text style={styles.loginText} title="Clear storage">
           see storage
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }
@@ -84,23 +87,22 @@ const styles = StyleSheet.create({
   },
   inputView: {
     width: '80%',
-    backgroundColor: '#e1e1e2',
+    //backgroundColor: '#e1e1e2',
     borderRadius: 25,
     height: 60,
     marginBottom: 20,
     justifyContent: 'center',
     padding: 20,
-    color: 'black',
+    //color: 'black',
   },
   logo: {
     fontWeight: 'bold',
     fontSize: 50,
-    color: '#fb5b5a',
     marginBottom: 40,
   },
   loginBtn: {
     width: 100,
-    backgroundColor: '#636266',
+    //backgroundColor: '#636266',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
@@ -111,6 +113,5 @@ const styles = StyleSheet.create({
   },
   inputText: {
     height: 50,
-    color: 'black',
   },
 });

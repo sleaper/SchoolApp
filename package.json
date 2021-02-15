@@ -12,8 +12,8 @@
   "dependencies": {
     "@apollo/client": "^3.2.9",
     "@react-native-community/async-storage": "^1.12.1",
-    "@react-native-community/cli": "^4.13.0",
     "@react-native-community/checkbox": "^0.5.7",
+    "@react-native-community/cli": "^4.13.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-firebase/app": "^10.5.0",
     "@react-native-firebase/messaging": "^10.5.1",
@@ -38,7 +38,8 @@
     "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "^2.14.0",
     "react-native-sensitive-info": "^6.0.0-alpha.9",
-    "react-native-vector-icons": "^7.1.0"
+    "react-native-vector-icons": "^7.1.0",
+    "rn-placeholder": "^3.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",

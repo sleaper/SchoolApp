@@ -135,7 +135,6 @@ export default function Homeworks({data}) {
         keyExtractor={(item) => {
           return item.id;
         }}
-        //ItemSeparatorComponent={() => <View style={{height: 15}} />}
       />
     </View>
   );
@@ -238,6 +237,6 @@ const styles = StyleSheet.create({
   },
   itemStripe: {
     width: 5,
-    height: '99%',
+    height: '100%',
   },
 });

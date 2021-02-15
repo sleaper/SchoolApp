@@ -1,10 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {ThemeContext} from './theme/ThemeProvider';
 
 export default function Center({children}) {
-  const {colors} = useTheme();
-  return <View style={styles.container}>{children}</View>;
+  const {theme} = useContext(ThemeContext);
+  return (
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: theme === 'light' ? 'white' : 'black'},
+      ]}>
+      {children}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
