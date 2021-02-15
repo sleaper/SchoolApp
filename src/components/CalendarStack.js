@@ -4,6 +4,7 @@ import Schedule from './Calendar/Schedule';
 import Day from './Calendar/Day';
 import {Text, TouchableOpacity} from 'react-native';
 import {getDate} from '../utilz';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
 
@@ -21,7 +22,9 @@ export default function HomeStack({id}) {
       initialRouteName="Day">
       <Stack.Screen
         name="Day"
-        options={{title: 'Rozvrh'}}
+        options={{
+          title: 'Rozvrh',
+        }}
         initialParams={{date: Date}}>
         {(props) => <Day {...props} id={id} />}
       </Stack.Screen>

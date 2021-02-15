@@ -109,7 +109,11 @@ export default function Day({navigation, route, id}) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button onPress={() => navigation.navigate('Month')} title="Cal" />
+        <TouchableOpacity
+          style={{paddingRight: 10}}
+          onPress={() => navigation.navigate('Month')}>
+          <Icon name="calendar-outline" size={30} />
+        </TouchableOpacity>
       ),
     });
   }, [navigation]);
