@@ -1,13 +1,5 @@
 import React, {useContext} from 'react';
-import {
-  Text,
-  FlatList,
-  Button,
-  View,
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {Text, FlatList, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Emoji from 'react-native-emoji';
 import {useTheme} from '@react-navigation/native';
 import Center from '../Center';
@@ -17,28 +9,9 @@ export default function DaySchedule({data}) {
   const {colors} = useTheme();
   const {theme} = useContext(ThemeContext);
 
-  function randomHsl() {
-    if (theme === 'dark') {
-      return 'hsla(' + Math.random() * 360 + ', 100%, 50%, 1)';
-    }
-    return 'hsla(' + Math.random() * 360 + ', 100%, 50%, 0.69)';
-  }
-
-  const createColor = () => {
-    return {
-      backgroundColor: randomHsl(),
-      height: 130,
-      width: 120,
-      marginLeft: 10,
-      marginTop: 10,
-      borderRadius: 20,
-      textColor: 'white',
-    };
-  };
-
   const renderItem = ({item}) => {
     return (
-      <View style={createColor()}>
+      <View style={[styles.rowContainer, {backgroundColor: item.Color}]}>
         <Text style={styles.time}>{item.TimeFrom.substring(11, 16)}</Text>
         <View style={styles.rowText}>
           <Text style={styles.subject}>{item.Name.substring(0, 3)}</Text>
@@ -74,7 +47,6 @@ const styles = StyleSheet.create({
     flex: 0.5,
   },
   rowContainer: {
-    backgroundColor: '#F0F0F0',
     height: 130,
     width: 120,
     marginLeft: 10,

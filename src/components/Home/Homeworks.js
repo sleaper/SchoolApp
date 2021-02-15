@@ -18,6 +18,7 @@ import {useTheme} from '@react-navigation/native';
 import Swipable from 'react-native-gesture-handler/Swipeable';
 import {gql, useApolloClient} from '@apollo/client';
 import {MyContext} from '../../AuthProvider';
+import {useEffect} from 'react/cjs/react.development';
 
 const query = gql`
   query($id: String!, $key: String!) {
@@ -61,6 +62,17 @@ export default function Homeworks({data}) {
     //client.writeQuery({query, data: {homeworks: filteredData}});
   };*/
 
+  useEffect(() => {
+    let filtered = items.filter((item) => {
+      if (Date.now() < Date.parse(item.TimeTo)) {
+        return true;
+      }
+      return false;
+    });
+    setItems(filtered);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const renderItem = ({item}) => {
     return (
       // <Swipable
@@ -73,7 +85,7 @@ export default function Homeworks({data}) {
           setModalData(item.Info);
           setModalVisible(true);
         }}>
-        <View style={[styles.itemStripe, {backgroundColor: 'blue'}]} />
+        <View style={[styles.itemStripe, {backgroundColor: item.Color}]} />
         <View style={{paddingBottom: 10, paddingLeft: 15, paddingTop: 15}}>
           <Text style={[styles.subject, {color: colors.text}]}>
             {item.Name}

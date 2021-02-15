@@ -90,6 +90,14 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    shadowColor: 'rgb(0, 0, 0)',
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 3,
   },
   teacher: {
     marginTop: 2.5,

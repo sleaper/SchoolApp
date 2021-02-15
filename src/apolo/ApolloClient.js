@@ -6,7 +6,8 @@ import {onError} from '@apollo/client/link/error';
 
 const makeApolloClient = () => {
   const httpLink = createHttpLink({
-    uri: 'https://school-proxy-api.herokuapp.com/graphql',
+    //uri: 'https://school-proxy-api.herokuapp.com/graphql',
+    uri: 'http://localhost:8000/graphql',
   });
   const middlewareLink = new ApolloLink(async (operation, forward) => {
     operation.setContext({
