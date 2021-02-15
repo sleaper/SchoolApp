@@ -18,7 +18,6 @@ import {useTheme} from '@react-navigation/native';
 import Swipable from 'react-native-gesture-handler/Swipeable';
 import {gql, useApolloClient} from '@apollo/client';
 import {MyContext} from '../../AuthProvider';
-import {useEffect} from 'react/cjs/react.development';
 
 const query = gql`
   query($id: String!, $key: String!) {
@@ -61,17 +60,6 @@ export default function Homeworks({data}) {
     setItems(filteredData);
     //client.writeQuery({query, data: {homeworks: filteredData}});
   };*/
-
-  useEffect(() => {
-    let filtered = items.filter((item) => {
-      if (Date.now() < Date.parse(item.TimeTo)) {
-        return true;
-      }
-      return false;
-    });
-    setItems(filtered);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const renderItem = ({item}) => {
     return (
@@ -165,6 +153,7 @@ const styles = StyleSheet.create({
   rowContainer: {
     width: '90%',
     marginLeft: 20,
+    marginBottom: 5,
     marginTop: 10,
     borderRadius: 20,
     paddingLeft: 15,

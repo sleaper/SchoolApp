@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     height: 100,
     width: '90%',
     marginLeft: 20,
+    marginBottom: 5,
     marginTop: 10,
     borderRadius: 20,
     flexDirection: 'row',
