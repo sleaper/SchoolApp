@@ -33,7 +33,12 @@ export default function AuthProvider({children}) {
   };*/
 
   const resetStorage = async () => {
-    await SInfo.deleteItem('user', {});
+    try {
+      await SInfo.deleteItem('user', {});
+    } catch (err) {
+      console.error(err);
+    }
+
     console.log('cleared');
   };
 
@@ -83,8 +88,11 @@ export default function AuthProvider({children}) {
               console.error(err);
             }
           });*/
-
-          await SInfo.setItem('user', JSON.stringify(info), {});
+          try {
+            await SInfo.setItem('user', JSON.stringify(info), {});
+          } catch (error) {
+            console.error(error);
+          }
 
           callData({
             variables: {name: HashedName, key: key},
