@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:924472688763:android:01ceb94a24a3fd504ae2de",
+        "mobilesdk_app_id": "1:924472688763:android:2a92fc2180bd92274ae2de",
         "android_client_info": {
-          "package_name": "com.mobileapp"
+          "package_name": "com.skolaoffline"
         }
       },
       "oauth_client": [
@@ -30,6 +30,13 @@
             {
               "client_id": "924472688763-le1q2va1r16n7j358rk3ha50v71q1vfp.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "924472688763-g8hncpt35umu6iqqglkqd35fjg2rbjoj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skolaoffline"
+              }
             }
           ]
         }
