@@ -4,11 +4,12 @@ import {ThemeContext} from './theme/ThemeProvider';
 
 export default function Center({children}) {
   const {theme} = useContext(ThemeContext);
+  console.log(theme);
   return (
     <View
       style={[
         styles.container,
-        {backgroundColor: theme === 'light' ? 'white' : 'black'},
+        {backgroundColor: theme === 'dark' ? 'black' : 'white'},
       ]}>
       {children}
     </View>

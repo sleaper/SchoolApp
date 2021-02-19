@@ -20,7 +20,7 @@ function Event({item}) {
   return (
     <View style={eventStyle}>
       <Icon name={'book'} size={15} color={'black'} />
-      <Text>{item.Events.Event}</Text>
+      <Text style={{paddingLeft: 3}}>{item.Events.Event}</Text>
     </View>
   );
 }
@@ -61,7 +61,12 @@ export default function DayItem({
           )}
         </View>
       </View>
-      <View style={{justifyContent: 'space-around', alignItems: 'flex-end'}}>
+      <View
+        style={{
+          justifyContent: 'space-around',
+          alignItems: 'flex-end',
+          flexWrap: 'wrap',
+        }}>
         <Text style={[{color: colors.text, paddingRight: 15}]}>
           {item.From}
         </Text>

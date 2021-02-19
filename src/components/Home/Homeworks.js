@@ -67,7 +67,12 @@ export default function Homeworks({data}) {
       //   renderLeftActions={LeftActions}
       //   onSwipeableLeftOpen={() => deleteItembyId(item.id)}>
       <TouchableOpacity
-        style={[styles.rowContainer, {backgroundColor: colors.card}]}
+        style={[
+          styles.rowContainer,
+          {
+            backgroundColor: colors.card,
+          },
+        ]}
         onPress={() => {
           setModalTitle(item.Name);
           setModalData(item.Info);
@@ -236,7 +241,10 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   itemStripe: {
-    width: 5,
+    width: 15,
     height: '100%',
+    position: 'absolute',
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
   },
 });
