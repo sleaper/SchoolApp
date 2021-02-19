@@ -17,14 +17,6 @@ export default function ThemeProvider({children}) {
     }
   };
 
-  /*useEffect(() => {
-    if (scheme === 'dark') {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-  }, [scheme]);*/
-
   return (
     <ThemeContext.Provider value={{theme, toggleTheme}}>
       {children}

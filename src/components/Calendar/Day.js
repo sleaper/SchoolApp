@@ -106,17 +106,17 @@ export default function Day({navigation, route, id}) {
     }
   };
 
-  React.useLayoutEffect(() => {
+  /*React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
           style={{paddingRight: 10}}
           onPress={() => navigation.navigate('Month')}>
-          <Icon name="calendar-outline" size={30} />
+          <Icon name="calendar-outline" size={30} color={colors.text} />
         </TouchableOpacity>
       ),
     });
-  }, [navigation]);
+  }, [navigation]);*/
 
   if (loading) {
     return (

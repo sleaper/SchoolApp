@@ -5,10 +5,12 @@ import Day from './Calendar/Day';
 import {Text, TouchableOpacity} from 'react-native';
 import {getDate} from '../utilz';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useTheme} from '@react-navigation/native';
 
 const Stack = createStackNavigator();
 
 export default function HomeStack({id}) {
+  const {colors} = useTheme();
   const Date = getDate();
   return (
     <Stack.Navigator
@@ -22,9 +24,16 @@ export default function HomeStack({id}) {
       initialRouteName="Day">
       <Stack.Screen
         name="Day"
-        options={{
+        options={({navigation}) => ({
           title: 'Rozvrh',
-        }}
+          headerRight: () => (
+            <TouchableOpacity
+              style={{paddingRight: 10}}
+              onPress={() => navigation.navigate('Month')}>
+              <Icon name="calendar-outline" size={30} color={colors.text} />
+            </TouchableOpacity>
+          ),
+        })}
         initialParams={{date: Date}}>
         {(props) => <Day {...props} id={id} />}
       </Stack.Screen>

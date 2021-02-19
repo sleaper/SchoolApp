@@ -1,10 +1,18 @@
-import React, {useContext} from 'react';
-import {Text, View, FlatList, StyleSheet, Button} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+} from 'react-native';
 import {MyContext} from '../../AuthProvider';
 import {gql, useQuery} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
 import Center from '../Center';
 import {useTheme} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const getData = gql`
   query($key: String!) {
@@ -15,6 +23,7 @@ const getData = gql`
 `;
 
 export default function Marks({navigation, route}) {
+  const [modalVisible, setModalVisible] = useState(false);
   const {colors} = useTheme();
   const {info} = useContext(MyContext);
   const {loading, error, data} = useQuery(getData, {
@@ -23,14 +32,15 @@ export default function Marks({navigation, route}) {
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <Button
-          onPress={() => navigation.navigate('AvarageMarks')}
-          title="Průměry"
-        />
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => setModalVisible(true)}
+          style={{marginLeft: 10}}>
+          <Icon name={'cog-outline'} size={35} color={colors.text} />
+        </TouchableOpacity>
       ),
     });
-  }, [navigation]);
+  }, [navigation, colors.text]);
 
   if (loading) {
     return (
@@ -63,6 +73,36 @@ export default function Marks({navigation, route}) {
 
   return (
     <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={modal.centeredView}>
+          <View style={[modal.modalView, {backgroundColor: colors.card}]}>
+            <Text style={[modal.modalHeader, {color: colors.text}]}>
+              Změnit období
+            </Text>
+            <TouchableOpacity>
+              <Text style={{color: colors.text}}>Poslední týden</Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={{color: colors.text}}>Poslední měsíc</Text>
+            </TouchableOpacity>
+            <View style={{alignSelf: 'flex-end'}}>
+              <TouchableOpacity
+                style={[modal.button, modal.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={[modal.textStyle, {color: colors.text}]}>
+                  Hide Modal
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
       <FlatList
         data={data.Marks.Marks}
         renderItem={renderItem}
@@ -71,6 +111,54 @@ export default function Marks({navigation, route}) {
     </View>
   );
 }
+
+const modal = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    alignItems: 'flex-start',
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  modalHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+});
 
 const styles = StyleSheet.create({
   container: {

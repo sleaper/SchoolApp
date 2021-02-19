@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   itemStripe: {
-    width: 15,
+    width: 13,
     height: '100%',
     position: 'absolute',
     borderTopLeftRadius: 20,
