@@ -17,4 +17,72 @@ export const editTime = (time) => {
   return nameOfDay + ' ' + day + '.' + month;
 };
 
-export const chooseColor = (arr) => {};
+/*//use for marks
+export function getStartEndOfWeek() {
+  let curr = new Date(); // get current date
+  let month = curr.getDate();
+  let day = curr.getDay();
+
+  let first = month - day + 1; // First day is the day of the month - the day of the week
+  let last = first + 11; // last day is the first day + 11 (For the next week)
+
+  let firstday = new Date(curr.setDate(first));
+  let lastday = new Date(curr.setDate(last));
+
+  return [
+    JSON.stringify(firstday).substring(1, 11),
+    JSON.stringify(lastday).substring(1, 11),
+  ];
+}*/
+
+//use for marks
+function getMonday(d) {
+  d = new Date(d);
+  var day = d.getDay(),
+    diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}
+
+export function getLastWeek() {
+  let curr = new Date(); // get current date
+  let curr2 = new Date();
+
+  let lastWeek = new Date(curr2.setDate(curr.getDate() - 7));
+  let nextWeek = new Date(curr.setDate(curr.getDate() + 11));
+
+  return [
+    JSON.stringify(getMonday(lastWeek)).substring(1, 11),
+    JSON.stringify(nextWeek).substring(1, 11),
+  ];
+}
+
+export function getLastMonth() {
+  let curr = new Date(); // get current date for last month
+  let curr2 = new Date(); // get current date for next week
+
+  let lastMonth = curr.setMonth(curr.getMonth() - 1);
+  let nextWeek = new Date(curr2.setDate(curr2.getDate() + 11));
+
+  return [
+    JSON.stringify(getMonday(lastMonth)).substring(1, 11),
+    JSON.stringify(nextWeek).substring(1, 11),
+  ];
+}
+
+export function getLastTwoMonths() {
+  let curr = new Date(); // get current date for last month
+  let curr2 = new Date(); // get current date for next week
+
+  let lastMonth = curr.setMonth(curr.getMonth() - 2);
+  let nextWeek = new Date(curr2.setDate(curr2.getDate() + 11));
+
+  console.log(
+    JSON.stringify(getMonday(lastMonth)).substring(1, 11),
+    JSON.stringify(nextWeek).substring(1, 11),
+  );
+
+  return [
+    JSON.stringify(getMonday(lastMonth)).substring(1, 11),
+    JSON.stringify(nextWeek).substring(1, 11),
+  ];
+}

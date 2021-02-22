@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, PureComponent} from 'react';
 import {
   Text,
   View,
@@ -13,21 +13,23 @@ import {ActivityIndicator} from 'react-native';
 import Center from '../Center';
 import {useTheme} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {getLastWeek, getLastMonth, getLastTwoMonths} from '../../utilz';
 
 const getData = gql`
-  query($key: String!) {
-    Marks(key: $key) {
+  query($date: [String]!, $key: String!) {
+    Marks(date: $date, key: $key) {
       Marks
     }
   }
 `;
 
-export default function Marks({navigation, route}) {
+export default function Marks({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const {colors} = useTheme();
   const {info} = useContext(MyContext);
-  const {loading, error, data} = useQuery(getData, {
-    variables: {key: info.key},
+  const [date, setDate] = useState(getLastWeek());
+  const {loading, error, data, refetch} = useQuery(getData, {
+    variables: {date: date, key: info.key},
   });
 
   React.useLayoutEffect(() => {
@@ -48,6 +50,8 @@ export default function Marks({navigation, route}) {
         <ActivityIndicator size="large" color="#0000ff" />
       </Center>
     );
+  } else if (error) {
+    console.error(error);
   }
 
   const renderItem = ({item}) => {
@@ -85,18 +89,45 @@ export default function Marks({navigation, route}) {
             <Text style={[modal.modalHeader, {color: colors.text}]}>
               Změnit období
             </Text>
-            <TouchableOpacity>
-              <Text style={{color: colors.text}}>Poslední týden</Text>
+            <TouchableOpacity
+              style={modal.modalTime}
+              onPress={() => {
+                setDate(getLastWeek());
+                refetch({variables: {date: date, key: info.key}});
+                setModalVisible(!modalVisible);
+              }}>
+              <Text style={{color: colors.text, fontSize: 17}}>
+                Poslední týden
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={{color: colors.text}}>Poslední měsíc</Text>
+            <TouchableOpacity
+              style={modal.modalTime}
+              onPress={() => {
+                setDate(getLastMonth());
+                refetch({variables: {date: date, key: info.key}});
+                setModalVisible(!modalVisible);
+              }}>
+              <Text style={{color: colors.text, fontSize: 17}}>
+                Poslední měsíc
+              </Text>
             </TouchableOpacity>
-            <View style={{alignSelf: 'flex-end'}}>
+            {/* <TouchableOpacity
+              style={modal.modalTime}
+              onPress={() => {
+                setDate(getLastTwoMonths());
+                refetch({
+                  variables: {date: date, key: info.key},
+                });
+                setModalVisible(!modalVisible);
+              }}>
+              <Text style={{color: colors.text, fontSize: 17}}>Dva měsíce</Text>
+            </TouchableOpacity> */}
+            <View style={{alignSelf: 'flex-end', marginTop: 15}}>
               <TouchableOpacity
                 style={[modal.button, modal.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}>
                 <Text style={[modal.textStyle, {color: colors.text}]}>
-                  Hide Modal
+                  Zavřít
                 </Text>
               </TouchableOpacity>
             </View>
@@ -106,6 +137,7 @@ export default function Marks({navigation, route}) {
       <FlatList
         data={data.Marks.Marks}
         renderItem={renderItem}
+        initialNumToRender={7}
         keyExtractor={(item) => item.Id}
       />
     </View>
@@ -155,8 +187,12 @@ const modal = StyleSheet.create({
     textAlign: 'center',
   },
   modalHeader: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  modalTime: {
+    margin: 5,
   },
 });
 
