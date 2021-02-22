@@ -165,6 +165,8 @@ const modal = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    borderWidth: 1,
+    borderColor: '#FFFF',
   },
   button: {
     borderRadius: 20,
