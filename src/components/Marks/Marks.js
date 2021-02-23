@@ -1,4 +1,4 @@
-import React, {useContext, useState, PureComponent} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Text,
   View,
@@ -15,46 +15,84 @@ import {useTheme} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getLastWeek, getLastMonth, getLastTwoMonths} from '../../utilz';
 
-const getData = gql`
+const getMarksbyDate = gql`
   query($date: [String]!, $key: String!) {
     Marks(date: $date, key: $key) {
-      Marks
+      MarksByDate
     }
   }
 `;
 
-export default function Marks({navigation}) {
+const getSubjects = gql`
+  query($id: String!, $key: String!) {
+    GetSubjects(id: $id, key: $key) {
+      Subjects
+    }
+  }
+`;
+
+function useForceUpdate() {
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue((value) => value + 1); // update the state to force render
+}
+
+export default function Marks({id, navigation}) {
+  const forceUpdate = useForceUpdate();
   const [modalVisible, setModalVisible] = useState(false);
+  const [data, setData] = useState(null);
+  const [selected, setSelected] = useState(true);
+  const [bySubjects, setBySubjects] = useState(false);
+
   const {colors} = useTheme();
   const {info} = useContext(MyContext);
   const [date, setDate] = useState(getLastWeek());
-  const {loading, error, data, refetch} = useQuery(getData, {
+  const {
+    loading: marksByDateLoading,
+    error: marksByDateError,
+    data: marksByDate,
+    refetch: marksByDateRefetch,
+  } = useQuery(getMarksbyDate, {
     variables: {date: date, key: info.key},
+    onCompleted: (test) => {
+      setData(test.Marks.MarksByDate);
+    },
   });
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => setModalVisible(true)}
-          style={{marginLeft: 10}}>
-          <Icon name={'cog-outline'} size={35} color={colors.text} />
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation, colors.text]);
+  const {
+    loading: subjectsLoading,
+    error: subjectsError,
+    data: subjectsData,
+  } = useQuery(getSubjects, {variables: {id: id, key: info.key}});
 
-  if (loading) {
+  React.useLayoutEffect(() => {
+    if (selected) {
+      navigation.setOptions({
+        headerLeft: () => (
+          <TouchableOpacity
+            onPress={() => setModalVisible(true)}
+            style={{marginLeft: 10}}>
+            <Icon name={'cog-outline'} size={35} color={colors.text} />
+          </TouchableOpacity>
+        ),
+      });
+    } else {
+      navigation.setOptions({
+        headerLeft: null,
+      });
+    }
+  }, [navigation, colors.text, selected]);
+
+  if (marksByDateLoading && subjectsLoading) {
     return (
       <Center>
         <ActivityIndicator size="large" color="#0000ff" />
       </Center>
     );
-  } else if (error) {
-    console.error(error);
+  } else if (marksByDateError || subjectsError) {
+    console.error(marksByDateError);
   }
 
-  const renderItem = ({item}) => {
+  const renderItemMark = ({item}) => {
     return (
       <View style={[styles.item, {backgroundColor: colors.card}]}>
         <View style={{maxWidth: '80%'}}>
@@ -72,6 +110,21 @@ export default function Marks({navigation}) {
           </Text>
         </View>
       </View>
+    );
+  };
+
+  const renderItemSubject = ({item}) => {
+    return (
+      <TouchableOpacity style={[subjects.item, {backgroundColor: colors.card}]}>
+        <View style={{maxWidth: '80%'}}>
+          <Text style={[subjects.subject, {color: colors.text}]}>
+            {item.Subject}
+          </Text>
+          <Text style={[subjects.time, {color: colors.text}]}>
+            {item.Teacher}
+          </Text>
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -93,7 +146,7 @@ export default function Marks({navigation}) {
               style={modal.modalTime}
               onPress={() => {
                 setDate(getLastWeek());
-                refetch({variables: {date: date, key: info.key}});
+                marksByDateRefetch({variables: {date: date, key: info.key}});
                 setModalVisible(!modalVisible);
               }}>
               <Text style={{color: colors.text, fontSize: 17}}>
@@ -104,24 +157,13 @@ export default function Marks({navigation}) {
               style={modal.modalTime}
               onPress={() => {
                 setDate(getLastMonth());
-                refetch({variables: {date: date, key: info.key}});
+                marksByDateRefetch({variables: {date: date, key: info.key}});
                 setModalVisible(!modalVisible);
               }}>
               <Text style={{color: colors.text, fontSize: 17}}>
                 Poslední měsíc
               </Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity
-              style={modal.modalTime}
-              onPress={() => {
-                setDate(getLastTwoMonths());
-                refetch({
-                  variables: {date: date, key: info.key},
-                });
-                setModalVisible(!modalVisible);
-              }}>
-              <Text style={{color: colors.text, fontSize: 17}}>Dva měsíce</Text>
-            </TouchableOpacity> */}
             <View style={{alignSelf: 'flex-end', marginTop: 15}}>
               <TouchableOpacity
                 style={[modal.button, modal.buttonClose]}
@@ -134,9 +176,50 @@ export default function Marks({navigation}) {
           </View>
         </View>
       </Modal>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          marginTop: 10,
+        }}>
+        <TouchableOpacity
+          style={{marginRight: 10, marginLeft: 10}}
+          onPress={() => {
+            setSelected(true);
+            setData(marksByDate.Marks.MarksByDate);
+          }}>
+          <Text
+            style={[
+              selected
+                ? {borderBottomColor: colors.text, borderBottomWidth: 2}
+                : null,
+              {color: colors.text},
+              styles.text,
+            ]}>
+            Podle data
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setSelected(false);
+            setBySubjects(true);
+            setData(subjectsData.GetSubjects.Subjects);
+          }}>
+          <Text
+            style={[
+              !selected
+                ? {borderBottomColor: colors.text, borderBottomWidth: 2}
+                : null,
+              {color: colors.text},
+              styles.text,
+            ]}>
+            Podle předmětů
+          </Text>
+        </TouchableOpacity>
+      </View>
       <FlatList
-        data={data.Marks.Marks}
-        renderItem={renderItem}
+        data={data}
+        renderItem={selected ? renderItemMark : renderItemSubject}
         initialNumToRender={7}
         keyExtractor={(item) => item.Id}
       />
@@ -239,6 +322,43 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   time: {
+    marginTop: 2.5,
+    paddingLeft: 10,
+    fontSize: 14,
+  },
+  text: {
+    fontSize: 18,
+  },
+});
+
+const subjects = StyleSheet.create({
+  item: {
+    backgroundColor: '#F0F0F0',
+    height: 100,
+    width: '90%',
+    marginLeft: 20,
+    marginBottom: 5,
+    marginTop: 10,
+    borderRadius: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    shadowColor: 'rgb(0, 0, 0)',
+    // shadowOffset: {
+    //   width: 3,
+    //   height: 3,
+    // },
+    // shadowOpacity: 0.5,
+    // shadowRadius: 3,
+    // elevation: 3,
+  },
+  subject: {
+    paddingLeft: 10,
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  teacher: {
     marginTop: 2.5,
     paddingLeft: 10,
     fontSize: 14,
