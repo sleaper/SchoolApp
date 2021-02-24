@@ -25,19 +25,13 @@ const getMarksbyDate = gql`
 
 const getSubjects = gql`
   query($id: String!, $key: String!) {
-    GetSubjects(id: $id, key: $key) {
-      Subjects
+    AvarageMarks(id: $id, key: $key) {
+      AvarageMarks
     }
   }
 `;
 
-function useForceUpdate() {
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue((value) => value + 1); // update the state to force render
-}
-
 export default function Marks({id, navigation}) {
-  const forceUpdate = useForceUpdate();
   const [modalVisible, setModalVisible] = useState(false);
   const [data, setData] = useState(null);
   const [selected, setSelected] = useState(true);
@@ -115,14 +109,23 @@ export default function Marks({id, navigation}) {
 
   const renderItemSubject = ({item}) => {
     return (
-      <TouchableOpacity style={[subjects.item, {backgroundColor: colors.card}]}>
-        <View style={{maxWidth: '80%'}}>
+      <TouchableOpacity
+        style={[subjects.item, {backgroundColor: colors.card}]}
+        onPress={() => {
+          navigation.navigate('Subject', {
+            name: item.Subject,
+          });
+        }}>
+        <View>
           <Text style={[subjects.subject, {color: colors.text}]}>
             {item.Subject}
           </Text>
-          <Text style={[subjects.time, {color: colors.text}]}>
+          <Text style={[subjects.teacher, {color: colors.text}]}>
             {item.Teacher}
           </Text>
+        </View>
+        <View style={subjects.Mark}>
+          <Text style={[styles.Mark, {color: colors.text}]}>{item.Marks}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -202,8 +205,7 @@ export default function Marks({id, navigation}) {
         <TouchableOpacity
           onPress={() => {
             setSelected(false);
-            setBySubjects(true);
-            setData(subjectsData.GetSubjects.Subjects);
+            setData(subjectsData.AvarageMarks.AvarageMarks);
           }}>
           <Text
             style={[
@@ -333,28 +335,26 @@ const styles = StyleSheet.create({
 
 const subjects = StyleSheet.create({
   item: {
-    backgroundColor: '#F0F0F0',
-    height: 100,
+    height: 80,
     width: '90%',
     marginLeft: 20,
-    marginBottom: 5,
     marginTop: 10,
-    borderRadius: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     shadowColor: 'rgb(0, 0, 0)',
-    // shadowOffset: {
-    //   width: 3,
-    //   height: 3,
-    // },
-    // shadowOpacity: 0.5,
-    // shadowRadius: 3,
-    // elevation: 3,
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 3,
+    borderRadius: 20,
   },
   subject: {
     paddingLeft: 10,
-    fontSize: 17,
+    fontSize: 18,
     fontWeight: 'bold',
     color: 'black',
   },
@@ -362,5 +362,10 @@ const subjects = StyleSheet.create({
     marginTop: 2.5,
     paddingLeft: 10,
     fontSize: 14,
+  },
+  Mark: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginRight: 10,
   },
 });

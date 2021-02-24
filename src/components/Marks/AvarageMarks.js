@@ -8,8 +8,8 @@ import {useTheme} from '@react-navigation/native';
 
 const getData = gql`
   query($id: String!, $key: String!) {
-    AvarageMarks(id: $id, key: $key) {
-      AvarageMarks
+    Report(id: $id, key: $key) {
+      Report
     }
   }
 `;
@@ -34,10 +34,7 @@ export default function AvarageMarks({id}) {
       <View style={[styles.item, {backgroundColor: colors.card}]}>
         <View>
           <Text style={[styles.subject, {color: colors.text}]}>
-            {item.Subject}
-          </Text>
-          <Text style={[styles.teacher, {color: colors.text}]}>
-            {item.Teacher}
+            {item.Subject}:
           </Text>
         </View>
         <View style={styles.Mark}>
@@ -50,9 +47,10 @@ export default function AvarageMarks({id}) {
   return (
     <View style={styles.container}>
       <FlatList
-        data={data.AvarageMarks.AvarageMarks}
+        data={data.Report.Report}
         renderItem={renderItem}
         keyExtractor={(item) => item.Id}
+        initialNumToRender={7}
       />
     </View>
   );
@@ -65,7 +63,7 @@ const styles = StyleSheet.create({
   },
   item: {
     //backgroundColor: '#F0F0F0',
-    height: 100,
+    height: 60,
     width: '90%',
     marginLeft: 20,
     marginTop: 10,

@@ -5,6 +5,7 @@ import Marks from './Marks/Marks';
 import AvarageMarks from './Marks/AvarageMarks';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useTheme} from '@react-navigation/native';
+import Subject from './Marks/Subject';
 
 const Stack = createStackNavigator();
 
@@ -12,13 +13,13 @@ export default function HomeStack({id, name}) {
   const {colors} = useTheme();
   return (
     <Stack.Navigator
+      mode="modal"
+      initialRouteName="Marks"
       screenOptions={{
         gestureEnabled: true,
         cardOverlayEnabled: true,
         ...TransitionPresets.ModalPresentationIOS,
-      }}
-      mode="modal"
-      initialRouteName="Marks">
+      }}>
       <Stack.Screen
         options={{
           title: 'Průměrné známky',
@@ -39,6 +40,13 @@ export default function HomeStack({id, name}) {
         })}
         name="Marks">
         {(props) => <Marks {...props} id={id} />}
+      </Stack.Screen>
+      <Stack.Screen
+        options={{
+          title: 'Předmět',
+        }}
+        name="Subject">
+        {(props) => <Subject {...props} id={id} />}
       </Stack.Screen>
     </Stack.Navigator>
   );
