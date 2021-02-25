@@ -22,7 +22,7 @@ export default function HomeStack({id, name}) {
       }}>
       <Stack.Screen
         options={{
-          title: 'Průměrné známky',
+          title: 'Vysvědčení',
         }}
         name="AvarageMarks">
         {(props) => <AvarageMarks {...props} id={id} />}

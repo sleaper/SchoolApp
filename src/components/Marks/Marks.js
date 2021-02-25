@@ -194,9 +194,12 @@ export default function Marks({id, navigation}) {
           <Text
             style={[
               selected
-                ? {borderBottomColor: colors.text, borderBottomWidth: 2}
-                : null,
-              {color: colors.text},
+                ? {
+                    borderBottomColor: colors.primary,
+                    borderBottomWidth: 2,
+                    color: colors.primary,
+                  }
+                : {color: colors.text},
               styles.text,
             ]}>
             Podle data
@@ -210,9 +213,12 @@ export default function Marks({id, navigation}) {
           <Text
             style={[
               !selected
-                ? {borderBottomColor: colors.text, borderBottomWidth: 2}
-                : null,
-              {color: colors.text},
+                ? {
+                    borderBottomColor: colors.primary,
+                    borderBottomWidth: 2,
+                    color: colors.primary,
+                  }
+                : {color: colors.text},
               styles.text,
             ]}>
             Podle předmětů
