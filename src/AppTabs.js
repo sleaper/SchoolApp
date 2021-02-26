@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStack from './components/HomeStack';
 import {MyContext} from './AuthProvider';
 import {gql, useQuery, useMutation} from '@apollo/client';
-import {ActivityIndicator, View} from 'react-native';
+import {ActivityIndicator, Text} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
 import {ThemeContext} from './components/theme/ThemeProvider';
@@ -35,7 +35,7 @@ const GET_DEVICE = gql`
 export default function AppTabs() {
   const {theme} = useContext(ThemeContext);
   const {info} = useContext(MyContext);
-  const {loading, data} = useQuery(GET_USER, {
+  const {loading, data, error} = useQuery(GET_USER, {
     variables: info,
   });
   const [addToken] = useMutation(GET_DEVICE, {ignoreResults: true});
@@ -54,6 +54,14 @@ export default function AppTabs() {
     return (
       <Center>
         <ActivityIndicator size="large" color="blue" />
+      </Center>
+    );
+  }
+
+  if (error) {
+    return (
+      <Center>
+        <Text>Nejsi připojený k internetu.</Text>
       </Center>
     );
   }

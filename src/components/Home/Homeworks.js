@@ -148,6 +148,7 @@ export default function Homeworks({data}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: 500,
   },
   title: {
     paddingLeft: 20,

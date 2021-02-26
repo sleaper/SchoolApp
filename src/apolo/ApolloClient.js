@@ -1,7 +1,5 @@
-import React from 'react';
 import {ApolloClient, InMemoryCache, ApolloLink, from} from '@apollo/client';
 import {createHttpLink} from 'apollo-link-http';
-import AsyncStorage from '@react-native-community/async-storage';
 import {onError} from '@apollo/client/link/error';
 import RNSInfo from 'react-native-sensitive-info';
 

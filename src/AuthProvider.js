@@ -2,7 +2,7 @@ import React, {useState, useEffect, createContext} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import {gql, useLazyQuery} from '@apollo/client';
 import base64 from 'react-native-base64';
-import {ActivityIndicator, View} from 'react-native';
+import {ActivityIndicator, Text} from 'react-native';
 import Center from './components/Center';
 import {useApolloClient} from '@apollo/client';
 import SInfo from 'react-native-sensitive-info';
@@ -59,6 +59,14 @@ export default function AuthProvider({children}) {
     return (
       <Center>
         <ActivityIndicator size="large" color="#0000ff" />
+      </Center>
+    );
+  }
+
+  if (error) {
+    return (
+      <Center>
+        <Text>Nejsi připojený k internetu.</Text>
       </Center>
     );
   }

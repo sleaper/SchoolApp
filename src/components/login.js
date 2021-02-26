@@ -10,8 +10,8 @@ import {useTheme} from '@react-navigation/native';
 export default function login({navigation}) {
   const {colors} = useTheme();
   const {LogIn} = useContext(MyContext);
-  const [name, setName] = useState('spac.petr');
-  const [passw, setPassw] = useState('n2a4RV33');
+  const [name, setName] = useState('');
+  const [passw, setPassw] = useState('');
 
   return (
     <View style={[styles.container, {backgroundColor: colors.background}]}>

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {MyContext} from '../../AuthProvider';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text, Button} from 'react-native';
 import {gql, useQuery} from '@apollo/client';
 import Center from '../Center';
 import {ActivityIndicator} from 'react-native';
@@ -9,6 +9,8 @@ import DaySchedule from './DaySchedule';
 import Homeworks from './Homeworks';
 import Tests from './Tests';
 import {useTheme} from '@react-navigation/native';
+import Modal from 'react-native-modal';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const getData = gql`
   query($id: String!, $key: String!) {
@@ -19,7 +21,7 @@ const getData = gql`
   }
 `;
 
-export default function Home({id}) {
+export default function Home({id, modal, setModal, name}) {
   const {colors} = useTheme();
   const {info} = useContext(MyContext);
   const {loading, error, data} = useQuery(getData, {
@@ -39,6 +41,26 @@ export default function Home({id}) {
       <DaySchedule data={data.Home.schedule} />
       {/* {<Tests />} */}
       <Homeworks data={data.Home.homeworks} id={id} />
+
+      <Modal
+        testID={'modal'}
+        isVisible={modal}
+        onSwipeComplete={() => setModal(!modal)}
+        swipeDirection={['down']}
+        style={styles.modalView}>
+        <View style={styles.content}>
+          <View style={{flexDirection: 'row'}}>
+            <Icon name="person-circle-outline" size={30} color="black" />
+            <Text style={styles.contentTitle}>{name}</Text>
+          </View>
+
+          <Button
+            testID={'close-button'}
+            onPress={() => setModal(!modal)}
+            title="Close"
+          />
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -46,5 +68,22 @@ export default function Home({id}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  modalView: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  content: {
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    borderRadius: 15,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  contentTitle: {
+    fontSize: 20,
+    marginBottom: 12,
   },
 });
