@@ -58,7 +58,7 @@ export default function Subject({route, navigation}) {
   return (
     <View>
       <View style={[styles.header, {backgroundColor: colors.card}]}>
-        <Text style={[styles.headerText, {color: colors.text}]}>{name}</Text>
+        <Text style={[styles.headerText, {color: colors.text}]}>{name}:</Text>
       </View>
       <FlatList
         data={data.SubjectMarks.SubjectMarks}
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: 100,
+    height: 80,
     borderBottomLeftRadius: 35,
     borderBottomRightRadius: 35,
     marginBottom: 15,
@@ -87,10 +87,10 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 25,
     fontWeight: '600',
-    paddingLeft: 15,
+    paddingLeft: 25,
   },
   item: {
-    backgroundColor: '#F0F0F0',
+    //backgroundColor: '#F0F0F0',
     height: 100,
     width: '90%',
     marginLeft: 20,

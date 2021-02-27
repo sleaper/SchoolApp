@@ -35,7 +35,6 @@ export default function Marks({id, navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [data, setData] = useState(null);
   const [selected, setSelected] = useState(true);
-  const [bySubjects, setBySubjects] = useState(false);
 
   const {colors} = useTheme();
   const {info} = useContext(MyContext);
@@ -110,7 +109,7 @@ export default function Marks({id, navigation}) {
   const renderItemSubject = ({item}) => {
     return (
       <TouchableOpacity
-        style={[subjects.item, {backgroundColor: colors.card}]}
+        style={[subjects.item]}
         onPress={() => {
           navigation.navigate('Subject', {
             name: item.Subject,
@@ -230,6 +229,15 @@ export default function Marks({id, navigation}) {
         renderItem={selected ? renderItemMark : renderItemSubject}
         initialNumToRender={7}
         keyExtractor={(item) => item.Id}
+        ItemSeparatorComponent={
+          selected
+            ? null
+            : () => {
+                return (
+                  <View style={{height: 5, backgroundColor: colors.card}} />
+                );
+              }
+        }
       />
     </View>
   );
@@ -348,26 +356,26 @@ const subjects = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    shadowColor: 'rgb(0, 0, 0)',
-    shadowOffset: {
-      width: 3,
-      height: 3,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 3,
-    elevation: 3,
-    borderRadius: 20,
+    // shadowColor: 'rgb(0, 0, 0)',
+    // shadowOffset: {
+    //   width: 3,
+    //   height: 3,
+    // },
+    // shadowOpacity: 0.5,
+    // shadowRadius: 3,
+    // elevation: 3,
+    //borderRadius: 20,
   },
   subject: {
     paddingLeft: 10,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: 'bold',
     color: 'black',
   },
   teacher: {
     marginTop: 2.5,
     paddingLeft: 10,
-    fontSize: 14,
+    fontSize: 13,
   },
   Mark: {
     fontSize: 20,

@@ -12,6 +12,7 @@ import MarksStack from './components/MarksStack';
 import {ThemeContext} from './components/theme/ThemeProvider';
 import {lightTheme, darkTheme} from './components/theme/Themes';
 import messaging from '@react-native-firebase/messaging';
+import {useTheme} from '@react-navigation/native';
 
 const Tabs = createBottomTabNavigator();
 
@@ -33,6 +34,7 @@ const GET_DEVICE = gql`
 `;
 
 export default function AppTabs() {
+  const {colors} = useTheme();
   const {theme} = useContext(ThemeContext);
   const {info} = useContext(MyContext);
   const {loading, data, error} = useQuery(GET_USER, {
@@ -43,7 +45,6 @@ export default function AppTabs() {
   useEffect(() => {
     async function geToken() {
       const token = await messaging().getToken();
-      //console.log(info.name, info.key, token);
       addToken({variables: {name: info.name, key: info.key, token: token}});
     }
 
@@ -61,7 +62,7 @@ export default function AppTabs() {
   if (error) {
     return (
       <Center>
-        <Text>Nejsi připojený k internetu.</Text>
+        <Text style={{color: colors.text}}>Nejsi připojený k internetu.</Text>
       </Center>
     );
   }

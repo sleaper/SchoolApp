@@ -48,10 +48,16 @@ export default function Home({id, modal, setModal, name}) {
         onSwipeComplete={() => setModal(!modal)}
         swipeDirection={['down']}
         style={styles.modalView}>
-        <View style={styles.content}>
+        <View
+          style={[
+            styles.content,
+            {backgroundColor: colors.background, borderTopColor: colors.card},
+          ]}>
           <View style={{flexDirection: 'row'}}>
-            <Icon name="person-circle-outline" size={30} color="black" />
-            <Text style={styles.contentTitle}>{name}</Text>
+            <Icon name="person-circle-outline" size={30} color={colors.text} />
+            <Text style={[styles.contentTitle, {color: colors.text}]}>
+              {name}
+            </Text>
           </View>
 
           <Button
@@ -81,6 +87,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     borderRadius: 15,
     borderColor: 'rgba(0, 0, 0, 0.1)',
+    borderTopWidth: 1,
   },
   contentTitle: {
     fontSize: 20,
