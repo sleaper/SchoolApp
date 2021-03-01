@@ -77,6 +77,13 @@ export default function Home({id, modal, setModal, name}) {
             </Text>
           </View>
 
+          <View style={{flexDirection: 'row', marginTop: 5}}>
+            <Icon name="color-palette-outline" size={30} color={colors.text} />
+            <Text style={[styles.contentTitle, {color: colors.text}]}>
+              test
+            </Text>
+          </View>
+
           <Button
             testID={'close-button'}
             onPress={() => setModal(!modal)}
