@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {MyContext} from '../../AuthProvider';
-import {View, StyleSheet, Text, Button} from 'react-native';
+import {View, StyleSheet, Text, Button, TouchableOpacity} from 'react-native';
 import {gql, useQuery} from '@apollo/client';
 import Center from '../Center';
 import {ActivityIndicator} from 'react-native';
@@ -11,6 +11,7 @@ import Tests from './Tests';
 import {useTheme} from '@react-navigation/native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const getData = gql`
   query($id: String!, $key: String!) {
@@ -54,9 +55,25 @@ export default function Home({id, modal, setModal, name}) {
             {backgroundColor: colors.background, borderTopColor: colors.card},
           ]}>
           <View style={{flexDirection: 'row'}}>
-            <Icon name="person-circle-outline" size={30} color={colors.text} />
+            <TouchableOpacity
+              onLongPress={async () => {
+                console.log('pressed');
+                AsyncStorage.setItem('MyApp:IS_BETA_TESTER', 'true');
+              }}>
+              <Icon
+                name="person-circle-outline"
+                size={30}
+                color={colors.text}
+              />
+            </TouchableOpacity>
             <Text style={[styles.contentTitle, {color: colors.text}]}>
               {name}
+            </Text>
+          </View>
+          <View style={{flexDirection: 'row', marginTop: 5}}>
+            <Icon name="color-palette-outline" size={30} color={colors.text} />
+            <Text style={[styles.contentTitle, {color: colors.text}]}>
+              theme
             </Text>
           </View>
 

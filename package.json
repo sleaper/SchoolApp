@@ -1,6 +1,6 @@
 {
   "name": "skolaoffline",
-  "version": "2",
+  "version": "3",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -29,6 +29,7 @@
     "react-native-appearance": "^0.3.4",
     "react-native-base64": "^0.1.0",
     "react-native-calendars": "^1.1129.0",
+    "react-native-code-push": "^7.0.0",
     "react-native-emoji": "^1.8.0",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-htmlview": "^0.16.0",

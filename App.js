@@ -18,6 +18,9 @@ import 'react-native-gesture-handler';
 import React, {useEffect} from 'react';
 import Providers from './src/Providers';
 import messaging from '@react-native-firebase/messaging';
+import codePush from 'react-native-code-push';
+import CodePushManager from './src/codePush/CodePushManager';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function App() {
   async function requestUserPermission() {
@@ -42,5 +45,10 @@ export default function App() {
     return unsubscribe;
   }, []);
 
-  return <Providers />;
+  return (
+    <React.Fragment>
+      <Providers />
+      <CodePushManager />
+    </React.Fragment>
+  );
 }

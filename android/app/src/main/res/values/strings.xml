@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SkolaOffline</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">LmnDpd7zkgvnyR7AMFzywFKvbK9NHfV4TgUPa</string>
 </resources>
