@@ -60,6 +60,7 @@ export default function AppTabs() {
   }
 
   if (error) {
+    console.log(error);
     return (
       <Center>
         <Text style={{color: colors.text}}>Nejsi připojený k internetu.</Text>

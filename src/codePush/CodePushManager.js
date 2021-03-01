@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const checkIfBetaTester = async () => {
   const res = await AsyncStorage.getItem('MyApp:IS_BETA_TESTER');
-  console.log(res);
   return res === 'true';
 };
 
@@ -43,7 +42,7 @@ const CodePushManager = () => {
       .catch((err) => {
         console.log('Error occured with codePush', err);
       });
-  });
+  }, []);
 
   return null;
 };

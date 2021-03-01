@@ -22,7 +22,7 @@ import codePush from 'react-native-code-push';
 import CodePushManager from './src/codePush/CodePushManager';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export default function App() {
+const App = () => {
   async function requestUserPermission() {
     const token = await messaging().getToken();
     const authStatus = await messaging().requestPermission();
@@ -51,4 +51,6 @@ export default function App() {
       <CodePushManager />
     </React.Fragment>
   );
-}
+};
+
+export default App;

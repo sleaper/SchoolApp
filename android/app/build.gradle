@@ -222,6 +222,8 @@ dependencies {
         implementation jscFlavor
     }
 
+    compile project(':react-native-code-push')
+
 }
 
 // Run this once to be able to run the application with BUCK

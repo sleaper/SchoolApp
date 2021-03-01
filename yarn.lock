@@ -5524,7 +5524,7 @@
     "source-map" "^0.5.6"
     "vlq" "^1.0.0"
 
-"metro-symbolicate@0.58.0":
+"metro-symbolicate@^0.58.0", "metro-symbolicate@0.58.0":
   "integrity" "sha512-uIVxUQC1E26qOMj13dKROhwAa2FmZk5eR0NcBqej/aXmQhpr8LjJg2sondkoLKUp827Tf/Fm9+pS4icb5XiqCw=="
   "resolved" "https://registry.npmjs.org/metro-symbolicate/-/metro-symbolicate-0.58.0.tgz"
   "version" "0.58.0"
