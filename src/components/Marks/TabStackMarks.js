@@ -1,10 +1,9 @@
 import React from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import TabsMarks from './TabsMarks';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import Animated from 'react-native-reanimated';
 import TabsMarksSubject from './TabsMarksSubject';
-import {useState} from 'react';
 
 const Tab = createMaterialTopTabNavigator();
 

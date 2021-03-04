@@ -7,10 +7,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableHighlight,
-  Modal,
   ScrollView,
-  Animated,
-  Platform,
+  Modal,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 import {editTime} from '../../utilz';
@@ -76,7 +74,7 @@ export default function Homeworks({data}) {
         onPress={() => {
           setModalTitle(item.Name);
           setModalData(item.Info);
-          setModalVisible(true);
+          setModalVisible(!modalVisible);
         }}>
         <View style={[styles.itemStripe, {backgroundColor: item.Color}]} />
         <View style={{paddingBottom: 10, paddingLeft: 15, paddingTop: 15}}>

@@ -22,7 +22,7 @@ const getData = gql`
   }
 `;
 
-export default function Home({id, modal, setModal, name}) {
+export default function Home({id, modal, setModal, name, sideMenu}) {
   const {colors} = useTheme();
   const {info} = useContext(MyContext);
   const {loading, error, data} = useQuery(getData, {
@@ -36,7 +36,6 @@ export default function Home({id, modal, setModal, name}) {
       </Center>
     );
   }
-
   return (
     <View style={[styles.container, colors.background]}>
       <DaySchedule data={data.Home.schedule} />
