@@ -70,19 +70,25 @@ export default function Home({id, modal, setModal, name}) {
               {name}
             </Text>
           </View>
-          <View style={{flexDirection: 'row', marginTop: 5}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginTop: 5,
+            }}>
             <Icon name="color-palette-outline" size={30} color={colors.text} />
             <Text style={[styles.contentTitle, {color: colors.text}]}>
               theme
             </Text>
           </View>
-
-          <View style={{flexDirection: 'row', marginTop: 5}}>
-            <Icon name="color-palette-outline" size={30} color={colors.text} />
-            <Text style={[styles.contentTitle, {color: colors.text}]}>
-              test
-            </Text>
-          </View>
+          <View
+            style={{
+              backgroundColor: colors.text,
+              height: 2,
+              width: '100%',
+              borderRadius: 10,
+              marginBottom: 5,
+            }}
+          />
 
           <Button
             testID={'close-button'}

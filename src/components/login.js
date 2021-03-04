@@ -23,6 +23,7 @@ export default function login({navigation}) {
           onChangeText={(text) => setName(text)}
           value={name}
           style={[styles.inputText, {color: colors.text}]}
+          placeholderTextColor={colors.text}
           placeholder="Name.."
         />
       </View>
@@ -34,6 +35,7 @@ export default function login({navigation}) {
           onChangeText={(password) => setPassw(password)}
           value={passw}
           style={[styles.inputText, {color: colors.text}]}
+          placeholderTextColor={colors.text}
           placeholder="Password.."
         />
       </View>

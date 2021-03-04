@@ -48,7 +48,7 @@ const App = () => {
   return (
     <React.Fragment>
       <Providers />
-      <CodePushManager />
+      {!__DEV__ ? <CodePushManager /> : null}
     </React.Fragment>
   );
 };

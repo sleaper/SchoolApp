@@ -17,6 +17,7 @@
     "@react-native-firebase/app": "^10.5.0",
     "@react-native-firebase/messaging": "^10.5.1",
     "@react-navigation/bottom-tabs": "^5.11.1",
+    "@react-navigation/material-top-tabs": "^5.3.14",
     "@react-navigation/native": "^5.8.9",
     "@react-navigation/stack": "^5.12.6",
     "apollo-cache-inmemory": "^1.6.6",
@@ -40,6 +41,7 @@
     "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "^2.14.0",
     "react-native-sensitive-info": "^6.0.0-alpha.9",
+    "react-native-tab-view": "^2.15.2",
     "react-native-vector-icons": "^7.1.0",
     "rn-placeholder": "^3.0.3"
   },
