@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import TabsMarks from './TabsMarks';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Animated from 'react-native-reanimated';
+import Animated, {color} from 'react-native-reanimated';
 import TabsMarksSubject from './TabsMarksSubject';
+import {ThemeContext} from '../theme/ThemeProvider';
+import {useHeaderOptions} from '../../hooks/useHeaderOptions';
 
 const Tab = createMaterialTopTabNavigator();
 
 function MyTabBar({state, descriptors, navigation, position}) {
+  const [{card, text, background}] = useContext(ThemeContext);
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View style={{flexDirection: 'row', backgroundColor: background}}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const label =
@@ -53,6 +56,7 @@ function MyTabBar({state, descriptors, navigation, position}) {
                 isFocused
                   ? {borderBottomWidth: 2, borderBottomColor: 'red'}
                   : null,
+                {color: text},
               ]}>
               {label}
             </Animated.Text>
@@ -66,6 +70,7 @@ function MyTabBar({state, descriptors, navigation, position}) {
 export default function TabStackMarks({id, navigation: upperNavig}) {
   return (
     <Tab.Navigator
+      tabBarOptions={useHeaderOptions()}
       timingConfig={{duration: 1}}
       tabBar={(props) => <MyTabBar {...props} />}>
       <Tab.Screen name="Podle data">

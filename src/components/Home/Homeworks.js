@@ -16,6 +16,7 @@ import {useTheme} from '@react-navigation/native';
 import Swipable from 'react-native-gesture-handler/Swipeable';
 import {gql, useApolloClient} from '@apollo/client';
 import {MyContext} from '../../AuthProvider';
+import {ThemeContext} from '../theme/ThemeProvider';
 
 const query = gql`
   query($id: String!, $key: String!) {
@@ -28,6 +29,7 @@ const query = gql`
 export default function Homeworks({data}) {
   const client = useApolloClient();
   const {info} = useContext(MyContext);
+  const [{card, text, background, notification}] = useContext(ThemeContext);
   const {colors} = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
@@ -45,7 +47,7 @@ export default function Homeworks({data}) {
         <Animated.Text
           style={[
             styles.actionText,
-            {color: colors.text, transform: [{scale}]},
+            {color: text, transform: [{scale}]},
           ]}>
           Removed
         </Animated.Text>
@@ -68,7 +70,7 @@ export default function Homeworks({data}) {
         style={[
           styles.rowContainer,
           {
-            backgroundColor: colors.card,
+            backgroundColor: card,
           },
         ]}
         onPress={() => {
@@ -78,10 +80,8 @@ export default function Homeworks({data}) {
         }}>
         <View style={[styles.itemStripe, {backgroundColor: item.Color}]} />
         <View style={{paddingBottom: 10, paddingLeft: 15, paddingTop: 15}}>
-          <Text style={[styles.subject, {color: colors.text}]}>
-            {item.Name}
-          </Text>
-          <Text style={{color: colors.text}}>{editTime(item.TimeTo)}</Text>
+          <Text style={[styles.subject, {color: text}]}>{item.Name}</Text>
+          <Text style={{color: text}}>{editTime(item.TimeTo)}</Text>
         </View>
       </TouchableOpacity>
       // </Swipable>
@@ -90,9 +90,7 @@ export default function Homeworks({data}) {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, {color: colors.notification}]}>
-        Domácí úkoly
-      </Text>
+      <Text style={[styles.title, {color: notification}]}>Domácí úkoly</Text>
 
       <Modal
         animationType="slide"
@@ -102,13 +100,11 @@ export default function Homeworks({data}) {
           setModalVisible(!modalVisible);
         }}>
         <View style={styles.centeredView}>
-          <View style={[styles.modalView, {backgroundColor: colors.card}]}>
-            <Text style={[styles.subject, {color: colors.text}]}>
-              {modalTitle}
-            </Text>
+          <View style={[styles.modalView, {backgroundColor: card}]}>
+            <Text style={[styles.subject, {color: text}]}>{modalTitle}</Text>
             <ScrollView>
               <HTMLView
-                textComponentProps={{style: {color: colors.text}}}
+                textComponentProps={{style: {color: text}}}
                 value={modalData === null ? '' : modalData.replace(/\s+/g, ' ')} // removes spaces between words
                 addLineBreaks={false}
               />
@@ -118,12 +114,12 @@ export default function Homeworks({data}) {
                 underlayColor="#2196F3"
                 style={{
                   ...styles.openButton,
-                  backgroundColor: colors.background,
+                  backgroundColor: background,
                 }}
                 onPress={() => {
                   setModalVisible(!modalVisible);
                 }}>
-                <Text style={[styles.textStyle, {color: colors.text}]}>
+                <Text style={[styles.textStyle, {color: text}]}>
                   Hide Modal
                 </Text>
               </TouchableHighlight>

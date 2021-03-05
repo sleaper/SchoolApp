@@ -3,8 +3,8 @@ import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {ThemeContext} from '../theme/ThemeProvider';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {ThemeContext} from '../theme/ThemeProvider';
 
 function Event({item}) {
   const eventStyle = {
@@ -33,6 +33,7 @@ export default function DayItem({
 }) {
   const [active, setActive] = useState(item.Notes ? true : false);
   const {colors} = useTheme();
+  const [{card, text, notification}] = useContext(ThemeContext);
 
   return (
     // <View style={[styles.rowContainer, {backgroundColor: colors.card}]}>
@@ -43,18 +44,14 @@ export default function DayItem({
         setModalTitle('Poznámka');
         setModalData(item.Notes.Note);
       }}
-      style={[styles.rowContainer, {backgroundColor: colors.card}]}>
+      style={[styles.rowContainer, {backgroundColor: card}]}>
       <View style={{flexDirection: 'row'}}>
         <View>
-          <Text style={[styles.number, {color: colors.text}]}>
-            {item.Order}
-          </Text>
+          <Text style={[styles.number, {color: text}]}>{item.Order}</Text>
         </View>
         <View style={styles.subject}>
-          <Text style={[{color: colors.text}, styles.subjectText]}>
-            {item.Name}
-          </Text>
-          <Text style={[{color: colors.notification}]}>{item.Teacher}</Text>
+          <Text style={[{color: text}, styles.subjectText]}>{item.Name}</Text>
+          <Text style={[{color: notification}]}>{item.Teacher}</Text>
           {item.Events && <Event item={item} />}
           {active && (
             <Icon name={'information-circle'} size={20} color={'#2A64FF'} />
@@ -67,12 +64,8 @@ export default function DayItem({
           alignItems: 'flex-end',
           flexWrap: 'wrap',
         }}>
-        <Text style={[{color: colors.text, paddingRight: 15}]}>
-          {item.From}
-        </Text>
-        <Text style={[{color: colors.text, paddingRight: 15}]}>
-          {item.Class}
-        </Text>
+        <Text style={[{color: text, paddingRight: 15}]}>{item.From}</Text>
+        <Text style={[{color: text, paddingRight: 15}]}>{item.Class}</Text>
       </View>
     </TouchableOpacity>
     // </View>

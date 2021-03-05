@@ -7,7 +7,7 @@ import {ThemeContext} from '../theme/ThemeProvider';
 
 export default function DaySchedule({data}) {
   const {colors} = useTheme();
-  const {theme} = useContext(ThemeContext);
+  const [{notification}] = useContext(ThemeContext);
 
   const renderItem = ({item}) => {
     return (
@@ -30,7 +30,7 @@ export default function DaySchedule({data}) {
   } else {
     return (
       <View style={styles.container}>
-        <Text style={[styles.title, {color: colors.notification}]}>Dnes</Text>
+        <Text style={[styles.title, {color: notification}]}>Dnes</Text>
         <FlatList
           horizontal={true}
           data={data}

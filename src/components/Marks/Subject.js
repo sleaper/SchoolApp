@@ -7,6 +7,7 @@ import Center from '../Center';
 import {useTheme} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {color} from 'react-native-reanimated';
+import {ThemeContext} from '../theme/ThemeProvider';
 
 const getMarksBuSubject = gql`
   query($subject: String!, $key: String!) {
@@ -17,7 +18,7 @@ const getMarksBuSubject = gql`
 `;
 
 export default function Subject({route, navigation}) {
-  const {colors} = useTheme();
+  const [{card, text, background}] = useContext(ThemeContext);
   const {info} = useContext(MyContext);
   const {name} = route.params;
   const {loading, error, data} = useQuery(getMarksBuSubject, {
@@ -36,18 +37,14 @@ export default function Subject({route, navigation}) {
 
   const renderItem = ({item}) => {
     return (
-      <View style={[styles.item, {backgroundColor: colors.card}]}>
+      <View style={[styles.item, {backgroundColor: card}]}>
         <View style={{maxWidth: '80%'}}>
-          <Text style={[styles.subject, {color: colors.text}]}>
-            {item.Name}
-          </Text>
-          <Text style={[styles.time, {color: colors.text}]}>
-            {item.Value.NAZEV}
-          </Text>
-          <Text style={[styles.time, {color: colors.text}]}>{item.Date}</Text>
+          <Text style={[styles.subject, {color: text}]}>{item.Name}</Text>
+          <Text style={[styles.time, {color: text}]}>{item.Value.NAZEV}</Text>
+          <Text style={[styles.time, {color: text}]}>{item.Date}</Text>
         </View>
         <View style={styles.Mark}>
-          <Text style={[styles.Mark, {color: colors.text}]}>
+          <Text style={[styles.Mark, {color: text}]}>
             {item.Mark ? item.Mark : '-'}
           </Text>
         </View>
@@ -56,9 +53,9 @@ export default function Subject({route, navigation}) {
   };
 
   return (
-    <View>
-      <View style={[styles.header, {backgroundColor: colors.card}]}>
-        <Text style={[styles.headerText, {color: colors.text}]}>{name}:</Text>
+    <View style={{backgroundColor: background}}>
+      <View style={[styles.header, {backgroundColor: card}]}>
+        <Text style={[styles.headerText, {color: text}]}>{name}:</Text>
       </View>
       <FlatList
         data={data.SubjectMarks.SubjectMarks}
@@ -72,6 +69,7 @@ export default function Subject({route, navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: '100%',
   },
   header: {
     height: 80,
@@ -80,7 +78,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     justifyContent: 'center',
     shadowOpacity: 0.5,
-    shadowRadius: 5,
+    shadowRadius: 2,
     elevation: 3,
     shadowColor: 'rgb(0, 0, 0)',
   },
@@ -90,7 +88,6 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
   },
   item: {
-    //backgroundColor: '#F0F0F0',
     height: 100,
     width: '90%',
     marginLeft: 20,

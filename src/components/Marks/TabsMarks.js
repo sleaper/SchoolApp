@@ -14,6 +14,7 @@ import Center from '../Center';
 import {useTheme, useIsFocused} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getLastWeek, getLastMonth, getLastTwoMonths} from '../../utilz';
+import {ThemeContext} from '../theme/ThemeProvider';
 
 const getMarksbyDate = gql`
   query($date: [String]!, $key: String!) {
@@ -24,9 +25,9 @@ const getMarksbyDate = gql`
 `;
 
 export default function Marks({id, navigation, upperNavig}) {
+  const [{card, text, background}] = useContext(ThemeContext);
   const isFocused = useIsFocused();
   const [modalVisible, setModalVisible] = useState(false);
-  const {colors} = useTheme();
   const {info} = useContext(MyContext);
   const [date, setDate] = useState(getLastWeek());
   const {loading, error, data, refetch} = useQuery(getMarksbyDate, {
@@ -40,7 +41,7 @@ export default function Marks({id, navigation, upperNavig}) {
           <TouchableOpacity
             onPress={() => setModalVisible(true)}
             style={{marginLeft: 10}}>
-            <Icon name={'cog-outline'} size={35} color={colors.text} />
+            <Icon name={'cog-outline'} size={35} color={text} />
           </TouchableOpacity>
         ),
       });
@@ -49,7 +50,7 @@ export default function Marks({id, navigation, upperNavig}) {
         headerLeft: () => null,
       });
     }
-  }, [upperNavig, colors.text, isFocused]);
+  }, [upperNavig, text, isFocused]);
 
   if (loading) {
     return (
@@ -63,18 +64,14 @@ export default function Marks({id, navigation, upperNavig}) {
 
   const renderItemMark = ({item}) => {
     return (
-      <View style={[styles.item, {backgroundColor: colors.card}]}>
+      <View style={[styles.item, {backgroundColor: card}]}>
         <View style={{maxWidth: '80%'}}>
-          <Text style={[styles.subject, {color: colors.text}]}>
-            {item.Name}
-          </Text>
-          <Text style={[styles.time, {color: colors.text}]}>
-            {item.Value.NAZEV}
-          </Text>
-          <Text style={[styles.time, {color: colors.text}]}>{item.Date}</Text>
+          <Text style={[styles.subject, {color: text}]}>{item.Name}</Text>
+          <Text style={[styles.time, {color: text}]}>{item.Value.NAZEV}</Text>
+          <Text style={[styles.time, {color: text}]}>{item.Date}</Text>
         </View>
         <View style={styles.Mark}>
-          <Text style={[styles.Mark, {color: colors.text}]}>
+          <Text style={[styles.Mark, {color: text}]}>
             {item.Mark ? item.Mark : '-'}
           </Text>
         </View>
@@ -83,7 +80,7 @@ export default function Marks({id, navigation, upperNavig}) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: background}]}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -92,8 +89,8 @@ export default function Marks({id, navigation, upperNavig}) {
           setModalVisible(!modalVisible);
         }}>
         <View style={modal.centeredView}>
-          <View style={[modal.modalView, {backgroundColor: colors.card}]}>
-            <Text style={[modal.modalHeader, {color: colors.text}]}>
+          <View style={[modal.modalView, {backgroundColor: card}]}>
+            <Text style={[modal.modalHeader, {color: text}]}>
               Změnit období
             </Text>
             <TouchableOpacity
@@ -103,9 +100,7 @@ export default function Marks({id, navigation, upperNavig}) {
                 refetch({variables: {date: date, key: info.key}});
                 setModalVisible(!modalVisible);
               }}>
-              <Text style={{color: colors.text, fontSize: 17}}>
-                Poslední týden
-              </Text>
+              <Text style={{color: text, fontSize: 17}}>Poslední týden</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={modal.modalTime}
@@ -114,17 +109,13 @@ export default function Marks({id, navigation, upperNavig}) {
                 refetch({variables: {date: date, key: info.key}});
                 setModalVisible(!modalVisible);
               }}>
-              <Text style={{color: colors.text, fontSize: 17}}>
-                Poslední měsíc
-              </Text>
+              <Text style={{color: text, fontSize: 17}}>Poslední měsíc</Text>
             </TouchableOpacity>
             <View style={{alignSelf: 'flex-end', marginTop: 15}}>
               <TouchableOpacity
                 style={[modal.button, modal.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={[modal.textStyle, {color: colors.text}]}>
-                  Zavřít
-                </Text>
+                <Text style={[modal.textStyle, {color: text}]}>Zavřít</Text>
               </TouchableOpacity>
             </View>
           </View>

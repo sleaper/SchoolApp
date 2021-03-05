@@ -12,6 +12,7 @@ import {useTheme} from '@react-navigation/native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
+import {ThemeContext} from '../theme/ThemeProvider';
 
 const getData = gql`
   query($id: String!, $key: String!) {
@@ -23,7 +24,7 @@ const getData = gql`
 `;
 
 export default function Home({id, modal, setModal, name, sideMenu}) {
-  const {colors} = useTheme();
+  const [{card, text, background}] = useContext(ThemeContext);
   const {info} = useContext(MyContext);
   const {loading, error, data} = useQuery(getData, {
     variables: {id: id, key: info.key},
@@ -37,7 +38,7 @@ export default function Home({id, modal, setModal, name, sideMenu}) {
     );
   }
   return (
-    <View style={[styles.container, colors.background]}>
+    <View style={[styles.container, {backgroundColor: background}]}>
       <DaySchedule data={data.Home.schedule} />
       {/* {<Tests />} */}
       <Homeworks data={data.Home.homeworks} id={id} />
@@ -51,7 +52,7 @@ export default function Home({id, modal, setModal, name, sideMenu}) {
         <View
           style={[
             styles.content,
-            {backgroundColor: colors.background, borderTopColor: colors.card},
+            {backgroundColor: background, borderTopColor: card},
           ]}>
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity
@@ -59,29 +60,21 @@ export default function Home({id, modal, setModal, name, sideMenu}) {
                 console.log('pressed');
                 AsyncStorage.setItem('MyApp:IS_BETA_TESTER', 'true');
               }}>
-              <Icon
-                name="person-circle-outline"
-                size={30}
-                color={colors.text}
-              />
+              <Icon name="person-circle-outline" size={30} color={text} />
             </TouchableOpacity>
-            <Text style={[styles.contentTitle, {color: colors.text}]}>
-              {name}
-            </Text>
+            <Text style={[styles.contentTitle, {color: text}]}>{name}</Text>
           </View>
           <View
             style={{
               flexDirection: 'row',
               marginTop: 5,
             }}>
-            <Icon name="color-palette-outline" size={30} color={colors.text} />
-            <Text style={[styles.contentTitle, {color: colors.text}]}>
-              theme
-            </Text>
+            <Icon name="color-palette-outline" size={30} color={text} />
+            <Text style={[styles.contentTitle, {color: text}]}>theme</Text>
           </View>
           <View
             style={{
-              backgroundColor: colors.text,
+              backgroundColor: text,
               height: 2,
               width: '100%',
               borderRadius: 10,

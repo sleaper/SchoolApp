@@ -7,27 +7,37 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {useTheme} from '@react-navigation/native';
 import Subject from './Marks/Subject';
 import TabStackMarks from './Marks/TabStackMarks';
+import {useHeaderOptions} from '../hooks/useHeaderOptions';
+import {ThemeContext} from './theme/ThemeProvider';
 
 const Stack = createStackNavigator();
 
 export default function HomeStack({id, name}) {
-  const {colors} = useTheme();
+  const [{text, background, card}] = useContext(ThemeContext);
   return (
     <Stack.Navigator
       mode="modal"
       initialRouteName="Marks"
-      screenOptions={{
-        gestureEnabled: true,
-        cardOverlayEnabled: true,
-        ...TransitionPresets.ModalPresentationIOS,
-      }}>
+      screenOptions={
+        ({
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
+          ...TransitionPresets.ModalPresentationIOS,
+        },
+        useHeaderOptions(),
+        {
+          cardStyle: {backgroundColor: background},
+          headerStyle: {backgroundColor: card},
+          headerTintColor: text,
+        })
+      }>
       <Stack.Screen
         options={({navigation}) => ({
           headerRight: () => (
             <TouchableOpacity
               style={{marginRight: 10}}
               onPress={() => navigation.navigate('AvarageMarks')}>
-              <Icon name={'school-outline'} size={35} color={colors.text} />
+              <Icon name={'school-outline'} size={35} color={text} />
             </TouchableOpacity>
           ),
           headerTitle: 'Známky',

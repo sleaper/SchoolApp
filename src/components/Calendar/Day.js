@@ -20,6 +20,7 @@ import {useTheme} from '@react-navigation/native';
 import DayItem from './DayItem';
 import Arrows from './Arrows';
 import HTMLView from 'react-native-htmlview';
+import {ThemeContext} from '../theme/ThemeProvider';
 
 const getData = gql`
   query($date: String!, $key: String!) {
@@ -37,8 +38,8 @@ function useForceUpdate() {
 }
 
 export default function Day({navigation, route, id}) {
+  const [{card, text, background}] = useContext(ThemeContext);
   const forceUpdate = useForceUpdate();
-  const {colors} = useTheme();
   const {date} = route.params;
   console.log(route.params);
   const {info} = useContext(MyContext);
@@ -112,7 +113,7 @@ export default function Day({navigation, route, id}) {
         <TouchableOpacity
           style={{paddingRight: 10}}
           onPress={() => navigation.navigate('Month')}>
-          <Icon name="calendar-outline" size={30} color={colors.text} />
+          <Icon name="calendar-outline" size={30} color={text} />
         </TouchableOpacity>
       ),
     });
@@ -120,7 +121,7 @@ export default function Day({navigation, route, id}) {
 
   if (loading) {
     return (
-      <View style={[styles.container, colors.background]}>
+      <View style={[styles.container, {backgroundColor: background}]}>
         <View style={styles.arrows}>
           <TouchableOpacity
             onPress={() => {
@@ -128,7 +129,7 @@ export default function Day({navigation, route, id}) {
             }}>
             <Icon name="arrow-back-outline" size={30} color="blue" />
           </TouchableOpacity>
-          <Text style={[styles.dateText, {color: colors.text}]}>
+          <Text style={[styles.dateText, {color: text}]}>
             {date[2] + '. ' + date[1] + '. ' + date[0]}
           </Text>
           <TouchableOpacity
@@ -146,7 +147,7 @@ export default function Day({navigation, route, id}) {
   }
 
   return (
-    <View style={[styles.container, colors.background]}>
+    <View style={[styles.container, {backgroundColor: background}]}>
       <View style={styles.arrows}>
         <TouchableOpacity
           onPress={() => {
@@ -154,7 +155,7 @@ export default function Day({navigation, route, id}) {
           }}>
           <Icon name="arrow-back-outline" size={30} color="blue" />
         </TouchableOpacity>
-        <Text style={[styles.dateText, {color: colors.text}]}>
+        <Text style={[styles.dateText, {color: text}]}>
           {date[2] + '. ' + date[1] + '. ' + date[0]}
         </Text>
         <TouchableOpacity
@@ -173,13 +174,11 @@ export default function Day({navigation, route, id}) {
           setModalVisible(!modalVisible);
         }}>
         <View style={styles.centeredView}>
-          <View style={[styles.modalView, {backgroundColor: colors.card}]}>
-            <Text style={[styles.subject, {color: colors.text}]}>
-              {modalTitle}
-            </Text>
+          <View style={[styles.modalView, {backgroundColor: card}]}>
+            <Text style={[styles.subject, {color: text}]}>{modalTitle}</Text>
             <ScrollView>
               <HTMLView
-                textComponentProps={{style: {color: colors.text}}}
+                textComponentProps={{style: {color: text}}}
                 //value={modalData === null ? '' : modalData.replace(/\s+/g, ' ')} // removes spaces between words
                 value={modalData}
                 addLineBreaks={false}
@@ -190,14 +189,12 @@ export default function Day({navigation, route, id}) {
               underlayColor="#2196F3"
               style={{
                 ...styles.openButton,
-                backgroundColor: colors.background,
+                backgroundColor: background,
               }}
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}>
-              <Text style={[styles.textStyle, {color: colors.text}]}>
-                Hide Modal
-              </Text>
+              <Text style={[styles.textStyle, {color: text}]}>Hide Modal</Text>
             </TouchableHighlight>
           </View>
         </View>
@@ -222,10 +219,9 @@ export default function Day({navigation, route, id}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: '#FFFFFF',
   },
   rowContainer: {
-    backgroundColor: '#F0F0F0',
+    //backgroundColor: '#F0F0F0',
     height: 100,
     width: '90%',
     marginLeft: 20,

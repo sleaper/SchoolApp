@@ -90,42 +90,85 @@ const dark = {
 export default function Schedule({id, navigation}) {
   const {theme} = useContext(ThemeContext);
   const {info} = useContext(MyContext);
+  const [{card, text, primary, background, notification}] = useContext(
+    ThemeContext,
+  );
   /*const {loading, error, data} = useQuery(getData, {
     variables: {id: id, key: info.key},
   });*/
 
-  if (theme === 'dark') {
-    return (
-      <View style={styles.container}>
-        <Calendar
-          enableSwipeMonths={true}
-          onDayPress={(day) => {
-            navigation.navigate('Day', {
-              date: [day.year, day.month, day.day],
-            });
-          }}
-          theme={dark}
-        />
-        {/* <AddButton /> */}
-      </View>
-    );
-  } else {
-    return (
-      <View style={styles.container}>
-        <Calendar
-          enableSwipeMonths={true}
-          onDayPress={(day) => {
-            console.log(day);
-            navigation.navigate('Day', {
-              date: [day.year, day.month, day.day],
-            });
-          }}
-          theme={light}
-        />
-        {/* <AddButton /> Think about what you whant */}
-      </View>
-    );
-  }
+  // if (theme === 'dark') {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Calendar
+  //         enableSwipeMonths={true}
+  //         onDayPress={(day) => {
+  //           navigation.navigate('Day', {
+  //             date: [day.year, day.month, day.day],
+  //           });
+  //         }}
+  //         theme={dark}
+  //       />
+  //       {/* <AddButton /> */}
+  //     </View>
+  //   );
+  // } else {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Calendar
+  //         enableSwipeMonths={true}
+  //         onDayPress={(day) => {
+  //           console.log(day);
+  //           navigation.navigate('Day', {
+  //             date: [day.year, day.month, day.day],
+  //           });
+  //         }}
+  //         theme={light}
+  //       />
+  //       {/* <AddButton /> Think about what you whant */}
+  //     </View>
+  //   );
+  // }
+  return (
+    <View style={styles.container}>
+      <Calendar
+        enableSwipeMonths={true}
+        onDayPress={(day) => {
+          console.log(day);
+          navigation.navigate('Day', {
+            date: [day.year, day.month, day.day],
+          });
+        }}
+        theme={{
+          backgroundColor: background,
+          calendarBackground: background,
+          textSectionTitleColor: text,
+          textSectionTitleDisabledColor: '#d9e1e8',
+          selectedDayBackgroundColor: '#00adf5',
+          selectedDayTextColor: '#ffffff',
+          todayTextColor: primary,
+          dayTextColor: notification,
+          textDisabledColor: '#d9e1e8',
+          dotColor: '#00adf5',
+          selectedDotColor: '#ffffff',
+          arrowColor: 'orange',
+          disabledArrowColor: '#d9e1e8',
+          monthTextColor: primary,
+          indicatorColor: 'blue',
+          textDayFontFamily: 'monospace',
+          textMonthFontFamily: 'monospace',
+          textDayHeaderFontFamily: 'monospace',
+          textDayFontWeight: '300',
+          textMonthFontWeight: 'bold',
+          textDayHeaderFontWeight: '300',
+          textDayFontSize: 16,
+          textMonthFontSize: 16,
+          textDayHeaderFontSize: 16,
+        }}
+      />
+      {/* <AddButton /> Think about what you whant */}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

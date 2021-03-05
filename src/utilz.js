@@ -86,3 +86,20 @@ export function getLastTwoMonths() {
     JSON.stringify(nextWeek).substring(1, 11),
   ];
 }
+
+export function shadeColor(color, amount) {
+  if ('#fff' === color) {
+    color = '#ffffff';
+  }
+  return (
+    '#' +
+    color
+      .replace(/^#/, '')
+      .replace(/../g, (color) =>
+        (
+          '0' +
+          Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)
+        ).substr(-2),
+      )
+  );
+}

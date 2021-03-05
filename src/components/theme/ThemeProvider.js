@@ -1,47 +1,78 @@
-import React, {createContext, useState} from 'react';
-import {DarkTheme} from '@react-navigation/native';
-import {useColorScheme} from 'react-native-appearance';
+import React, {createContext, useState, useEffect, useMemo} from 'react';
+//import {useColorScheme} from 'react-native-appearance';
+import {themes} from './Themes';
+import AsyncStorage from '@react-native-community/async-storage';
+import {StatusBar, useColorScheme} from 'react-native';
 
-const lightTheme = {
-  dark: false,
-  colors: {
-    text: 'rgb(28, 28, 30)',
-    primary: 'rgb(255, 45, 85)',
-    card: 'rgb(230, 230, 230)',
-    background: 'rgb(255, 255, 255)',
-    border: 'rgb(255, 255, 255)',
-    notification: '#3d3c3c',
-  },
-};
+const defaultDarkThemeName = 'DefaultDark';
+const defaultLightThemeName = 'DefaultLight';
 
-const darkTheme = {
-  dark: true,
-  colors: {
-    ...DarkTheme.colors,
-    text: 'rgb(255, 255, 255)',
-    notification: 'rgb(204, 204, 204)',
-    card: 'rgb(25, 25, 25)',
-  },
-};
+const defaultThemeLight = themes.find((t) => t.name === defaultLightThemeName)
+  .colors;
 
-export const ThemeContext = createContext({});
+const defaultThemeDark = themes.find((t) => t.name === defaultDarkThemeName)
+  .colors;
+
+export const ThemeContext = createContext([defaultThemeLight, () => {}]);
+
+const themeKey = '@skLo/theme-key';
 
 export default function ThemeProvider({children}) {
   const scheme = useColorScheme();
-  const [theme, setTheme] = useState(scheme);
+  const [chacked, setChacked] = useState(false);
+  const [themePref, setThemePref] = useState({});
+  const [colors, setColors] = useState(
+    scheme === 'dark' ? defaultThemeDark : defaultThemeLight,
+  );
 
-  // For tooggling the Theme
-  const toggleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-  };
+  useEffect(() => {
+    AsyncStorage.getItem(themeKey).then((x) => {
+      if (x) {
+        const themeOfChoice = JSON.parse(x);
+        setThemePref(x);
+        const name =
+          themeOfChoice[scheme] ||
+          (scheme === 'dark' ? defaultThemeDark : defaultThemeLight);
+        console.log(name);
+        const c = themes.find((t) => t.name === name).colors;
+        if (c) {
+          setColors(c);
+        }
+      }
+    });
+  }, [scheme]);
 
   return (
-    <ThemeContext.Provider value={{theme, toggleTheme}}>
+    <ThemeContext.Provider
+      value={useMemo(
+        () => [
+          colors,
+          (name) => {
+            const c = themes.find((t) => t.name === name).colors;
+            if (c) {
+              setColors(c);
+              const newThemePref = {
+                ...themePref,
+                [scheme]: name,
+              };
+              setThemePref(newThemePref);
+              AsyncStorage.setItem(themeKey, JSON.stringify(newThemePref));
+            }
+          },
+        ],
+        [colors, scheme, themePref],
+      )}>
+      <StatusBar
+        barStyle={
+          colors.editorBackground === '#002B36'
+            ? 'light-content'
+            : scheme === 'dark'
+            ? 'light-content'
+            : 'dark-content'
+        }
+      />
       {children}
     </ThemeContext.Provider>
   );
 }
+//{theme, toggleTheme}

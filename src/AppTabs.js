@@ -10,9 +10,11 @@ import {ActivityIndicator, Text} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
 import {ThemeContext} from './components/theme/ThemeProvider';
+//import {TestContext} from './components/theme/ThemeProvider';
 import {lightTheme, darkTheme} from './components/theme/Themes';
 import messaging from '@react-native-firebase/messaging';
 import {useTheme} from '@react-navigation/native';
+import {color} from 'react-native-reanimated';
 
 const Tabs = createBottomTabNavigator();
 
@@ -35,7 +37,8 @@ const GET_DEVICE = gql`
 
 export default function AppTabs() {
   const {colors} = useTheme();
-  const {theme} = useContext(ThemeContext);
+  //const {theme} = useContext(ThemeContext);
+  const [{card, text, primary}] = useContext(ThemeContext);
   const {info} = useContext(MyContext);
   const {loading, data, error} = useQuery(GET_USER, {
     variables: info,
@@ -68,8 +71,9 @@ export default function AppTabs() {
     );
   }
 
+  //theme={theme === 'dark' ? darkTheme : lightTheme}
   return (
-    <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
+    <NavigationContainer>
       <Tabs.Navigator
         initialRouteName={'Home'}
         screenOptions={({route}) => ({
@@ -88,8 +92,11 @@ export default function AppTabs() {
           },
         })}
         tabBarOptions={{
-          activeTintColor: theme === 'dark' ? 'white' : 'black',
-          inactiveTintColor: 'gray',
+          activeTintColor: primary, //theme === 'dark' ? 'white' : 'black',
+          inactiveTintColor: text,
+          style: {
+            backgroundColor: card,
+          },
         }}>
         <Tabs.Screen name="Home" options={{title: 'Domov'}}>
           {(props) => (
