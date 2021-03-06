@@ -5,43 +5,43 @@ import {useState} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {MyContext} from '../AuthProvider';
-import {useTheme} from '@react-navigation/native';
+import {ThemeContext} from './theme/ThemeProvider';
 
 export default function login({navigation}) {
-  const {colors} = useTheme();
   const {LogIn} = useContext(MyContext);
+  const [{card, text, background, primary}] = useContext(ThemeContext);
   const [name, setName] = useState('');
   const [passw, setPassw] = useState('');
 
   return (
-    <View style={[styles.container, {backgroundColor: colors.background}]}>
-      <Text style={[styles.logo, {color: colors.primary}]}>Škola-Offline</Text>
+    <View style={[styles.container, {backgroundColor: background}]}>
+      <Text style={[styles.logo, {color: primary}]}>Škola-Offline</Text>
 
-      <View style={[styles.inputView, {backgroundColor: colors.card}]}>
+      <View style={[styles.inputView, {backgroundColor: card}]}>
         <TextInput
           textContentType={'username'}
           onChangeText={(text) => setName(text)}
           value={name}
-          style={[styles.inputText, {color: colors.text}]}
-          placeholderTextColor={colors.text}
+          style={[styles.inputText, {color: text}]}
+          placeholderTextColor={text}
           placeholder="Name.."
         />
       </View>
 
-      <View style={[styles.inputView, {backgroundColor: colors.card}]}>
+      <View style={[styles.inputView, {backgroundColor: card}]}>
         <TextInput
           secureTextEntry={true}
           textContentType={'password'}
           onChangeText={(password) => setPassw(password)}
           value={passw}
-          style={[styles.inputText, {color: colors.text}]}
-          placeholderTextColor={colors.text}
+          style={[styles.inputText, {color: text}]}
+          placeholderTextColor={text}
           placeholder="Password.."
         />
       </View>
 
       <TouchableOpacity
-        style={[styles.loginBtn, {backgroundColor: colors.primary}]}
+        style={[styles.loginBtn, {backgroundColor: primary}]}
         onPress={() => LogIn(name, passw)}>
         <Text style={styles.loginText} title="Log in">
           Log In
@@ -89,13 +89,11 @@ const styles = StyleSheet.create({
   },
   inputView: {
     width: '80%',
-    //backgroundColor: '#e1e1e2',
     borderRadius: 25,
     height: 60,
     marginBottom: 20,
     justifyContent: 'center',
     padding: 20,
-    //color: 'black',
   },
   logo: {
     fontWeight: 'bold',
@@ -104,7 +102,6 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     width: 100,
-    //backgroundColor: '#636266',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',

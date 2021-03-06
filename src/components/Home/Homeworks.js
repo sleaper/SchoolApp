@@ -30,7 +30,6 @@ export default function Homeworks({data}) {
   const client = useApolloClient();
   const {info} = useContext(MyContext);
   const [{card, text, background, notification}] = useContext(ThemeContext);
-  const {colors} = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalData, setModalData] = useState('');

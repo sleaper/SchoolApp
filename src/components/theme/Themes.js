@@ -18,7 +18,7 @@ export const themes = [
     colors: {
       text: 'rgb(255, 255, 255)',
       primary: 'rgb(255, 45, 85)',
-      card: 'rgb(25, 25, 25)',
+      card: 'rgb(30, 30, 30)',
       background: 'rgb(0, 0, 0)',
       border: 'rgb(255, 255, 255)',
       notification: 'rgb(204, 204, 204)',
