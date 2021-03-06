@@ -1,13 +1,27 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useContext, useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {ThemeContext} from '../theme/ThemeProvider';
+import {themes} from '../theme/Themes';
 
 export default function SettingsTabs({name, navigation}) {
   const {colors} = useTheme();
-  const [{text, card, background}] = useContext(ThemeContext);
+  const [{text, card, background}, setTheme] = useContext(ThemeContext);
+
+  const renderItem = ({item}) => {
+    return (
+      <TouchableOpacity
+        style={{alignItems: 'center', paddingBottom: 5}}
+        onPress={() => {
+          setTheme(item.name);
+        }}>
+        <Text style={{color: text, fontSize: 20}}>{item.name}</Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View
       style={{
@@ -15,12 +29,12 @@ export default function SettingsTabs({name, navigation}) {
         justifyContent: 'center',
         backgroundColor: background,
       }}>
-      <View style={{marginTop: 10, alignItems: 'center', marginBottom: 40}}>
+      <View style={{marginTop: 10, alignItems: 'center', marginBottom: 20}}>
         <Icon name="person-circle-outline" size={70} color={text} />
         <Text style={{fontSize: 25, color: text}}>{name}</Text>
       </View>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -31,7 +45,7 @@ export default function SettingsTabs({name, navigation}) {
         <Text style={{fontSize: 20, marginLeft: 5, color: text}}>
           Přidat uživatele
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <View
         style={{
@@ -44,18 +58,12 @@ export default function SettingsTabs({name, navigation}) {
         }}
       />
 
-      <TouchableOpacity
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: card,
-          width: '60%',
-        }}
-        onPress={() => navigation.navigate('Themes')}>
-        <Icon name="color-palette-outline" size={40} color={text} />
-        <Text style={{fontSize: 20, marginLeft: 5, color: text}}>barvy</Text>
-      </TouchableOpacity>
+      <FlatList
+        data={themes}
+        keyExtractor={({name}) => name}
+        renderItem={renderItem}
+        ItemSeparatorComponent={() => <View style={{height: 10}} />}
+      />
     </View>
   );
 }

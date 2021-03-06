@@ -6,9 +6,7 @@ import {themes} from '../theme/Themes';
 import CheckBox from '@react-native-community/checkbox';
 
 export default function ChangeTheme() {
-  const [{text, background, card}, setTheme, setChacked, chacked] = useContext(
-    ThemeContext,
-  );
+  const [{text, background, card}, setTheme] = useContext(ThemeContext);
 
   const renderItem = ({item}) => {
     return (
@@ -25,23 +23,6 @@ export default function ChangeTheme() {
 
   return (
     <View style={{backgroundColor: background}}>
-      {/* <TouchableOpacity
-        onPress={() => setTheme(undefined)}
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: 5,
-          marginTop: 10,
-        }}>
-        <Text style={{fontSize: 18, color: text}}>Auto theme</Text>
-         <CheckBox
-          disabled={false}
-          value={chacked}
-          onValueChange={() => setChacked(!chacked)}
-        /> 
-      </TouchableOpacity> */}
-
       <FlatList
         data={themes}
         keyExtractor={({name}) => name}

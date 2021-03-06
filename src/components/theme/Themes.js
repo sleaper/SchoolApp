@@ -1,66 +1,6 @@
 import {DarkTheme} from '@react-navigation/native';
 import {shadeColor} from '../../utilz';
 
-// export const lightTheme = {
-//   dark: false,
-//   colors: {
-//     text: 'rgb(28, 28, 30)',
-//     primary: 'rgb(255, 45, 85)',
-//     card: 'rgb(230, 230, 230)',
-//     background: 'rgb(255, 255, 255)',
-//     border: 'rgb(255, 255, 255)',
-//     notification: '#3d3c3c',
-//   },
-// };
-
-export const darkTheme = {
-  dark: true,
-  colors: {
-    text: 'rgb(255, 255, 255)',
-    primary: 'rgb(255, 45, 85)',
-    card: 'rgb(25, 25, 25)',
-    background: 'rgb(0, 0, 0)',
-    border: 'rgb(255, 255, 255)',
-    notification: 'rgb(204, 204, 204)',
-  },
-};
-
-export const lightTheme = {
-  dark: false,
-  colors: {
-    text: '#fff',
-    primary: '#AB395B', //'rgb(255, 45, 85)',
-    card: '#2B3C5D',
-    background: '#000c18',
-    border: 'rgb(255, 255, 255)',
-    notification: '#fff',
-  },
-};
-
-export const red = {
-  dark: false,
-  colors: {
-    text: '#fff',
-    primary: 'rgb(255, 45, 85)',
-    card: '#CCCCCC',
-    background: '#390000',
-    border: 'rgb(255, 255, 255)',
-    notification: '#fff',
-  },
-};
-
-export const Abyss = {
-  dark: false,
-  colors: {
-    text: '#fff',
-    primary: 'rgb(255, 45, 85)',
-    card: '#2B3C5D',
-    background: '#000c18',
-    border: 'rgb(255, 255, 255)',
-    notification: '#fff',
-  },
-};
-
 export const themes = [
   {
     name: 'DefaultLight',
@@ -84,28 +24,28 @@ export const themes = [
       notification: 'rgb(204, 204, 204)',
     },
   },
-  {
-    name: 'Red',
-    colors: {
-      text: '#fff',
-      primary: 'rgb(255, 45, 85)',
-      card: '#833',
-      background: '#390000',
-      border: 'rgb(255, 255, 255)',
-      notification: '#fff',
-    },
-  },
-  {
-    name: 'Abyss',
-    colors: {
-      text: '#fff',
-      primary: 'rgb(255, 45, 85)',
-      card: '#2B3C5D',
-      background: '#000c18',
-      border: 'rgb(255, 255, 255)',
-      notification: '#fff',
-    },
-  },
+  // {
+  //   name: 'Red',
+  //   colors: {
+  //     text: '#fff',
+  //     primary: 'rgb(255, 45, 85)',
+  //     card: '#833',
+  //     background: '#390000',
+  //     border: 'rgb(255, 255, 255)',
+  //     notification: '#fff',
+  //   },
+  // },
+  // {
+  //   name: 'Abyss',
+  //   colors: {
+  //     text: '#fff',
+  //     primary: 'rgb(255, 45, 85)',
+  //     card: '#2B3C5D',
+  //     background: '#000c18',
+  //     border: 'rgb(255, 255, 255)',
+  //     notification: '#fff',
+  //   },
+  // },
 ];
 
 export const vscodeThemes = [
@@ -274,21 +214,4 @@ export const vscodeThemes = [
       buttonSecondaryBackground: '#3A3D41',
     },
   },
-].map((x) => {
-  return {
-    ...x,
-    colors: {
-      ...x.colors,
-      buttonHoverBackground: shadeColor(x.colors.buttonBackground, 20),
-      buttonSecondaryHoverBackground: shadeColor(
-        x.colors.buttonSecondaryBackground,
-        20,
-      ),
-      buttonForegroundDarker: shadeColor(x.colors.buttonForeground, -20),
-      buttonSecondaryForegroundDarker: shadeColor(
-        x.colors.buttonSecondaryForeground,
-        -20,
-      ),
-    },
-  };
-});
+];
