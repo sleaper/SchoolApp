@@ -23,13 +23,11 @@ export default function HomeStack({id, name}) {
           gestureEnabled: true,
           cardOverlayEnabled: true,
           ...TransitionPresets.ModalPresentationIOS,
-        },
-        useHeaderOptions(),
-        {
           cardStyle: {backgroundColor: background},
           headerStyle: {backgroundColor: card},
           headerTintColor: text,
-        })
+        },
+        useHeaderOptions())
       }>
       <Stack.Screen
         options={({navigation}) => ({

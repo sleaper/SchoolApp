@@ -29,7 +29,7 @@ export default function SettingsTabs({name, navigation}) {
         justifyContent: 'center',
         backgroundColor: background,
       }}>
-      <View style={{marginTop: 10, alignItems: 'center', marginBottom: 20}}>
+      <View style={{marginTop: 10, alignItems: 'center', marginBottom: 2}}>
         <Icon name="person-circle-outline" size={70} color={text} />
         <Text style={{fontSize: 25, color: text}}>{name}</Text>
       </View>
@@ -53,7 +53,7 @@ export default function SettingsTabs({name, navigation}) {
           height: 2,
           width: '90%',
           borderRadius: 10,
-          marginTop: 40,
+          marginTop: 20,
           marginBottom: 20,
         }}
       />

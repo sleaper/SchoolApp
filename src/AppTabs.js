@@ -36,9 +36,9 @@ const GET_DEVICE = gql`
 `;
 
 export default function AppTabs() {
-  const {colors} = useTheme();
+  //const {colors} = useTheme();
   //const {theme} = useContext(ThemeContext);
-  const [{card, text, primary}] = useContext(ThemeContext);
+  const [{card, text, primary, background}] = useContext(ThemeContext);
   const {info} = useContext(MyContext);
   const {loading, data, error} = useQuery(GET_USER, {
     variables: info,
@@ -66,14 +66,14 @@ export default function AppTabs() {
     console.log(error);
     return (
       <Center>
-        <Text style={{color: colors.text}}>Nejsi připojený k internetu.</Text>
+        <Text style={{color: text}}>Nejsi připojený k internetu.</Text>
       </Center>
     );
   }
 
   //theme={theme === 'dark' ? darkTheme : lightTheme}
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={{colors: {background: background}}}>
       <Tabs.Navigator
         initialRouteName={'Home'}
         screenOptions={({route}) => ({
