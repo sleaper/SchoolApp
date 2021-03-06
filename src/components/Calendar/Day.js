@@ -21,6 +21,7 @@ import DayItem from './DayItem';
 import Arrows from './Arrows';
 import HTMLView from 'react-native-htmlview';
 import {ThemeContext} from '../theme/ThemeProvider';
+import Emoji from 'react-native-emoji';
 
 const getData = gql`
   query($date: String!, $key: String!) {
@@ -199,19 +200,24 @@ export default function Day({navigation, route, id}) {
           </View>
         </View>
       </Modal>
-
-      <FlatList
-        data={data.Calendar.schedule}
-        renderItem={({item}) => (
-          <DayItem
-            item={item}
-            setModalVisible={setModalVisible}
-            setModalTitle={setModalTitle}
-            setModalData={setModalData}
-          />
-        )}
-        keyExtractor={(item) => item.Id + item.Order}
-      />
+      {data.Calendar.schedule.length === 0 ? (
+        <View style={{alignItems: 'center'}}>
+          <Emoji name=":man-shrugging:" style={{fontSize: 50}} />
+        </View>
+      ) : (
+        <FlatList
+          data={data.Calendar.schedule}
+          renderItem={({item}) => (
+            <DayItem
+              item={item}
+              setModalVisible={setModalVisible}
+              setModalTitle={setModalTitle}
+              setModalData={setModalData}
+            />
+          )}
+          keyExtractor={(item) => item.Id + item.Order}
+        />
+      )}
     </View>
   );
 }
@@ -221,7 +227,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   rowContainer: {
-    //backgroundColor: '#F0F0F0',
     height: 100,
     width: '90%',
     marginLeft: 20,
