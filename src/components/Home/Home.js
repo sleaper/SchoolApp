@@ -15,20 +15,27 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {ThemeContext} from '../theme/ThemeProvider';
 
 const getData = gql`
-  query($id: String!, $key: String!) {
-    Home(id: $id, key: $key) {
+  query($id: String!, $key: String!, $token: String!) {
+    Home(id: $id, key: $key, token: $token) {
       schedule
       homeworks
     }
   }
 `;
 
-export default function Home({id, modal, setModal, name, sideMenu}) {
+export default function Home({id, modal, setModal, name, token}) {
   const [{card, text, background}] = useContext(ThemeContext);
   const {info} = useContext(MyContext);
   const {loading, error, data} = useQuery(getData, {
-    variables: {id: id, key: info.key},
+    variables: {id: id, key: info.key, token: token},
   });
+
+  // const filterData = () => {
+  //   const filteredData = data.Home.homeworks.filter(
+  //     (item) => item.Active === true,
+  //   );
+  //   return filteredData;
+  // };
 
   if (loading) {
     return (
@@ -37,9 +44,10 @@ export default function Home({id, modal, setModal, name, sideMenu}) {
       </Center>
     );
   }
+
   return (
     <View style={[styles.container, {backgroundColor: background}]}>
-      <DaySchedule data={data.Home.schedule} />
+      <DaySchedule data={data.Home.schedule} token={token} />
       {/* {<Tests />} */}
       <Homeworks data={data.Home.homeworks} id={id} />
 

@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   Text,
   FlatList,
@@ -9,87 +9,152 @@ import {
   TouchableHighlight,
   ScrollView,
   Modal,
+  Animated,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 import {editTime} from '../../utilz';
-import {useTheme} from '@react-navigation/native';
 import Swipable from 'react-native-gesture-handler/Swipeable';
-import {gql, useApolloClient} from '@apollo/client';
+import {gql, useMutation} from '@apollo/client';
 import {MyContext} from '../../AuthProvider';
 import {ThemeContext} from '../theme/ThemeProvider';
+import messaging from '@react-native-firebase/messaging';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const query = gql`
-  query($id: String!, $key: String!) {
-    Home(id: $id, key: $key) {
+const getData = gql`
+  query($id: String!, $key: String!, $token: String!) {
+    Home(id: $id, key: $key, token: $token) {
       homeworks
     }
   }
 `;
 
+const UPDATE_DATA = gql`
+  mutation($data: String!, $token: String!) {
+    UpdateHomeworks(data: $data, token: $token) {
+      Data
+    }
+  }
+`;
+
 export default function Homeworks({data}) {
-  const client = useApolloClient();
-  const {info} = useContext(MyContext);
+  const [updateData] = useMutation(UPDATE_DATA, {
+    ignoreResults: true,
+  });
   const [{card, text, background, notification}] = useContext(ThemeContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalData, setModalData] = useState('');
   const [items, setItems] = useState(data);
+  const [token, setToken] = useState('');
+  const [swipated, setSwipated] = useState(false);
+  const [showed, setShowed] = useState(true); // True for items to remove, False for items to add
 
-  /*const LeftActions = (progress, dragX) => {
+  // Rename showed
+  // Maybe connect use effects
+  useEffect(() => {
+    async function getToken() {
+      const Token = await messaging().getToken();
+      setToken(Token);
+    }
+
+    getToken();
+  });
+
+  useEffect(() => {
+    async function update() {
+      updateData({variables: {data: JSON.stringify(items), token: token}});
+      setSwipated(false);
+    }
+    if (swipated) {
+      // Performance check for updating user JUST swiped
+      update();
+    }
+  }, [items, swipated, updateData, token]);
+
+  const LeftActions = (progress, dragX) => {
     const scale = dragX.interpolate({
       inputRange: [0, 100],
       outputRange: [0, 1],
       extrapolate: 'clamp',
     });
     return (
-      <View style={styles.leftAction}>
+      <View
+        style={[
+          styles.leftAction,
+          showed ? {backgroundColor: '#dd2c00'} : {backgroundColor: 'green'},
+        ]}>
         <Animated.Text
-          style={[
-            styles.actionText,
-            {color: text, transform: [{scale}]},
-          ]}>
-          Removed
+          style={[styles.actionText, {color: text, transform: [{scale}]}]}>
+          {showed ? 'Remove' : 'Add'}
         </Animated.Text>
       </View>
     );
   };
 
   const deleteItembyId = (id) => {
-    const filteredData = items.filter((item) => item.id !== id);
-    setItems(filteredData);
-    //client.writeQuery({query, data: {homeworks: filteredData}});
-  };*/
+    // const filteredData = items.filter((t1) => t1.Active === true);
+    // setItems(filteredData);
+    setSwipated(true);
+    setItems(() =>
+      items.map((el) => (el.id === id ? {...el, Active: false} : el)),
+    );
+  };
+
+  const unDeleteItembyId = (id) => {
+    setSwipated(true);
+    setItems(() =>
+      items.map((el) => (el.id === id ? {...el, Active: true} : el)),
+    );
+  };
 
   const renderItem = ({item}) => {
-    return (
-      // <Swipable
-      //   renderLeftActions={LeftActions}
-      //   onSwipeableLeftOpen={() => deleteItembyId(item.id)}>
-      <TouchableOpacity
-        style={[
-          styles.rowContainer,
-          {
-            backgroundColor: card,
-          },
-        ]}
-        onPress={() => {
-          setModalTitle(item.Name);
-          setModalData(item.Info);
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={[styles.itemStripe, {backgroundColor: item.Color}]} />
-        <View style={{paddingBottom: 10, paddingLeft: 15, paddingTop: 15}}>
-          <Text style={[styles.subject, {color: text}]}>{item.Name}</Text>
-          <Text style={{color: text}}>{editTime(item.TimeTo)}</Text>
-        </View>
-      </TouchableOpacity>
-      // </Swipable>
-    );
+    if (item.Active === showed) {
+      return (
+        <Swipable
+          renderLeftActions={LeftActions}
+          onSwipeableLeftOpen={
+            showed
+              ? () => deleteItembyId(item.id)
+              : () => unDeleteItembyId(item.id)
+          }>
+          <TouchableOpacity
+            style={[
+              styles.rowContainer,
+              {
+                backgroundColor: card,
+              },
+            ]}
+            onPress={() => {
+              setModalTitle(item.Name);
+              setModalData(item.Info);
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={[styles.itemStripe, {backgroundColor: item.Color}]} />
+            <View style={{paddingBottom: 10, paddingLeft: 15, paddingTop: 15}}>
+              <Text style={[styles.subject, {color: text}]}>{item.Name}</Text>
+              <Text style={{color: text}}>{editTime(item.TimeTo)}</Text>
+            </View>
+          </TouchableOpacity>
+        </Swipable>
+      );
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, {color: notification}]}>Domácí úkoly</Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <Text style={[styles.title, {color: notification}]}>Domácí úkoly</Text>
+        <TouchableOpacity
+          onPress={() => setShowed(!showed)}
+          style={{marginRight: 20}}>
+          <Icon name={'trash-bin-outline'} size={30} color={'red'} />
+        </TouchableOpacity>
+      </View>
 
       <Modal
         animationType="slide"
@@ -202,9 +267,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-    /*position: 'absolute',
-    right: 2,
-    bottom: 2,*/
   },
   textStyle: {
     color: 'white',
@@ -231,7 +293,7 @@ const styles = StyleSheet.create({
   },
   actionText: {
     fontWeight: '600',
-    fontSize: 15,
+    fontSize: 18,
     padding: 15,
   },
   itemStripe: {

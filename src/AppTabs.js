@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Center from './components/Center';
-import {NavigationContainer, DarkTheme} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStack from './components/HomeStack';
 import {MyContext} from './AuthProvider';
@@ -10,11 +10,8 @@ import {ActivityIndicator, Text} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
 import {ThemeContext} from './components/theme/ThemeProvider';
-//import {TestContext} from './components/theme/ThemeProvider';
-import {lightTheme, darkTheme} from './components/theme/Themes';
 import messaging from '@react-native-firebase/messaging';
-import {useTheme} from '@react-navigation/native';
-import {color} from 'react-native-reanimated';
+import {useState} from 'react';
 
 const Tabs = createBottomTabNavigator();
 
@@ -36,22 +33,24 @@ const GET_DEVICE = gql`
 `;
 
 export default function AppTabs() {
-  //const {colors} = useTheme();
-  //const {theme} = useContext(ThemeContext);
   const [{card, text, primary, background}] = useContext(ThemeContext);
   const {info} = useContext(MyContext);
+  const [token, setToken] = useState('');
   const {loading, data, error} = useQuery(GET_USER, {
     variables: info,
   });
-  const [addToken] = useMutation(GET_DEVICE, {ignoreResults: true});
+  const [addToken] = useMutation(GET_DEVICE, {
+    ignoreResults: true,
+  });
 
   useEffect(() => {
-    async function geToken() {
-      const token = await messaging().getToken();
-      addToken({variables: {name: info.name, key: info.key, token: token}});
+    async function getToken() {
+      const Token = await messaging().getToken();
+      setToken(Token);
+      addToken({variables: {name: info.name, key: info.key, token: Token}});
     }
 
-    geToken();
+    getToken();
   });
 
   if (loading) {
@@ -92,7 +91,7 @@ export default function AppTabs() {
           },
         })}
         tabBarOptions={{
-          activeTintColor: primary, //theme === 'dark' ? 'white' : 'black',
+          activeTintColor: primary,
           inactiveTintColor: text,
           style: {
             backgroundColor: card,
@@ -104,6 +103,7 @@ export default function AppTabs() {
               {...props}
               name={data.UserInfo.Name}
               id={data.UserInfo.PersonId}
+              token={token}
             />
           )}
         </Tabs.Screen>

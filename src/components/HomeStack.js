@@ -12,7 +12,7 @@ import {useHeaderOptions} from '../hooks/useHeaderOptions';
 
 const Stack = createStackNavigator();
 
-export default function HomeStack({id, name}) {
+export default function HomeStack({id, name, token}) {
   const {LogOut} = useContext(MyContext);
   const [modal, setModal] = useState(false);
   const [{background, text, primary, card}] = useContext(ThemeContext);
@@ -57,6 +57,7 @@ export default function HomeStack({id, name}) {
             name={name}
             modal={modal}
             setModal={setModal}
+            token={token}
           />
         )}
       </Stack.Screen>
