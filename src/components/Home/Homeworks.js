@@ -15,10 +15,10 @@ import HTMLView from 'react-native-htmlview';
 import {editTime} from '../../utilz';
 import Swipable from 'react-native-gesture-handler/Swipeable';
 import {gql, useMutation} from '@apollo/client';
-import {MyContext} from '../../AuthProvider';
 import {ThemeContext} from '../theme/ThemeProvider';
 import messaging from '@react-native-firebase/messaging';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const getData = gql`
   query($id: String!, $key: String!, $token: String!) {
@@ -46,9 +46,8 @@ export default function Homeworks({data}) {
   const [modalData, setModalData] = useState('');
   const [items, setItems] = useState(data);
   const [token, setToken] = useState('');
-  const [swipated, setSwipated] = useState(false);
-  const [showed, setShowed] = useState(true); // True for items to remove, False for items to add
-
+  const [swiped, setSwiped] = useState(false);
+  const [showDeleted, setShowDeleted] = useState(true); // True for items to remove, False for items to add
   // Rename showed
   // Maybe connect use effects
   useEffect(() => {
@@ -63,13 +62,13 @@ export default function Homeworks({data}) {
   useEffect(() => {
     async function update() {
       updateData({variables: {data: JSON.stringify(items), token: token}});
-      setSwipated(false);
+      setSwiped(false);
     }
-    if (swipated) {
-      // Performance check for updating user JUST swiped
+    if (swiped) {
+      //Performance check for updating user JUST swiped
       update();
     }
-  }, [items, swipated, updateData, token]);
+  }, [items, swiped, updateData, token]);
 
   const LeftActions = (progress, dragX) => {
     const scale = dragX.interpolate({
@@ -81,39 +80,39 @@ export default function Homeworks({data}) {
       <View
         style={[
           styles.leftAction,
-          showed ? {backgroundColor: '#dd2c00'} : {backgroundColor: 'green'},
+          showDeleted
+            ? {backgroundColor: '#dd2c00'}
+            : {backgroundColor: 'green'},
         ]}>
         <Animated.Text
           style={[styles.actionText, {color: text, transform: [{scale}]}]}>
-          {showed ? 'Remove' : 'Add'}
+          {showDeleted ? 'Remove' : 'Add'}
         </Animated.Text>
       </View>
     );
   };
 
   const deleteItembyId = (id) => {
-    // const filteredData = items.filter((t1) => t1.Active === true);
-    // setItems(filteredData);
-    setSwipated(true);
     setItems(() =>
       items.map((el) => (el.id === id ? {...el, Active: false} : el)),
     );
+    setSwiped(true);
   };
 
   const unDeleteItembyId = (id) => {
-    setSwipated(true);
     setItems(() =>
       items.map((el) => (el.id === id ? {...el, Active: true} : el)),
     );
+    setSwiped(true);
   };
 
   const renderItem = ({item}) => {
-    if (item.Active === showed) {
+    if (item.Active === showDeleted) {
       return (
         <Swipable
           renderLeftActions={LeftActions}
           onSwipeableLeftOpen={
-            showed
+            showDeleted
               ? () => deleteItembyId(item.id)
               : () => unDeleteItembyId(item.id)
           }>
@@ -150,9 +149,13 @@ export default function Homeworks({data}) {
         }}>
         <Text style={[styles.title, {color: notification}]}>Domácí úkoly</Text>
         <TouchableOpacity
-          onPress={() => setShowed(!showed)}
+          onPress={() => setShowDeleted(!showDeleted)}
           style={{marginRight: 20}}>
-          <Icon name={'trash-bin-outline'} size={30} color={'red'} />
+          <Icon
+            name={'trash-bin-outline'}
+            size={30}
+            color={showDeleted ? 'grey' : 'red'}
+          />
         </TouchableOpacity>
       </View>
 

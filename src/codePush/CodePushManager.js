@@ -36,6 +36,8 @@ const CodePushManager = () => {
         } else {
           codePush.sync({
             deploymentKey: codePushKeys.production,
+            updateDialog: true,
+            installMode: codePush.InstallMode.IMMEDIATE,
           });
         }
       })
