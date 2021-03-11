@@ -19,6 +19,7 @@ import {ThemeContext} from '../theme/ThemeProvider';
 import messaging from '@react-native-firebase/messaging';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
+import {MyContext} from '../../AuthProvider';
 
 const getData = gql`
   query($id: String!, $key: String!, $token: String!) {
@@ -29,8 +30,8 @@ const getData = gql`
 `;
 
 const UPDATE_DATA = gql`
-  mutation($data: String!, $token: String!) {
-    UpdateHomeworks(data: $data, token: $token) {
+  mutation($data: String!, $token: String!, $key: String!) {
+    UpdateHomeworks(data: $data, token: $token, key: $key) {
       Data
     }
   }
@@ -48,6 +49,7 @@ export default function Homeworks({data}) {
   const [token, setToken] = useState('');
   const [swiped, setSwiped] = useState(false);
   const [showDeleted, setShowDeleted] = useState(true); // True for items to remove, False for items to add
+  const {info} = useContext(MyContext);
   // Rename showed
   // Maybe connect use effects
   useEffect(() => {
@@ -61,14 +63,16 @@ export default function Homeworks({data}) {
 
   useEffect(() => {
     async function update() {
-      updateData({variables: {data: JSON.stringify(items), token: token}});
+      updateData({
+        variables: {data: JSON.stringify(items), token: token, key: info.key},
+      });
       setSwiped(false);
     }
     if (swiped) {
       //Performance check for updating user JUST swiped
       update();
     }
-  }, [items, swiped, updateData, token]);
+  }, [items, swiped, updateData, token, info]);
 
   const LeftActions = (progress, dragX) => {
     const scale = dragX.interpolate({
