@@ -40,15 +40,15 @@ export default function Providers() {
   return (
     <SafeAreaProvider forceInset={{top: 'always', bottom: 'always'}}>
       <ApolloProvider client={apoloCLient}>
-        <AppearanceProvider>
-          <ThemeProvider>
-            <TokenProvider>
+        <TokenProvider>
+          <AppearanceProvider>
+            <ThemeProvider>
               <Authprovider>
                 <Routes />
               </Authprovider>
-            </TokenProvider>
-          </ThemeProvider>
-        </AppearanceProvider>
+            </ThemeProvider>
+          </AppearanceProvider>
+        </TokenProvider>
       </ApolloProvider>
     </SafeAreaProvider>
   );

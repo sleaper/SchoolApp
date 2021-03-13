@@ -9,8 +9,8 @@ import {ThemeContext} from './theme/ThemeProvider';
 export default function login({navigation}) {
   const {LogIn, wrongPass} = useContext(MyContext);
   const [{card, text, background, primary}] = useContext(ThemeContext);
-  const [name, setName] = useState('');
-  const [passw, setPassw] = useState('');
+  const [name, setName] = useState('spac.petr');
+  const [passw, setPassw] = useState('n2a4RV33');
 
   return (
     <View style={[styles.container, {backgroundColor: background}]}>

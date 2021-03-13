@@ -51,8 +51,10 @@ export default function AppTabs() {
     // }
 
     // getToken();
-    addToken({variables: {name: info.name, key: info.key, token: token}});
-  });
+    if (token) {
+      addToken({variables: {name: info.name, key: info.key, token: token}});
+    }
+  }, [token, addToken, info]);
 
   if (loading) {
     return (

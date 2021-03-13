@@ -4,7 +4,7 @@ import messaging from '@react-native-firebase/messaging';
 export const GetTokenProvider = createContext({});
 
 export default function ThemeProvider({children}) {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     async function getToken() {
@@ -13,7 +13,7 @@ export default function ThemeProvider({children}) {
     }
 
     getToken();
-  });
+  }, []);
 
   return (
     <GetTokenProvider.Provider value={{token}}>
