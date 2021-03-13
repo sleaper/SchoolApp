@@ -1,12 +1,9 @@
-import {DarkTheme} from '@react-navigation/native';
-import {shadeColor} from '../../utilz';
-
 export const themes = [
   {
     name: 'DefaultLight',
     colors: {
       text: 'rgb(28, 28, 30)',
-      primary: 'rgb(255, 45, 85)',
+      primary: 'rgb(0, 141, 255)',
       card: 'rgb(230, 230, 230)',
       background: 'rgb(255, 255, 255)',
       border: 'rgb(255, 255, 255)',
@@ -17,7 +14,7 @@ export const themes = [
     name: 'DefaultDark',
     colors: {
       text: 'rgb(255, 255, 255)',
-      primary: 'rgb(255, 45, 85)',
+      primary: 'rgb(0, 141, 255)',
       card: 'rgb(30, 30, 30)',
       background: 'rgb(0, 0, 0)',
       border: 'rgb(255, 255, 255)',

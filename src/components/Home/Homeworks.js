@@ -16,9 +16,8 @@ import {editTime} from '../../utilz';
 import Swipable from 'react-native-gesture-handler/Swipeable';
 import {gql, useMutation} from '@apollo/client';
 import {ThemeContext} from '../theme/ThemeProvider';
-import messaging from '@react-native-firebase/messaging';
+import {GetTokenProvider} from '../../TokenProvider';
 import Icon from 'react-native-vector-icons/Ionicons';
-import AsyncStorage from '@react-native-community/async-storage';
 import {MyContext} from '../../AuthProvider';
 
 const getData = gql`
@@ -41,25 +40,26 @@ export default function Homeworks({data}) {
   const [updateData] = useMutation(UPDATE_DATA, {
     ignoreResults: true,
   });
+  const {token} = useContext(GetTokenProvider);
   const [{card, text, background, notification}] = useContext(ThemeContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalData, setModalData] = useState('');
   const [items, setItems] = useState(data);
-  const [token, setToken] = useState('');
+  //const [token, setToken] = useState('');
   const [swiped, setSwiped] = useState(false);
   const [showDeleted, setShowDeleted] = useState(true); // True for items to remove, False for items to add
   const {info} = useContext(MyContext);
   // Rename showed
   // Maybe connect use effects
-  useEffect(() => {
-    async function getToken() {
-      const Token = await messaging().getToken();
-      setToken(Token);
-    }
+  // useEffect(() => {
+  //   async function getToken() {
+  //     const Token = await messaging().getToken();
+  //     setToken(Token);
+  //   }
 
-    getToken();
-  });
+  //   getToken();
+  // });
 
   useEffect(() => {
     async function update() {

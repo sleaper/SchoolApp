@@ -10,8 +10,7 @@ import {ActivityIndicator, Text} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
 import {ThemeContext} from './components/theme/ThemeProvider';
-import messaging from '@react-native-firebase/messaging';
-import {useState} from 'react';
+import {GetTokenProvider} from './TokenProvider';
 
 const Tabs = createBottomTabNavigator();
 
@@ -35,7 +34,8 @@ const GET_DEVICE = gql`
 export default function AppTabs() {
   const [{card, text, primary, background}] = useContext(ThemeContext);
   const {info} = useContext(MyContext);
-  const [token, setToken] = useState('');
+  const {token} = useContext(GetTokenProvider);
+  //const [token, setToken] = useState('');
   const {loading, data, error} = useQuery(GET_USER, {
     variables: info,
   });
@@ -44,13 +44,14 @@ export default function AppTabs() {
   });
 
   useEffect(() => {
-    async function getToken() {
-      const Token = await messaging().getToken();
-      setToken(Token);
-      addToken({variables: {name: info.name, key: info.key, token: Token}});
-    }
+    // async function getToken() {
+    //   const Token = await messaging().getToken();
+    //   setToken(Token);
+    //   addToken({variables: {name: info.name, key: info.key, token: Token}});
+    // }
 
-    getToken();
+    // getToken();
+    addToken({variables: {name: info.name, key: info.key, token: token}});
   });
 
   if (loading) {

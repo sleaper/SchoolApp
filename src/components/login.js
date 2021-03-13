@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import AsyncStorage from '@react-native-community/async-storage';
 import React, {useContext} from 'react';
 import {useState} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
@@ -8,7 +7,7 @@ import {MyContext} from '../AuthProvider';
 import {ThemeContext} from './theme/ThemeProvider';
 
 export default function login({navigation}) {
-  const {LogIn} = useContext(MyContext);
+  const {LogIn, wrongPass} = useContext(MyContext);
   const [{card, text, background, primary}] = useContext(ThemeContext);
   const [name, setName] = useState('');
   const [passw, setPassw] = useState('');
@@ -17,6 +16,9 @@ export default function login({navigation}) {
     <View style={[styles.container, {backgroundColor: background}]}>
       <Text style={[styles.logo, {color: primary}]}>Škola-Offline</Text>
 
+      {wrongPass ? (
+        <Text style={styles.onWrongPassword}>Špatné jméno nebo heslo</Text>
+      ) : null}
       <View style={[styles.inputView, {backgroundColor: card}]}>
         <TextInput
           textContentType={'username'}
@@ -24,6 +26,7 @@ export default function login({navigation}) {
           value={name}
           style={[styles.inputText, {color: text}]}
           placeholderTextColor={text}
+          autoCompleteType={'username'}
           placeholder="Name.."
         />
       </View>
@@ -36,6 +39,7 @@ export default function login({navigation}) {
           value={passw}
           style={[styles.inputText, {color: text}]}
           placeholderTextColor={text}
+          autoCompleteType={'password'}
           placeholder="Password.."
         />
       </View>
@@ -47,36 +51,6 @@ export default function login({navigation}) {
           Log In
         </Text>
       </TouchableOpacity>
-
-      {/* <TouchableOpacity
-        style={styles.loginBtn}
-        onPress={async () => {
-          await AsyncStorage.removeItem('user', (err) => {
-            if (err) {
-              console.error(err);
-            }
-          });
-        }}>
-        <Text style={styles.loginText} title="Clear storage">
-          Clear storage
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.loginBtn}
-        onPress={async () => {
-          await AsyncStorage.getAllKeys((err, test) => {
-            if (err) {
-              console.error(err);
-            } else {
-              console.log(test);
-            }
-          });
-        }}>
-        <Text style={styles.loginText} title="Clear storage">
-          see storage
-        </Text>
-      </TouchableOpacity> */}
     </View>
   );
 }
@@ -112,5 +86,10 @@ const styles = StyleSheet.create({
   },
   inputText: {
     height: 50,
+  },
+  onWrongPassword: {
+    color: 'red',
+    fontSize: 15,
+    marginBottom: 5,
   },
 });

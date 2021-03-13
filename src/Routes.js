@@ -3,7 +3,6 @@ import React, {useContext, useEffect} from 'react';
 import AppTabs from './AppTabs';
 import AuthTabs from './AuthTabs';
 import {MyContext} from './AuthProvider';
-import AsyncStorage from '@react-native-community/async-storage';
 import RNSInfo from 'react-native-sensitive-info';
 
 // YzNCaFl5NXdaWFJ5OmJqSmhORkpXTXpNPQ==

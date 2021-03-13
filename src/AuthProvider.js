@@ -1,11 +1,12 @@
-import React, {useState, useEffect, createContext} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-import {gql, useLazyQuery} from '@apollo/client';
+import React, {useState, useEffect, createContext, useContext} from 'react';
+import {gql, useLazyQuery, useMutation} from '@apollo/client';
 import base64 from 'react-native-base64';
 import {ActivityIndicator, Text} from 'react-native';
 import Center from './components/Center';
 import {useApolloClient} from '@apollo/client';
 import SInfo from 'react-native-sensitive-info';
+import messaging from '@react-native-firebase/messaging';
+import {GetTokenProvider} from '../src/TokenProvider';
 
 export const MyContext = createContext({});
 
@@ -17,12 +18,24 @@ const AUTH_USER = gql`
   }
 `;
 
+const REMOVE_DATA = gql`
+  mutation($id: String!, $token: String!) {
+    RemoveData(id: $id, token: $token) {
+      Data
+    }
+  }
+`;
+
 export default function AuthProvider({children}) {
   const client = useApolloClient();
+  const {token} = useContext(GetTokenProvider);
   const [callData, {called, loading, data, error}] = useLazyQuery(AUTH_USER);
   const [user, setUser] = useState(null);
   const [info, setInfo] = useState(null);
-
+  const [wrongPass, setWrongPass] = useState(false);
+  const [removeData] = useMutation(REMOVE_DATA, {
+    ignoreResults: true,
+  });
   /*const resetStorage = async () => {
     await AsyncStorage.removeItem('user', (err) => {
       if (err) {
@@ -38,7 +51,6 @@ export default function AuthProvider({children}) {
     } catch (err) {
       console.error(err);
     }
-
     console.log('cleared');
   };
 
@@ -47,8 +59,9 @@ export default function AuthProvider({children}) {
     if (data) {
       if (data.UserAuth.AuthStatus === true) {
         setUser(true);
+        setWrongPass(false);
       } else {
-        console.log('spatne');
+        setWrongPass(true);
         resetStorage();
         setUser(false);
       }
@@ -74,6 +87,7 @@ export default function AuthProvider({children}) {
   return (
     <MyContext.Provider
       value={{
+        wrongPass,
         user,
         setUser,
         data,
@@ -110,6 +124,7 @@ export default function AuthProvider({children}) {
         LogOut: async () => {
           await client.clearStore();
           setUser(null);
+          removeData({variables: {id: info.name, token: token}});
           /*await AsyncStorage.removeItem('user', (err) => {
             if (err) {
               console.error(err);

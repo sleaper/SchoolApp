@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Platform} from 'react-native';
 import codePush from 'react-native-code-push';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const checkIfBetaTester = async () => {
   const res = await AsyncStorage.getItem('MyApp:IS_BETA_TESTER');

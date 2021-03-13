@@ -1,7 +1,7 @@
 import React, {createContext, useState, useEffect, useMemo} from 'react';
 //import {useColorScheme} from 'react-native-appearance';
 import {themes} from './Themes';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StatusBar, useColorScheme} from 'react-native';
 
 const defaultDarkThemeName = 'DefaultDark';

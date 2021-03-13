@@ -11,7 +11,7 @@ import Tests from './Tests';
 import {useTheme} from '@react-navigation/native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ThemeContext} from '../theme/ThemeProvider';
 
 const getData = gql`
