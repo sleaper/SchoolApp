@@ -73,7 +73,6 @@ export default function AppTabs() {
     );
   }
 
-  //theme={theme === 'dark' ? darkTheme : lightTheme}
   return (
     <NavigationContainer theme={{colors: {background: background}}}>
       <Tabs.Navigator

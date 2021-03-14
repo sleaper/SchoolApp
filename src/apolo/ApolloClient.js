@@ -5,8 +5,8 @@ import RNSInfo from 'react-native-sensitive-info';
 
 const makeApolloClient = () => {
   const httpLink = createHttpLink({
-    //uri: 'http://api.skola-offline.tk/graphql',
-    uri: 'http://localhost:8000/graphql',
+    uri: 'http://api.skola-offline.tk/graphql',
+    //uri: 'http://localhost:8000/graphql',
   });
   const middlewareLink = new ApolloLink(async (operation, forward) => {
     operation.setContext({
