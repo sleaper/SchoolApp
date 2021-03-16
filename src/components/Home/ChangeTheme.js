@@ -3,7 +3,6 @@ import {Text, View, FlatList, Touchable} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {ThemeContext} from '../theme/ThemeProvider';
 import {themes} from '../theme/Themes';
-import CheckBox from '@react-native-community/checkbox';
 
 export default function ChangeTheme() {
   const [{text, background, card}, setTheme] = useContext(ThemeContext);

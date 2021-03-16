@@ -1,12 +1,9 @@
 import React, {useContext} from 'react';
-import {Text, FlatList, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, FlatList, View, StyleSheet} from 'react-native';
 import Emoji from 'react-native-emoji';
-import {useTheme} from '@react-navigation/native';
-import Center from '../Center';
 import {ThemeContext} from '../theme/ThemeProvider';
 
 export default function DaySchedule({data}) {
-  const {colors} = useTheme();
   const [{notification}] = useContext(ThemeContext);
 
   const renderItem = ({item}) => {
@@ -35,7 +32,8 @@ export default function DaySchedule({data}) {
           horizontal={true}
           data={data}
           renderItem={renderItem}
-          keyExtractor={(item) => item.SubjectId}
+          keyExtractor={item => item.SubjectId}
+          initialNumToRender={4}
         />
       </View>
     );

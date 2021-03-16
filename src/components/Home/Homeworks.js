@@ -46,21 +46,11 @@ export default function Homeworks({data}) {
   const [modalTitle, setModalTitle] = useState('');
   const [modalData, setModalData] = useState('');
   const [items, setItems] = useState(data);
-  //const [token, setToken] = useState('');
   const [swiped, setSwiped] = useState(false);
   const [showDeleted, setShowDeleted] = useState(true); // True for items to remove, False for items to add
   const {info} = useContext(MyContext);
+
   // Rename showed
-  // Maybe connect use effects
-  // useEffect(() => {
-  //   async function getToken() {
-  //     const Token = await messaging().getToken();
-  //     setToken(Token);
-  //   }
-
-  //   getToken();
-  // });
-
   useEffect(() => {
     async function update() {
       updateData({
@@ -72,8 +62,9 @@ export default function Homeworks({data}) {
       //Performance check for updating user JUST swiped
       update();
     }
-  }, [items, swiped, updateData, token, info]);
+  });
 
+  //[items, swiped, updateData, token, info]
   const LeftActions = (progress, dragX) => {
     const scale = dragX.interpolate({
       inputRange: [0, 100],
@@ -96,16 +87,16 @@ export default function Homeworks({data}) {
     );
   };
 
-  const deleteItembyId = (id) => {
+  const deleteItembyId = id => {
     setItems(() =>
-      items.map((el) => (el.id === id ? {...el, Active: false} : el)),
+      items.map(el => (el.id === id ? {...el, Active: false} : el)),
     );
     setSwiped(true);
   };
 
-  const unDeleteItembyId = (id) => {
+  const unDeleteItembyId = id => {
     setItems(() =>
-      items.map((el) => (el.id === id ? {...el, Active: true} : el)),
+      items.map(el => (el.id === id ? {...el, Active: true} : el)),
     );
     setSwiped(true);
   };
@@ -202,7 +193,7 @@ export default function Homeworks({data}) {
       <FlatList
         data={items}
         renderItem={renderItem}
-        keyExtractor={(item) => {
+        keyExtractor={item => {
           return item.id;
         }}
       />

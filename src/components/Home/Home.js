@@ -50,53 +50,6 @@ export default function Home({id, modal, setModal, name, token}) {
       <DaySchedule data={data.Home.schedule} token={token} />
       {/* {<Tests />} */}
       <Homeworks data={data.Home.homeworks} id={id} />
-
-      <Modal
-        testID={'modal'}
-        isVisible={modal}
-        onSwipeComplete={() => setModal(!modal)}
-        swipeDirection={['down']}
-        style={styles.modalView}>
-        <View
-          style={[
-            styles.content,
-            {backgroundColor: background, borderTopColor: card},
-          ]}>
-          <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity
-              onLongPress={async () => {
-                console.log('pressed');
-                AsyncStorage.setItem('MyApp:IS_BETA_TESTER', 'true');
-              }}>
-              <Icon name="person-circle-outline" size={30} color={text} />
-            </TouchableOpacity>
-            <Text style={[styles.contentTitle, {color: text}]}>{name}</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: 5,
-            }}>
-            <Icon name="color-palette-outline" size={30} color={text} />
-            <Text style={[styles.contentTitle, {color: text}]}>theme</Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: text,
-              height: 2,
-              width: '100%',
-              borderRadius: 10,
-              marginBottom: 5,
-            }}
-          />
-
-          <Button
-            testID={'close-button'}
-            onPress={() => setModal(!modal)}
-            title="Close"
-          />
-        </View>
-      </Modal>
     </View>
   );
 }
