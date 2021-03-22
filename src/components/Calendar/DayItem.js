@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {useTheme} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {ThemeContext} from '../theme/ThemeProvider';
@@ -32,7 +31,6 @@ export default function DayItem({
   setModalData,
 }) {
   const [active, setActive] = useState(item.Notes ? true : false);
-  const {colors} = useTheme();
   const [{card, text, notification}] = useContext(ThemeContext);
 
   return (
@@ -75,7 +73,6 @@ export default function DayItem({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: '#FFFFFF',
   },
   rowContainer: {
     backgroundColor: '#F0F0F0',

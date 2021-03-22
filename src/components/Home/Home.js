@@ -13,6 +13,13 @@ import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ThemeContext} from '../theme/ThemeProvider';
+import {
+  Placeholder,
+  PlaceholderMedia,
+  PlaceholderLine,
+  Fade,
+  Shine,
+} from 'rn-placeholder';
 
 const getData = gql`
   query($id: String!, $key: String!, $token: String!) {
@@ -30,25 +37,54 @@ export default function Home({id, modal, setModal, name, token}) {
     variables: {id: id, key: info.key, token: token},
   });
 
-  // const filterData = () => {
-  //   const filteredData = data.Home.homeworks.filter(
-  //     (item) => item.Active === true,
-  //   );
-  //   return filteredData;
-  // };
-
   if (loading) {
     return (
-      <Center>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </Center>
+      // <Center>
+      //   <ActivityIndicator size="large" color="#0000ff" />
+      // </Center>
+      <>
+        <Placeholder
+          style={{paddingTop: 15, margin: 15}}
+          Animation={Shine}
+          Left={PlaceholderMedia}>
+          <PlaceholderLine width={90} />
+          <PlaceholderLine width={80} />
+          <PlaceholderLine width={90} />
+          <PlaceholderLine width={90} />
+          <PlaceholderLine width={30} />
+          <PlaceholderLine width={90} />
+          <PlaceholderLine width={50} />
+        </Placeholder>
+
+        <Placeholder
+          style={{paddingTop: 15, padding: 15}}
+          Animation={Shine}
+          Right={PlaceholderMedia}>
+          <PlaceholderLine width={90} />
+          <PlaceholderLine width={80} />
+          <PlaceholderLine width={90} />
+          <PlaceholderLine width={90} />
+          <PlaceholderLine width={30} />
+        </Placeholder>
+        <Placeholder
+          style={{paddingTop: 15, padding: 15}}
+          Animation={Shine}
+          Left={PlaceholderMedia}>
+          <PlaceholderLine width={45} />
+          <PlaceholderLine width={80} />
+          <PlaceholderLine width={60} />
+          <PlaceholderLine width={90} />
+          <PlaceholderLine width={30} />
+          <PlaceholderLine width={70} />
+        </Placeholder>
+      </>
     );
   }
 
   return (
     <View style={[styles.container, {backgroundColor: background}]}>
       <DaySchedule data={data.Home.schedule} token={token} />
-      {/* {<Tests />} */}
+      {/* <Tests /> */}
       <Homeworks data={data.Home.homeworks} id={id} />
     </View>
   );

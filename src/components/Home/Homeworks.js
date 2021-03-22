@@ -20,14 +20,6 @@ import {GetTokenProvider} from '../../TokenProvider';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {MyContext} from '../../AuthProvider';
 
-const getData = gql`
-  query($id: String!, $key: String!, $token: String!) {
-    Home(id: $id, key: $key, token: $token) {
-      homeworks
-    }
-  }
-`;
-
 const UPDATE_DATA = gql`
   mutation($data: String!, $token: String!, $key: String!) {
     UpdateHomeworks(data: $data, token: $token, key: $key) {
