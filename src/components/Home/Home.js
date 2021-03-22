@@ -39,45 +39,9 @@ export default function Home({id, modal, setModal, name, token}) {
 
   if (loading) {
     return (
-      // <Center>
-      //   <ActivityIndicator size="large" color="#0000ff" />
-      // </Center>
-      <>
-        <Placeholder
-          style={{paddingTop: 15, margin: 15}}
-          Animation={Shine}
-          Left={PlaceholderMedia}>
-          <PlaceholderLine width={90} />
-          <PlaceholderLine width={80} />
-          <PlaceholderLine width={90} />
-          <PlaceholderLine width={90} />
-          <PlaceholderLine width={30} />
-          <PlaceholderLine width={90} />
-          <PlaceholderLine width={50} />
-        </Placeholder>
-
-        <Placeholder
-          style={{paddingTop: 15, padding: 15}}
-          Animation={Shine}
-          Right={PlaceholderMedia}>
-          <PlaceholderLine width={90} />
-          <PlaceholderLine width={80} />
-          <PlaceholderLine width={90} />
-          <PlaceholderLine width={90} />
-          <PlaceholderLine width={30} />
-        </Placeholder>
-        <Placeholder
-          style={{paddingTop: 15, padding: 15}}
-          Animation={Shine}
-          Left={PlaceholderMedia}>
-          <PlaceholderLine width={45} />
-          <PlaceholderLine width={80} />
-          <PlaceholderLine width={60} />
-          <PlaceholderLine width={90} />
-          <PlaceholderLine width={30} />
-          <PlaceholderLine width={70} />
-        </Placeholder>
-      </>
+      <Center>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </Center>
     );
   }
 
