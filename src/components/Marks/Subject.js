@@ -53,14 +53,18 @@ export default function Subject({route, navigation}) {
   };
 
   return (
-    <View style={{backgroundColor: background}}>
+    <View style={[{backgroundColor: background}, styles.container]}>
       <View style={[styles.header, {backgroundColor: card}]}>
         <Text style={[styles.headerText, {color: text}]}>{name}:</Text>
+        <Text style={[styles.underHeader, {color: text}]}>
+          Počet známek: {data.SubjectMarks.SubjectMarks.length}
+        </Text>
       </View>
       <FlatList
         data={data.SubjectMarks.SubjectMarks}
-        keyExtractor={(item) => item.Id}
+        keyExtractor={item => item.Id}
         renderItem={renderItem}
+        initialNumToRender={5}
       />
     </View>
   );
@@ -85,6 +89,10 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 25,
     fontWeight: '600',
+    paddingLeft: 25,
+  },
+  underHeader: {
+    fontSize: 14,
     paddingLeft: 25,
   },
   item: {

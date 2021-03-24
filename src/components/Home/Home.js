@@ -13,6 +13,13 @@ import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ThemeContext} from '../theme/ThemeProvider';
+import {
+  Placeholder,
+  PlaceholderMedia,
+  PlaceholderLine,
+  Fade,
+  Shine,
+} from 'rn-placeholder';
 
 const getData = gql`
   query($id: String!, $key: String!, $token: String!) {
@@ -30,13 +37,6 @@ export default function Home({id, modal, setModal, name, token}) {
     variables: {id: id, key: info.key, token: token},
   });
 
-  // const filterData = () => {
-  //   const filteredData = data.Home.homeworks.filter(
-  //     (item) => item.Active === true,
-  //   );
-  //   return filteredData;
-  // };
-
   if (loading) {
     return (
       <Center>
@@ -48,55 +48,8 @@ export default function Home({id, modal, setModal, name, token}) {
   return (
     <View style={[styles.container, {backgroundColor: background}]}>
       <DaySchedule data={data.Home.schedule} token={token} />
-      {/* {<Tests />} */}
+      {/* <Tests /> */}
       <Homeworks data={data.Home.homeworks} id={id} />
-
-      <Modal
-        testID={'modal'}
-        isVisible={modal}
-        onSwipeComplete={() => setModal(!modal)}
-        swipeDirection={['down']}
-        style={styles.modalView}>
-        <View
-          style={[
-            styles.content,
-            {backgroundColor: background, borderTopColor: card},
-          ]}>
-          <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity
-              onLongPress={async () => {
-                console.log('pressed');
-                AsyncStorage.setItem('MyApp:IS_BETA_TESTER', 'true');
-              }}>
-              <Icon name="person-circle-outline" size={30} color={text} />
-            </TouchableOpacity>
-            <Text style={[styles.contentTitle, {color: text}]}>{name}</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: 5,
-            }}>
-            <Icon name="color-palette-outline" size={30} color={text} />
-            <Text style={[styles.contentTitle, {color: text}]}>theme</Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: text,
-              height: 2,
-              width: '100%',
-              borderRadius: 10,
-              marginBottom: 5,
-            }}
-          />
-
-          <Button
-            testID={'close-button'}
-            onPress={() => setModal(!modal)}
-            title="Close"
-          />
-        </View>
-      </Modal>
     </View>
   );
 }

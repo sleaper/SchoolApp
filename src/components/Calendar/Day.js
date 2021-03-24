@@ -1,22 +1,19 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useMemo} from 'react';
 import {
   Text,
   View,
   StyleSheet,
   FlatList,
-  Button,
   TouchableOpacity,
   Modal,
   ScrollView,
   TouchableHighlight,
 } from 'react-native';
 import {gql, useQuery} from '@apollo/client';
-import Center from '../Center';
+
 import {ActivityIndicator} from 'react-native';
 import {MyContext} from '../../AuthProvider';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useFocusEffect} from '@react-navigation/native';
-import {useTheme} from '@react-navigation/native';
 import DayItem from './DayItem';
 import Arrows from './Arrows';
 import HTMLView from 'react-native-htmlview';
@@ -35,7 +32,7 @@ const week = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 // PROBLEM WITH PARAMETR TO FETCH RIGHT DAY
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
-  return () => setValue((value) => value + 1); // update the state to force render
+  return () => setValue(value => value + 1); // update the state to force render
 }
 
 export default function Day({navigation, route, id}) {
@@ -107,18 +104,6 @@ export default function Day({navigation, route, id}) {
       forceUpdate();
     }
   };
-
-  /*React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          style={{paddingRight: 10}}
-          onPress={() => navigation.navigate('Month')}>
-          <Icon name="calendar-outline" size={30} color={text} />
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation]);*/
 
   if (loading) {
     return (
@@ -215,7 +200,7 @@ export default function Day({navigation, route, id}) {
               setModalData={setModalData}
             />
           )}
-          keyExtractor={(item) => item.Id + item.Order}
+          keyExtractor={item => item.Id + item.Order}
         />
       )}
     </View>
