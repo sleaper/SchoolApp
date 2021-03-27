@@ -24,7 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const App = () => {
   async function requestUserPermission() {
-    const token = await messaging().getToken();
+    //const token = await messaging().getToken();
     const authStatus = await messaging().requestPermission();
     const enabled =
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||

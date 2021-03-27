@@ -13,7 +13,22 @@ export default function Routes() {
     console.log('3');
     //check if the user is logged in or not
     if (!data) {
-      /*AsyncStorage.getItem('user')
+      RNSInfo.getItem('user', {})
+        .then(userToken => {
+          if (userToken) {
+            setInfo(JSON.parse(userToken));
+            setUser(true);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }, []);
+  return <>{user ? <AppTabs /> : <AuthTabs />}</>;
+}
+
+/*AsyncStorage.getItem('user')
         .then((userToken) => {
           if (userToken) {
             console.log('userToken ', userToken);
@@ -24,18 +39,3 @@ export default function Routes() {
         .catch((err) => {
           console.log(err);
         });*/
-      RNSInfo.getItem('user', {})
-        .then((userToken) => {
-          if (userToken) {
-            console.log('userToken ', userToken);
-            setInfo(JSON.parse(userToken));
-            setUser(true);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, []);
-  return <>{user ? <AppTabs /> : <AuthTabs />}</>;
-}

@@ -35,7 +35,6 @@ export default function AppTabs() {
   const [{card, text, primary, background}] = useContext(ThemeContext);
   const {info} = useContext(MyContext);
   const {token} = useContext(GetTokenProvider);
-  //const [token, setToken] = useState('');
   const {loading, data, error} = useQuery(GET_USER, {
     variables: info,
   });
@@ -100,7 +99,7 @@ export default function AppTabs() {
           },
         }}>
         <Tabs.Screen name="Home" options={{title: 'Domov'}}>
-          {(props) => (
+          {props => (
             <HomeStack
               {...props}
               name={data.UserInfo.Name}
@@ -120,7 +119,7 @@ export default function AppTabs() {
           )}
         />
         <Tabs.Screen name="Marks" options={{title: 'Hodnocení'}}>
-          {(props) => <MarksStack {...props} id={data.UserInfo.PersonId} />}
+          {props => <MarksStack {...props} id={data.UserInfo.PersonId} />}
         </Tabs.Screen>
       </Tabs.Navigator>
     </NavigationContainer>

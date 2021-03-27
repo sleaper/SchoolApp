@@ -8,6 +8,11 @@ export default function ThemeProvider({children}) {
 
   useEffect(() => {
     async function getToken() {
+      const Refreshed = await messaging().onTokenRefresh(async fcm => {
+        console.log('test');
+        setToken(fcm);
+        return;
+      });
       const Token = await messaging().getToken();
       setToken(Token);
     }
