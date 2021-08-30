@@ -1,13 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Authprovider from './AuthProvider';
 import Routes from './Routes';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {ApolloProvider} from '@apollo/client';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {apoloCLient} from './apolo/ApolloClient';
-import {persistCache} from 'apollo3-cache-persist';
-import {ActivityIndicator} from 'react-native';
-import Center from './components/Center';
 import {AppearanceProvider} from 'react-native-appearance';
 import ThemeProvider from '../src/components/theme/ThemeProvider';
 import TokenProvider from '../src/TokenProvider';

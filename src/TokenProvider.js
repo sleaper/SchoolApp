@@ -3,7 +3,7 @@ import messaging from '@react-native-firebase/messaging';
 
 export const GetTokenProvider = createContext({});
 
-export default function ThemeProvider({children}) {
+export default function TokenProvider({children}) {
   const [token, setToken] = useState(null);
 
   useEffect(() => {
