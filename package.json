@@ -12,7 +12,6 @@
   "dependencies": {
     "@apollo/client": "^3.2.9",
     "@react-native-async-storage/async-storage": "^1.14.1",
-    "@react-native-community/cli": "^4.13.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-firebase/app": "^10.5.0",
     "@react-native-firebase/messaging": "^10.5.1",
@@ -26,8 +25,8 @@
     "apollo3-cache-persist": "^0.9.1",
     "graphql": "^15.4.0",
     "metro-symbolicate": "^0.58.0",
-    "react": "16.13.1",
-    "react-native": "0.63.3",
+    "react": "17.0.1",
+    "react-native": "0.64.2",
     "react-native-appearance": "^0.3.4",
     "react-native-base64": "^0.1.0",
     "react-native-calendars": "^1.1129.0",
