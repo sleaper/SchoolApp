@@ -1,4 +1,4 @@
-import React, {useContext, useState, useMemo} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -19,6 +19,8 @@ import Arrows from './Arrows';
 import HTMLView from 'react-native-htmlview';
 import {ThemeContext} from '../theme/ThemeProvider';
 import Emoji from 'react-native-emoji';
+import {getDate} from '../../utilz';
+import {NetworkStatus} from '@apollo/client';
 
 const getData = gql`
   query($date: String!, $key: String!) {
@@ -29,24 +31,18 @@ const getData = gql`
 `;
 
 const week = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-// PROBLEM WITH PARAMETR TO FETCH RIGHT DAY
-function useForceUpdate() {
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue(value => value + 1); // update the state to force render
-}
 
 export default function Day({navigation, route, id}) {
-  const [{card, text, background}] = useContext(ThemeContext);
-  const forceUpdate = useForceUpdate();
-  const {date} = route.params;
-  console.log(route.params);
-  const {info} = useContext(MyContext);
-  const {loading, error, data, refetch} = useQuery(getData, {
-    variables: {date: date[0] + '-' + date[1] + '-' + date[2], key: info.key},
-  });
   const [modalVisible, setModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalData, setModalData] = useState('');
+  const [{card, text, background}] = useContext(ThemeContext);
+  const {date} = route.params;
+  const {info} = useContext(MyContext);
+  const {loading, error, data, refetch, networkStatus} = useQuery(getData, {
+    variables: {date: date[0] + '-' + date[1] + '-' + date[2], key: info.key},
+    notifyOnNetworkStatusChange: true,
+  });
 
   const leftArrow = () => {
     date[2] -= 1;
@@ -57,7 +53,6 @@ export default function Day({navigation, route, id}) {
           key: info.key,
         },
       });
-      forceUpdate();
     } else {
       date[1] -= 1;
       date[2] = week[date[1] - 1];
@@ -72,9 +67,8 @@ export default function Day({navigation, route, id}) {
           key: info.key,
         },
       });
-      forceUpdate();
     }
-    console.log('left');
+    console.log('left', data);
   };
 
   const rightArrow = () => {
@@ -86,7 +80,6 @@ export default function Day({navigation, route, id}) {
           key: info.key,
         },
       });
-      forceUpdate();
     } else {
       date[1] += 1;
       date[2] = 1;
@@ -101,11 +94,11 @@ export default function Day({navigation, route, id}) {
           key: info.key,
         },
       });
-      forceUpdate();
     }
+    console.log('right', date);
   };
 
-  if (loading) {
+  if (loading || networkStatus === NetworkStatus.refetch) {
     return (
       <View style={[styles.container, {backgroundColor: background}]}>
         <View style={styles.arrows}>
@@ -201,6 +194,8 @@ export default function Day({navigation, route, id}) {
             />
           )}
           keyExtractor={item => item.Id + item.Order}
+          extraData={data}
+          refreshing={loading}
         />
       )}
     </View>
