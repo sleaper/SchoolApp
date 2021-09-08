@@ -5,8 +5,8 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {ApolloProvider} from '@apollo/client';
 import {apoloCLient} from './apolo/ApolloClient';
 import {AppearanceProvider} from 'react-native-appearance';
-import ThemeProvider from '../src/components/theme/ThemeProvider';
-import TokenProvider from '../src/TokenProvider';
+import ThemeProvider from './components/theme/ThemeProvider';
+import TokenProvider from './TokenProvider';
 
 export default function Providers() {
   //const [client, setClient] = useState();
@@ -32,9 +32,9 @@ export default function Providers() {
       </Center>
     );
   }*/
-
+  //forceInset={{top: 'always', bottom: 'always'}}
   return (
-    <SafeAreaProvider forceInset={{top: 'always', bottom: 'always'}}>
+    <SafeAreaProvider>
       <ApolloProvider client={apoloCLient}>
         <TokenProvider>
           <AppearanceProvider>

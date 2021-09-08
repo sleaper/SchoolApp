@@ -1,3 +1,24 @@
+export interface Theme {
+  name: string;
+  colors: {
+    text: string;
+    primary: string;
+    card: string;
+    background: string;
+    border: string;
+    notification: string;
+  };
+}
+
+export interface Colors {
+  text: string;
+  primary: string;
+  card: string;
+  background: string;
+  border: string;
+  notification: string;
+}
+
 export const themes = [
   {
     name: 'DefaultLight',
@@ -21,29 +42,30 @@ export const themes = [
       notification: 'rgb(204, 204, 204)',
     },
   },
-  // {
-  //   name: 'Red',
-  //   colors: {
-  //     text: '#fff',
-  //     primary: 'rgb(255, 45, 85)',
-  //     card: '#833',
-  //     background: '#390000',
-  //     border: 'rgb(255, 255, 255)',
-  //     notification: '#fff',
-  //   },
-  // },
-  // {
-  //   name: 'Abyss',
-  //   colors: {
-  //     text: '#fff',
-  //     primary: 'rgb(255, 45, 85)',
-  //     card: '#2B3C5D',
-  //     background: '#000c18',
-  //     border: 'rgb(255, 255, 255)',
-  //     notification: '#fff',
-  //   },
-  // },
 ];
+
+// {
+//   name: 'Red',
+//   colors: {
+//     text: '#fff',
+//     primary: 'rgb(255, 45, 85)',
+//     card: '#833',
+//     background: '#390000',
+//     border: 'rgb(255, 255, 255)',
+//     notification: '#fff',
+//   },
+// },
+// {
+//   name: 'Abyss',
+//   colors: {
+//     text: '#fff',
+//     primary: 'rgb(255, 45, 85)',
+//     card: '#2B3C5D',
+//     background: '#000c18',
+//     border: 'rgb(255, 255, 255)',
+//     notification: '#fff',
+//   },
+// },
 
 export const vscodeThemes = [
   {

@@ -1,40 +1,41 @@
 import React, {createContext, useState, useEffect, useMemo} from 'react';
 //import {useColorScheme} from 'react-native-appearance';
-import {themes} from './Themes';
+import {Colors, Theme, themes} from './Themes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {StatusBar, useColorScheme} from 'react-native';
+import {ColorSchemeName, StatusBar, useColorScheme} from 'react-native';
 
 const defaultDarkThemeName = 'DefaultDark';
 const defaultLightThemeName = 'DefaultLight';
 
-const defaultThemeLight = themes.find((t) => t.name === defaultLightThemeName)
-  .colors;
+const defaultThemeLight = themes.find(t => t.name === defaultLightThemeName)
+  ?.colors;
 
-const defaultThemeDark = themes.find((t) => t.name === defaultDarkThemeName)
-  .colors;
+const defaultThemeDark = themes.find(t => t.name === defaultDarkThemeName)
+  ?.colors;
 
-export const ThemeContext = createContext([defaultThemeLight, () => {}]);
+export const ThemeContext = createContext<any>({} as any);
+//Type this context
 
 const themeKey = '@skLo/theme-key';
 
 export default function ThemeProvider({children}) {
-  const scheme = useColorScheme();
+  const scheme: ColorSchemeName = useColorScheme();
   const [chacked, setChacked] = useState(false);
-  const [themePref, setThemePref] = useState({});
+  const [themePref, setThemePref] = useState<Theme | {}>({});
   const [colors, setColors] = useState(
     scheme === 'dark' ? defaultThemeDark : defaultThemeLight,
   );
 
   useEffect(() => {
-    AsyncStorage.getItem(themeKey).then((x) => {
+    AsyncStorage.getItem(themeKey).then(x => {
       if (x) {
-        const themeOfChoice = JSON.parse(x);
+        const themeOfChoice: Theme = JSON.parse(x);
         setThemePref(x);
         const name =
-          themeOfChoice[scheme] ||
+          themeOfChoice[scheme as string] ||
           (scheme === 'dark' ? defaultThemeDark : defaultThemeLight);
         console.log(name);
-        const c = themes.find((t) => t.name === name).colors;
+        const c = themes.find(t => t.name === name)?.colors;
         if (c) {
           setColors(c);
         }
@@ -47,13 +48,13 @@ export default function ThemeProvider({children}) {
       value={useMemo(
         () => [
           colors,
-          (name) => {
-            const c = themes.find((t) => t.name === name).colors;
+          name => {
+            const c = themes.find(t => t.name === name)?.colors;
             if (c) {
               setColors(c);
               const newThemePref = {
                 ...themePref,
-                [scheme]: name,
+                [scheme as string]: name,
               };
               setThemePref(newThemePref);
               AsyncStorage.setItem(themeKey, JSON.stringify(newThemePref));
@@ -64,7 +65,7 @@ export default function ThemeProvider({children}) {
       )}>
       <StatusBar
         barStyle={
-          colors.editorBackground === '#002B36'
+          colors?.background === '#002B36'
             ? 'light-content'
             : scheme === 'dark'
             ? 'light-content'

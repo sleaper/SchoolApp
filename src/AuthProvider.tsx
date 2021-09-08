@@ -6,9 +6,23 @@ import Center from './components/Center';
 import {useApolloClient} from '@apollo/client';
 import SInfo from 'react-native-sensitive-info';
 import messaging from '@react-native-firebase/messaging';
-import {GetTokenProvider} from '../src/TokenProvider';
+import {GetTokenProvider} from './TokenProvider';
 
-export const MyContext = createContext({});
+interface Info {
+  name: string;
+  key: string;
+}
+
+export const MyContext = createContext<{
+  wrongPass: boolean;
+  user: boolean | null;
+  setUser: React.Dispatch<React.SetStateAction<boolean | null>>;
+  data: any;
+  info: Info | null;
+  setInfo: React.Dispatch<React.SetStateAction<Info | null>>;
+  LogIn: (name: any, passw: any) => Promise<void>;
+  LogOut: () => void;
+}>({} as any);
 
 const AUTH_USER = gql`
   query($name: String!, $key: String!) {
@@ -30,8 +44,8 @@ export default function AuthProvider({children}) {
   const client = useApolloClient();
   const {token} = useContext(GetTokenProvider);
   const [callData, {called, loading, data, error}] = useLazyQuery(AUTH_USER);
-  const [user, setUser] = useState(null);
-  const [info, setInfo] = useState(null);
+  const [user, setUser] = useState<boolean | null>(null);
+  const [info, setInfo] = useState<Info | null>(null);
   const [wrongPass, setWrongPass] = useState(false);
   const [removeData] = useMutation(REMOVE_DATA, {
     ignoreResults: true,
@@ -124,7 +138,7 @@ export default function AuthProvider({children}) {
         LogOut: async () => {
           await client.clearStore();
           setUser(null);
-          removeData({variables: {id: info.name, token: token}});
+          removeData({variables: {id: info?.name, token: token}});
           /*await AsyncStorage.removeItem('user', (err) => {
             if (err) {
               console.error(err);

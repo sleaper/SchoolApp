@@ -18,7 +18,7 @@ const makeApolloClient = () => {
     return forward(operation);
   });
 
-  const test = onError(({graphQLErrors, networkError}) => {
+  const error = onError(({graphQLErrors, networkError}) => {
     if (graphQLErrors) {
       graphQLErrors.map(({message, locations, path}) =>
         console.error(
@@ -37,7 +37,7 @@ const makeApolloClient = () => {
   const cache = new InMemoryCache();
 
   const client = new ApolloClient({
-    link: ApolloLink.from([middlewareLink, test, httpLink]),
+    link: ApolloLink.from([middlewareLink, error, httpLink]),
     cache: cache,
   });
 

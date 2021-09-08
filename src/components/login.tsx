@@ -22,7 +22,7 @@ export default function login({navigation}) {
       <View style={[styles.inputView, {backgroundColor: card}]}>
         <TextInput
           textContentType={'username'}
-          onChangeText={(text) => setName(text)}
+          onChangeText={text => setName(text)}
           value={name}
           style={[styles.inputText, {color: text}]}
           placeholderTextColor={text}
@@ -35,7 +35,7 @@ export default function login({navigation}) {
         <TextInput
           secureTextEntry={true}
           textContentType={'password'}
-          onChangeText={(password) => setPassw(password)}
+          onChangeText={password => setPassw(password)}
           value={passw}
           style={[styles.inputText, {color: text}]}
           placeholderTextColor={text}
@@ -47,9 +47,7 @@ export default function login({navigation}) {
       <TouchableOpacity
         style={[styles.loginBtn, {backgroundColor: primary}]}
         onPress={() => LogIn(name, passw)}>
-        <Text style={styles.loginText} title="Log in">
-          Log In
-        </Text>
+        <Text style={styles.loginText}>Log In</Text>
       </TouchableOpacity>
     </View>
   );

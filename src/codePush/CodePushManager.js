@@ -26,7 +26,7 @@ const CodePushManager = () => {
       .then(() => {
         return checkIfBetaTester();
       })
-      .then((isBetaTester) => {
+      .then(isBetaTester => {
         if (isBetaTester) {
           codePush.sync({
             deploymentKey: codePushKeys.staging,
@@ -41,7 +41,7 @@ const CodePushManager = () => {
           });
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log('Error occured with codePush', err);
       });
   }, []);
