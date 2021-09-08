@@ -2,10 +2,9 @@ import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import React, {useContext} from 'react';
 import Schedule from './Calendar/Schedule';
 import Day from './Calendar/Day';
-import {Text, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {getDate} from '../utilz';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useTheme} from '@react-navigation/native';
 import {ThemeContext} from './theme/ThemeProvider';
 import {useHeaderOptions} from '../hooks/useHeaderOptions';
 
@@ -45,10 +44,10 @@ export default function HomeStack({id}) {
           ),
         })}
         initialParams={{date: Date}}>
-        {(props) => <Day {...props} id={id} />}
+        {props => <Day {...props} id={id} />}
       </Stack.Screen>
       <Stack.Screen name="Month" options={{title: 'Měsíc'}}>
-        {(props) => <Schedule {...props} id={id} />}
+        {props => <Schedule {...props} id={id} />}
       </Stack.Screen>
     </Stack.Navigator>
   );
