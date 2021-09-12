@@ -3,13 +3,9 @@ import {StyleSheet, View} from 'react-native';
 import {ThemeContext} from './theme/ThemeProvider';
 
 export default function Center({children}) {
-  const [{background}] = useContext(ThemeContext);
-
-  return (
-    <View style={[styles.container, {backgroundColor: background}]}>
-      {children}
-    </View>
-  );
+  //const [{background}] = useContext(ThemeContext);
+  //style={[styles.container, {backgroundColor: background}]}
+  return <View>{children}</View>;
 }
 
 const styles = StyleSheet.create({

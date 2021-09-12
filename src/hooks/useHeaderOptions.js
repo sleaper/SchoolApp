@@ -1,14 +1,15 @@
-import {useContext} from 'react';
-import {ThemeContext} from '../components/theme/ThemeProvider';
+import {useColorMode} from 'native-base';
 
 export const useHeaderOptions = () => {
-  const [{text, card}] = useContext(ThemeContext);
+  const {colorMode} = useColorMode();
 
   return {
-    headerStyle: {backgroundColor: card},
+    headerStyle: {
+      backgroundColor: colorMode === 'dark' ? 'rgb(30, 30, 30)' : 'white',
+    },
     //headerTintColor: text,
     headerTitleStyle: {
-      color: text,
+      color: colorMode === 'dark' ? 'rgb(30, 30, 30)' : 'white',
     },
   };
 };

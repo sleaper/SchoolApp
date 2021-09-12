@@ -1,33 +1,44 @@
-import React, {useContext} from 'react';
-import {Text, FlatList, View, StyleSheet} from 'react-native';
+import React from 'react';
+import {FlatList} from 'react-native';
 import Emoji from 'react-native-emoji';
-import {ThemeContext} from '../theme/ThemeProvider';
+import {Flex, Text} from 'native-base';
 
 export default function DaySchedule({data}) {
-  const [{notification}] = useContext(ThemeContext);
-
   const renderItem = ({item}) => {
     return (
-      <View style={[styles.rowContainer, {backgroundColor: item.Color}]}>
-        <Text style={styles.time}>{item.TimeFrom.substring(11, 16)}</Text>
-        <View style={styles.rowText}>
-          <Text style={styles.subject}>{item.Name.substring(0, 3)}</Text>
-          <Text style={styles.teacher}>{item.Teacher}</Text>
-          <Text style={styles.teacher}>{item.Room}</Text>
-        </View>
-      </View>
+      <Flex flex={0.5}>
+        <Text textAlign="center">{item.TimeFrom.substring(11, 16)}</Text>
+        <Flex
+          height={130}
+          width={120}
+          marginLeft={10}
+          marginTop={10}
+          borderRadius={20}>
+          <Text fontSize={16} fontWeight="bold">
+            {item.Name.substring(0, 3)}
+          </Text>
+          <Text marginTop={2.5} fontSize={14}>
+            {item.Teacher}
+          </Text>
+          <Text marginTop={2.5} fontSize={14}>
+            {item.Room}
+          </Text>
+        </Flex>
+      </Flex>
     );
   };
   if (data[0] == null) {
     return (
-      <View style={{alignItems: 'center'}}>
+      <Flex alignItems="center">
         <Emoji name=":man-shrugging:" style={{fontSize: 50}} />
-      </View>
+      </Flex>
     );
   } else {
     return (
-      <View style={styles.container}>
-        <Text style={[styles.title, {color: notification}]}>Dnes</Text>
+      <Flex>
+        <Text paddingLeft={20} paddingTop={10} fontSize={20} fontWeight="bold">
+          Dnes
+        </Text>
         <FlatList
           horizontal={true}
           data={data}
@@ -35,47 +46,7 @@ export default function DaySchedule({data}) {
           keyExtractor={item => item.SubjectId}
           initialNumToRender={4}
         />
-      </View>
+      </Flex>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 0.5,
-  },
-  rowContainer: {
-    height: 130,
-    width: 120,
-    marginLeft: 10,
-    marginTop: 10,
-    borderRadius: 20,
-  },
-  subject: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#ffffff',
-  },
-  teacher: {
-    marginTop: 2.5,
-    fontSize: 14,
-    color: '#ffffff',
-  },
-  rowText: {
-    flex: 6,
-    paddingTop: 5,
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  time: {
-    flex: 1,
-    textAlign: 'center',
-    color: '#ffffff',
-  },
-  title: {
-    paddingLeft: 20,
-    paddingTop: 10,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});

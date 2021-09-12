@@ -1,16 +1,21 @@
 import React, {useContext, useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Center from './components/Center';
 import {NavigationContainer} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStack from './components/HomeStack';
 import {MyContext} from './AuthProvider';
 import {gql, useQuery, useMutation} from '@apollo/client';
-import {ActivityIndicator, Text} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
-import {ThemeContext} from './components/theme/ThemeProvider';
 import {GetTokenProvider} from './TokenProvider';
+import {
+  useToken,
+  useColorModeValue,
+  Text,
+  useColorMode,
+  Center,
+} from 'native-base';
 
 const Tabs = createBottomTabNavigator();
 
@@ -32,7 +37,7 @@ const GET_DEVICE = gql`
 `;
 
 export default function AppTabs() {
-  const [{card, text, primary, background}] = useContext(ThemeContext);
+  //const [{card, text, primary, background}] = useContext(ThemeContext);
   const {info} = useContext(MyContext);
   const {token} = useContext(GetTokenProvider);
   const {loading, data, error} = useQuery(GET_USER, {
@@ -41,6 +46,12 @@ export default function AppTabs() {
   const [addToken] = useMutation(GET_DEVICE, {
     ignoreResults: true,
   });
+  const {colorMode} = useColorMode();
+  const [lightBg, darkBg] = useToken('colors', [
+    'singletons.white',
+    'singletons.black',
+  ]);
+  const bgColor = useColorModeValue(lightBg, darkBg);
 
   useEffect(() => {
     // async function getToken() {
@@ -51,7 +62,9 @@ export default function AppTabs() {
 
     // getToken();
     if (token) {
-      addToken({variables: {name: info.name, key: info.key, token: token}});
+      addToken({
+        variables: {name: info?.name, key: info?.key, token: token},
+      });
     }
   }, [token, addToken, info]);
 
@@ -67,13 +80,13 @@ export default function AppTabs() {
     console.log(error);
     return (
       <Center>
-        <Text style={{color: text}}>Nejsi připojený k internetu.</Text>
+        <Text>Nejsi připojený k internetu.</Text>
       </Center>
     );
   }
 
   return (
-    <NavigationContainer theme={{colors: {background: background}}}>
+    <NavigationContainer>
       <Tabs.Navigator
         initialRouteName={'Home'}
         screenOptions={({route}) => ({
@@ -92,10 +105,12 @@ export default function AppTabs() {
           },
         })}
         tabBarOptions={{
-          activeTintColor: primary,
-          inactiveTintColor: text,
+          activeTintColor: 'rgb(0, 141, 255)',
+          inactiveTintColor:
+            colorMode === 'dark' ? 'rgb(255, 255, 255)' : 'rgb(28, 28, 30)',
           style: {
-            backgroundColor: card,
+            backgroundColor:
+              colorMode === 'dark' ? 'rgb(30, 30, 30)' : 'rgb(230, 230, 230)',
           },
         }}>
         <Tabs.Screen name="Home" options={{title: 'Domov'}}>

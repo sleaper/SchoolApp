@@ -1,40 +1,45 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useContext, useState} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {MyContext} from '../AuthProvider';
 import Home from './Home/Home';
-import {useTheme} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SettingsTabs from './Home/SettingsTabs';
 import ChangeTheme from './Home/ChangeTheme';
-import {ThemeContext} from './theme/ThemeProvider';
 import {useHeaderOptions} from '../hooks/useHeaderOptions';
+import {useToken, useColorModeValue, Text, useColorMode} from 'native-base';
 
 const Stack = createStackNavigator();
 
 export default function HomeStack({id, name, token}) {
   const {LogOut} = useContext(MyContext);
   const [modal, setModal] = useState(false);
-  const [{background, text, primary, card}] = useContext(ThemeContext);
+  const {colorMode} = useColorMode();
 
   return (
     <Stack.Navigator
       screenOptions={
         (useHeaderOptions(),
         {
-          cardStyle: {backgroundColor: background},
-          headerStyle: {backgroundColor: card},
-          headerTintColor: text,
+          cardStyle: {
+            backgroundColor:
+              colorMode === 'dark' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
+          },
+          headerStyle: {
+            backgroundColor:
+              colorMode === 'dark' ? 'rgb(30, 30, 30)' : 'rgb(230, 230, 230)',
+          },
+          headerTintColor: colorMode === 'dark' ? 'white' : 'black',
         })
       }
       initialRouteName="Home">
       <Stack.Screen
         name="Home"
-        options={({navigation, route}) => ({
+        options={({navigation}) => ({
           headerRight: () => {
             return (
               <TouchableOpacity onPress={() => LogOut()}>
-                <Text style={{paddingRight: 8, color: text}}>LOGOUT</Text>
+                <Text pr={8}>LOGOUT</Text>
               </TouchableOpacity>
             );
           },
@@ -45,12 +50,16 @@ export default function HomeStack({id, name, token}) {
                 style={{marginLeft: 20}}
                 onPress={() => navigation.navigate('Settings')}>
                 {/* <Text style={{color: colors.text, fontSize: 23}}>{name}</Text> */}
-                <Icon name="menu-outline" size={30} color={primary} />
+                <Icon
+                  name="menu-outline"
+                  size={30}
+                  color={'rgb(255, 255, 255)'}
+                />
               </TouchableOpacity>
             );
           },
         })}>
-        {(props) => (
+        {props => (
           <Home
             {...props}
             id={id}
@@ -62,10 +71,10 @@ export default function HomeStack({id, name, token}) {
         )}
       </Stack.Screen>
       <Stack.Screen name="Settings">
-        {(props) => <SettingsTabs {...props} name={name} />}
+        {props => <SettingsTabs {...props} name={name} />}
       </Stack.Screen>
       <Stack.Screen name="Themes">
-        {(props) => <ChangeTheme {...props} name={name} />}
+        {props => <ChangeTheme {...props} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

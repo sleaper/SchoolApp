@@ -22,6 +22,7 @@ export const MyContext = createContext<{
   setInfo: React.Dispatch<React.SetStateAction<Info | null>>;
   LogIn: (name: any, passw: any) => Promise<void>;
   LogOut: () => void;
+  resetStorage: () => void;
 }>({} as any);
 
 const AUTH_USER = gql`
@@ -71,7 +72,7 @@ export default function AuthProvider({children}) {
   };
 
   useEffect(() => {
-    console.log('1');
+    console.log('1', data);
     if (data) {
       if (data.UserAuth.AuthStatus === true) {
         setUser(true);
@@ -119,6 +120,7 @@ export default function AuthProvider({children}) {
           //getting a key
           let key = base64.encode(connect);
           const info = {name: HashedName, key: key};
+
           setInfo(info);
           // storing UserInfo, because of authorization
           /*await AsyncStorage.setItem('user', JSON.stringify(info), (err) => {
@@ -135,6 +137,7 @@ export default function AuthProvider({children}) {
           callData({
             variables: {name: HashedName, key: key},
           });
+          console.log(data);
         },
         LogOut: async () => {
           await client.clearStore();
@@ -147,6 +150,7 @@ export default function AuthProvider({children}) {
           });*/
           await SInfo.deleteItem('user', {});
         },
+        resetStorage: resetStorage,
       }}>
       {children}
     </MyContext.Provider>

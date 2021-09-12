@@ -10,7 +10,7 @@ export default function TokenProvider({children}) {
 
   useEffect(() => {
     async function getToken() {
-      const Refreshed = await messaging().onTokenRefresh(async fcm => {
+      await messaging().onTokenRefresh(async fcm => {
         console.log('test');
         setToken(fcm);
         return;
