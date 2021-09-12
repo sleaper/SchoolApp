@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 
 export default function AuthTabs() {
   const {theme} = useContext(ThemeContext);
-
+  console.log(theme);
   return (
     <NavigationContainer theme={theme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack.Navigator

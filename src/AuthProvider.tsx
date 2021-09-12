@@ -5,7 +5,7 @@ import {ActivityIndicator, Text} from 'react-native';
 import Center from './components/Center';
 import {useApolloClient} from '@apollo/client';
 import SInfo from 'react-native-sensitive-info';
-import messaging from '@react-native-firebase/messaging';
+//import messaging from '@react-native-firebase/messaging';
 import {GetTokenProvider} from './TokenProvider';
 
 interface Info {
@@ -43,7 +43,9 @@ const REMOVE_DATA = gql`
 export default function AuthProvider({children}) {
   const client = useApolloClient();
   const {token} = useContext(GetTokenProvider);
-  const [callData, {called, loading, data, error}] = useLazyQuery(AUTH_USER);
+  const [callData, {loading, data, error}] = useLazyQuery(AUTH_USER, {
+    fetchPolicy: 'no-cache',
+  });
   const [user, setUser] = useState<boolean | null>(null);
   const [info, setInfo] = useState<Info | null>(null);
   const [wrongPass, setWrongPass] = useState(false);
@@ -132,7 +134,6 @@ export default function AuthProvider({children}) {
 
           callData({
             variables: {name: HashedName, key: key},
-            fetchPolicy: 'no-cache',
           });
         },
         LogOut: async () => {
