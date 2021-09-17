@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SettingsTabs from './Home/SettingsTabs';
 import ChangeTheme from './Home/ChangeTheme';
 import {useHeaderOptions} from '../hooks/useHeaderOptions';
-import {useToken, useColorModeValue, Text, useColorMode} from 'native-base';
+import {Text, useColorMode} from 'native-base';
 import {UserInfo} from '../generated/graphqlBaseTypes';
 
 const Stack = createStackNavigator();
@@ -28,13 +28,12 @@ export default function HomeStack({userData, token}: homeStackTmp) {
         (useHeaderOptions(),
         {
           cardStyle: {
-            backgroundColor:
-              colorMode === 'dark' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
+            backgroundColor: colorMode === 'dark' ? 'black' : 'white',
           },
           headerStyle: {
             backgroundColor:
-              colorMode === 'dark' ? 'rgb(30, 30, 30)' : 'rgb(230, 230, 230)',
-            height: 150,
+              colorMode === 'dark' ? 'black' : 'rgb(230, 230, 230)',
+            height: 60,
           },
           headerTintColor: colorMode === 'dark' ? 'white' : 'black',
         })

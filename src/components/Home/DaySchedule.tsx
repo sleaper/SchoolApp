@@ -10,17 +10,17 @@ export default function DaySchedule({data}: {data: [dayInfo]}) {
       <Flex
         backgroundColor={item.color}
         h={130}
-        w={120}
+        w={130}
         ml={5}
         mt={5}
         borderRadius={20}>
         <Text textAlign="center">{item.timeFrom.substring(11, 16)}</Text>
         <Flex flex={6} pt={2.5} flexDirection="column" alignItems="center">
           <Text fontWeight="bold">{item.name.substring(0, 3)}</Text>
-          <Text marginTop={2.5} fontSize={14}>
+          <Text marginTop={2.5} fontSize={15}>
             {item.teacher}
           </Text>
-          <Text fontSize={14}>{item.room}</Text>
+          <Text fontSize={15}>{item.room}</Text>
         </Flex>
       </Flex>
     );
@@ -34,7 +34,7 @@ export default function DaySchedule({data}: {data: [dayInfo]}) {
   } else {
     return (
       <Flex>
-        <Text paddingLeft={10} paddingTop={10} fontSize={20} fontWeight="bold">
+        <Text paddingLeft={10} paddingTop={10} fontSize={22} fontWeight="bold">
           Dnešní hodiny
         </Text>
         <FlatList

@@ -38,11 +38,6 @@ export default function AppTabs() {
   });
 
   const {colorMode} = useColorMode();
-  const [lightBg, darkBg] = useToken('colors', [
-    'singletons.white',
-    'singletons.black',
-  ]);
-  const bgColor = useColorModeValue(lightBg, darkBg);
 
   useEffect(() => {
     // async function getToken() {
@@ -101,11 +96,10 @@ export default function AppTabs() {
         })}
         tabBarOptions={{
           activeTintColor: 'rgb(0, 141, 255)',
-          inactiveTintColor:
-            colorMode === 'dark' ? 'rgb(255, 255, 255)' : 'rgb(28, 28, 30)',
+          inactiveTintColor: colorMode === 'dark' ? 'white' : 'black',
           style: {
             backgroundColor:
-              colorMode === 'dark' ? 'rgb(30, 30, 30)' : 'rgb(230, 230, 230)',
+              colorMode === 'dark' ? 'black' : 'rgb(230, 230, 230)',
           },
         }}>
         <Tabs.Screen name="Home" options={{title: 'Domov'}}>
