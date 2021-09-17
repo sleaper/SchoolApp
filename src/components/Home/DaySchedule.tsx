@@ -9,7 +9,7 @@ export default function DaySchedule({data}: {data: [dayInfo]}) {
     return (
       <Flex
         backgroundColor={item.color}
-        h={130}
+        h={135}
         w={130}
         ml={5}
         mt={5}

@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useContext, useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
+} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStack from './components/HomeStack';
 import {MyContext} from './AuthProvider';
@@ -10,13 +14,7 @@ import {ActivityIndicator} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
 import {GetTokenProvider} from './TokenProvider';
-import {
-  useToken,
-  useColorModeValue,
-  Text,
-  useColorMode,
-  Center,
-} from 'native-base';
+import {Text, useColorMode, Center, Flex} from 'native-base';
 import {useAddUserMutation, useUserInfoQuery} from './AppTabs.codegen';
 import {UserInfo} from './generated/graphqlBaseTypes';
 
@@ -76,7 +74,8 @@ export default function AppTabs() {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      theme={colorMode === 'dark' ? DarkTheme : DefaultTheme}>
       <Tabs.Navigator
         initialRouteName={'Home'}
         screenOptions={({route}) => ({

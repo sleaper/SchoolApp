@@ -10,7 +10,6 @@ import {useHomeQuery} from './Home.codegen';
 export default function Home({userData}: {userData: UserInfo; token: string}) {
   const {info} = useContext(MyContext);
   const {colorMode} = useColorMode();
-
   const {loading, error, data} = useHomeQuery({
     variables: {
       key: info?.key as string,
@@ -26,7 +25,7 @@ export default function Home({userData}: {userData: UserInfo; token: string}) {
   }
 
   return (
-    <Flex>
+    <Flex backgroundColor={colorMode === 'dark' ? 'black' : 'white'} h="100%">
       <DaySchedule data={data?.user.daySchedule} />
       {/* <Tests /> */}
       {/* <Homeworks data={data.Home.homeworks} id={id} /> */}

@@ -1,11 +1,9 @@
 import React from 'react';
 import Authprovider from './AuthProvider';
 import Routes from './Routes';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {ApolloProvider} from '@apollo/client';
 import {apoloCLient} from './apolo/ApolloClient';
 import {AppearanceProvider} from 'react-native-appearance';
-import ThemeProvider from './components/theme/ThemeProvider';
 import TokenProvider from './TokenProvider';
 import {NativeBaseProvider, ColorMode, extendTheme} from 'native-base';
 import type {StorageManager} from 'native-base';
@@ -68,11 +66,9 @@ export default function Providers() {
       <ApolloProvider client={apoloCLient}>
         <TokenProvider>
           <AppearanceProvider>
-            {/* <ThemeProvider> */}
             <Authprovider>
               <Routes />
             </Authprovider>
-            {/* </ThemeProvider> */}
           </AppearanceProvider>
         </TokenProvider>
       </ApolloProvider>

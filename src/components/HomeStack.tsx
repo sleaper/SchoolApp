@@ -21,7 +21,7 @@ export interface homeStackTmp {
 export default function HomeStack({userData, token}: homeStackTmp) {
   const {LogOut} = useContext(MyContext);
   const {colorMode} = useColorMode();
-
+  // colorMode === 'dark' ? 'black' : 'white';
   return (
     <Stack.Navigator
       screenOptions={

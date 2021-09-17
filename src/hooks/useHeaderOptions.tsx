@@ -7,7 +7,6 @@ export const useHeaderOptions = () => {
     headerStyle: {
       backgroundColor: colorMode === 'dark' ? 'rgb(30, 30, 30)' : 'white',
     },
-    //headerTintColor: text,
     headerTitleStyle: {
       color: colorMode === 'dark' ? 'rgb(30, 30, 30)' : 'white',
     },
