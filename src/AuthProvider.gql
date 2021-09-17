@@ -1,0 +1,7 @@
+query authUser($key: String!) {
+  UserAuth(key: $key)
+}
+
+mutation removeUser($firebaseToken: String!) {
+  removeUser(firebaseToken: $firebaseToken)
+}

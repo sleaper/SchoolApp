@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState, useEffect, createContext, useContext} from 'react';
 import {gql, useLazyQuery, useMutation} from '@apollo/client';
 import base64 from 'react-native-base64';
@@ -7,6 +8,10 @@ import {useApolloClient} from '@apollo/client';
 import SInfo from 'react-native-sensitive-info';
 //import messaging from '@react-native-firebase/messaging';
 import {GetTokenProvider} from './TokenProvider';
+import {
+  useAuthUserLazyQuery,
+  useRemoveUserMutation,
+} from './AuthProvider.codegen';
 
 interface Info {
   name: string;
@@ -42,17 +47,27 @@ const REMOVE_DATA = gql`
 `;
 
 export default function AuthProvider({children}) {
-  const client = useApolloClient();
-  const {token} = useContext(GetTokenProvider);
-  const [callData, {loading, data, error}] = useLazyQuery(AUTH_USER, {
+  // const [callData, {loading, data, error}] = useLazyQuery(AUTH_USER, {
+  //   fetchPolicy: 'no-cache',
+  // });
+  // const [removeData] = useMutation(REMOVE_DATA, {
+  //   ignoreResults: true,
+  // });
+
+  //Why no cache
+  const [authUser, {loading, data, error}] = useAuthUserLazyQuery({
     fetchPolicy: 'no-cache',
   });
+  const [removeData] = useRemoveUserMutation({
+    ignoreResults: true,
+  });
+
+  const client = useApolloClient();
+  const {token} = useContext(GetTokenProvider);
   const [user, setUser] = useState<boolean | null>(null);
   const [info, setInfo] = useState<Info | null>(null);
   const [wrongPass, setWrongPass] = useState(false);
-  const [removeData] = useMutation(REMOVE_DATA, {
-    ignoreResults: true,
-  });
+
   /*const resetStorage = async () => {
     await AsyncStorage.removeItem('user', (err) => {
       if (err) {
@@ -74,7 +89,7 @@ export default function AuthProvider({children}) {
   useEffect(() => {
     console.log('1', data);
     if (data) {
-      if (data.UserAuth.AuthStatus === true) {
+      if (data.UserAuth === true) {
         setUser(true);
         setWrongPass(false);
       } else {
@@ -134,15 +149,15 @@ export default function AuthProvider({children}) {
             console.error(error);
           }
 
-          callData({
-            variables: {name: HashedName, key: key},
+          authUser({
+            variables: {key: key},
           });
           console.log(data);
         },
         LogOut: async () => {
           await client.clearStore();
           setUser(null);
-          removeData({variables: {id: info?.name, token: token}});
+          removeData({variables: {firebaseToken: token as string}});
           /*await AsyncStorage.removeItem('user', (err) => {
             if (err) {
               console.error(err);

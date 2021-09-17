@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {createStackNavigator} from '@react-navigation/stack';
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {TouchableOpacity} from 'react-native';
 import {MyContext} from '../AuthProvider';
 import Home from './Home/Home';
@@ -8,12 +9,17 @@ import SettingsTabs from './Home/SettingsTabs';
 import ChangeTheme from './Home/ChangeTheme';
 import {useHeaderOptions} from '../hooks/useHeaderOptions';
 import {useToken, useColorModeValue, Text, useColorMode} from 'native-base';
+import {UserInfo} from '../generated/graphqlBaseTypes';
 
 const Stack = createStackNavigator();
 
-export default function HomeStack({id, name, token}) {
+export interface homeStackTmp {
+  userData: UserInfo;
+  token: string;
+}
+
+export default function HomeStack({userData, token}: homeStackTmp) {
   const {LogOut} = useContext(MyContext);
-  const [modal, setModal] = useState(false);
   const {colorMode} = useColorMode();
 
   return (
@@ -28,6 +34,7 @@ export default function HomeStack({id, name, token}) {
           headerStyle: {
             backgroundColor:
               colorMode === 'dark' ? 'rgb(30, 30, 30)' : 'rgb(230, 230, 230)',
+            height: 150,
           },
           headerTintColor: colorMode === 'dark' ? 'white' : 'black',
         })
@@ -59,23 +66,14 @@ export default function HomeStack({id, name, token}) {
             );
           },
         })}>
-        {props => (
-          <Home
-            {...props}
-            id={id}
-            name={name}
-            modal={modal}
-            setModal={setModal}
-            token={token}
-          />
-        )}
+        {props => <Home {...props} userData={userData} token={token} />}
       </Stack.Screen>
       <Stack.Screen name="Settings">
-        {props => <SettingsTabs {...props} name={name} />}
+        {props => <SettingsTabs {...props} name={userData.name} />}
       </Stack.Screen>
-      <Stack.Screen name="Themes">
+      {/* <Stack.Screen name="Themes">
         {props => <ChangeTheme {...props} />}
-      </Stack.Screen>
+      </Stack.Screen> */}
     </Stack.Navigator>
   );
 }

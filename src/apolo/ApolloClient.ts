@@ -6,8 +6,9 @@ import RNSInfo from 'react-native-sensitive-info';
 const makeApolloClient = () => {
   const httpLink = createHttpLink({
     //uri: 'https://api.skola-offline.tk/graphql',
-    uri: 'http://localhost:8000/graphql',
+    uri: 'http://localhost:3000/graphql',
   });
+  //@ts-expect-error
   const middlewareLink = new ApolloLink(async (operation, forward) => {
     operation.setContext({
       headers:
@@ -37,6 +38,7 @@ const makeApolloClient = () => {
   const cache = new InMemoryCache();
 
   const client = new ApolloClient({
+    //@ts-expect-error
     link: ApolloLink.from([middlewareLink, error, httpLink]),
     cache: cache,
   });

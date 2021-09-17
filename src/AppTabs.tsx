@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useContext, useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStack from './components/HomeStack';
 import {MyContext} from './AuthProvider';
-import {gql, useQuery, useMutation} from '@apollo/client';
+import {gql, useMutation} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
@@ -16,36 +17,26 @@ import {
   useColorMode,
   Center,
 } from 'native-base';
+import {useAddUserMutation, useUserInfoQuery} from './AppTabs.codegen';
+import {UserInfo} from './generated/graphqlBaseTypes';
 
 const Tabs = createBottomTabNavigator();
-
-const GET_USER = gql`
-  query($name: String!, $key: String!) {
-    UserInfo(name: $name, key: $key) {
-      Name
-      PersonId
-    }
-  }
-`;
-
-const GET_DEVICE = gql`
-  mutation($name: String!, $key: String!, $token: String!) {
-    AddUser(name: $name, key: $key, token: $token) {
-      Result
-    }
-  }
-`;
 
 export default function AppTabs() {
   //const [{card, text, primary, background}] = useContext(ThemeContext);
   const {info} = useContext(MyContext);
   const {token} = useContext(GetTokenProvider);
-  const {loading, data, error} = useQuery(GET_USER, {
-    variables: info,
+
+  const {loading, data, error} = useUserInfoQuery({
+    variables: {
+      key: info?.key as string,
+    },
   });
-  const [addToken] = useMutation(GET_DEVICE, {
+
+  const [addUser] = useAddUserMutation({
     ignoreResults: true,
   });
+
   const {colorMode} = useColorMode();
   const [lightBg, darkBg] = useToken('colors', [
     'singletons.white',
@@ -62,12 +53,16 @@ export default function AppTabs() {
 
     // getToken();
     if (token) {
-      addToken({
-        variables: {name: info?.name, key: info?.key, token: token},
+      addUser({
+        variables: {
+          name: info?.name as string,
+          key: info?.key as string,
+          firebaseToken: token,
+        },
       });
     }
-  }, [token, addToken, info]);
-
+  }, [token, addUser, info]);
+  console.log(data);
   if (loading) {
     return (
       <Center>
@@ -90,7 +85,7 @@ export default function AppTabs() {
       <Tabs.Navigator
         initialRouteName={'Home'}
         screenOptions={({route}) => ({
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarIcon: ({color, size}) => {
             let iconName;
 
             if (route.name === 'Home') {
@@ -117,13 +112,12 @@ export default function AppTabs() {
           {props => (
             <HomeStack
               {...props}
-              name={data.UserInfo.Name}
-              id={data.UserInfo.PersonId}
-              token={token}
+              userData={data?.user.info as UserInfo}
+              token={token as string}
             />
           )}
         </Tabs.Screen>
-        <Tabs.Screen
+        {/* <Tabs.Screen
           name="Calendar"
           options={{title: 'Kalendář'}}
           children={() => (
@@ -135,7 +129,7 @@ export default function AppTabs() {
         />
         <Tabs.Screen name="Marks" options={{title: 'Hodnocení'}}>
           {props => <MarksStack {...props} id={data.UserInfo.PersonId} />}
-        </Tabs.Screen>
+        </Tabs.Screen> */}
       </Tabs.Navigator>
     </NavigationContainer>
   );

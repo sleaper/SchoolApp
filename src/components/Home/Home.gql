@@ -1,0 +1,15 @@
+query home($key: String!) {
+  user(key: $key) {
+    id
+    daySchedule {
+      timeFrom
+      timeTo
+      name
+      teacher
+      room
+      order
+      color
+      id
+    }
+  }
+}

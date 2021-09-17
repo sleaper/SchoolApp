@@ -1,0 +1,32 @@
+overwrite: true
+schema: 'E:\programovani\nodejs\proxy2.0\gqlSchemas\schoolApp.graphql'
+documents: 'src/**/*.gql'
+generates:
+  src/generated/graphqlBaseTypes.tsx:
+    plugins:
+      - 'typescript'
+      - 'fragment-matcher'
+  src/generated:
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
+
+    preset: near-operation-file
+    presetConfig:
+      extension: .codegen.tsx
+      baseTypesPath: graphqlBaseTypes
+
+config:
+  withHooks: true
+  withHOC: false
+  withComponent: true
+  apolloClientVersion: 3
+  reactApolloVersion: 3
+  scalars:
+    EmailAddressWithTLD: string
+    NonNegativeFloat: number
+    NonNegativeInt: number
+    PositiveInt: number
+    DateTime: string
+  namingConvention:
+    enumValues: keep

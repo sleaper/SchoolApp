@@ -1,0 +1,15 @@
+query userInfo($key: String!) {
+  user(key: $key) {
+    id
+    info {
+      name
+      className
+      personId
+      id
+    }
+  }
+}
+
+mutation addUser($name: String!, $key: String!, $firebaseToken: String!) {
+  addUser(name: $name, key: $key, firebaseToken: $firebaseToken)
+}
