@@ -1,6 +1,11 @@
 # Škola offline
 This is so far android (IOS in progress) mobile app for students that are using system Škola online (https://www.skolaonline.cz/). App is build on top of Škola online API.
 
+### Why?
+- Notifications on new mark or homework
+- Faster loading
+- Plainer UI
+
 ### Built With
 
 * React Native
