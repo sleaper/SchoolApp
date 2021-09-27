@@ -20,6 +20,14 @@ import {UserInfo} from './generated/graphqlBaseTypes';
 
 const Tabs = createBottomTabNavigator();
 
+const MyTheme = {
+  dark: true,
+  colors: {
+    ...DarkTheme.colors,
+    background: 'rgb(0, 0, 0)',
+  },
+};
+
 export default function AppTabs() {
   //const [{card, text, primary, background}] = useContext(ThemeContext);
   const {info} = useContext(MyContext);
@@ -97,8 +105,7 @@ export default function AppTabs() {
           activeTintColor: 'rgb(0, 141, 255)',
           inactiveTintColor: colorMode === 'dark' ? 'white' : 'black',
           style: {
-            backgroundColor:
-              colorMode === 'dark' ? 'black' : 'rgb(230, 230, 230)',
+            backgroundColor: colorMode === 'dark' ? 'black' : 'white',
           },
         }}>
         <Tabs.Screen name="Home" options={{title: 'Domov'}}>

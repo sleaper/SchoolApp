@@ -6,9 +6,7 @@ import {MyContext} from '../AuthProvider';
 import Home from './Home/Home';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SettingsTabs from './Home/SettingsTabs';
-import ChangeTheme from './Home/ChangeTheme';
-import {useHeaderOptions} from '../hooks/useHeaderOptions';
-import {Text, useColorMode} from 'native-base';
+import {Button, Flex, Text, useColorMode} from 'native-base';
 import {UserInfo} from '../generated/graphqlBaseTypes';
 
 const Stack = createStackNavigator();
@@ -21,23 +19,21 @@ export interface homeStackTmp {
 export default function HomeStack({userData, token}: homeStackTmp) {
   const {LogOut} = useContext(MyContext);
   const {colorMode} = useColorMode();
-  // colorMode === 'dark' ? 'black' : 'white';
+
   return (
     <Stack.Navigator
-      screenOptions={
-        (useHeaderOptions(),
-        {
-          cardStyle: {
-            backgroundColor: colorMode === 'dark' ? 'black' : 'white',
-          },
-          headerStyle: {
-            backgroundColor:
-              colorMode === 'dark' ? 'black' : 'rgb(230, 230, 230)',
-            height: 60,
-          },
-          headerTintColor: colorMode === 'dark' ? 'white' : 'black',
-        })
-      }
+      screenOptions={{
+        cardStyle: {
+          backgroundColor: colorMode === 'dark' ? 'black' : 'white',
+        },
+        headerStyle: {
+          backgroundColor: colorMode === 'dark' ? 'black' : 'white',
+          height: 60,
+          shadowColor: colorMode === 'dark' ? 'white' : 'black',
+        },
+        headerTintColor: colorMode === 'dark' ? 'white' : 'black',
+        headerTitle: '',
+      }}
       initialRouteName="Home">
       <Stack.Screen
         name="Home"
@@ -51,17 +47,19 @@ export default function HomeStack({userData, token}: homeStackTmp) {
           },
           headerLeft: () => {
             return (
-              //<TouchableOpacity onPress={() => setModal(!modal)}>
-              <TouchableOpacity
-                style={{marginLeft: 20}}
-                onPress={() => navigation.navigate('Settings')}>
-                {/* <Text style={{color: colors.text, fontSize: 23}}>{name}</Text> */}
-                <Icon
-                  name="menu-outline"
-                  size={30}
-                  color={'rgb(255, 255, 255)'}
-                />
-              </TouchableOpacity>
+              <Flex flexDirection="row" alignItems="center">
+                <Button
+                  backgroundColor="transparent"
+                  ml={2}
+                  onPress={() => navigation.navigate('Settings')}>
+                  <Icon
+                    name="menu-outline"
+                    size={30}
+                    color={'rgb(255, 255, 255)'}
+                  />
+                </Button>
+                <Text fontSize="lg">{userData.name}</Text>
+              </Flex>
             );
           },
         })}>

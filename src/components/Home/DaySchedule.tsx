@@ -33,7 +33,7 @@ export default function DaySchedule({data}: {data: [dayInfo]}) {
     );
   } else {
     return (
-      <Flex>
+      <>
         <Text paddingLeft={10} paddingTop={10} fontSize={22} fontWeight="bold">
           Dnešní hodiny
         </Text>
@@ -44,7 +44,7 @@ export default function DaySchedule({data}: {data: [dayInfo]}) {
           keyExtractor={item => item.id}
           initialNumToRender={4}
         />
-      </Flex>
+      </>
     );
   }
 }
