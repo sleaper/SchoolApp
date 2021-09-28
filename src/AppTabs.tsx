@@ -8,12 +8,12 @@ import {
 } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStack from './components/HomeStack';
-import {MyContext} from './AuthProvider';
+import {MyContext} from './providers/AuthProvider';
 import {gql, useMutation} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
-import {GetTokenProvider} from './TokenProvider';
+import {GetTokenProvider} from './providers/TokenProvider';
 import {Text, useColorMode, Center, Flex} from 'native-base';
 import {useAddUserMutation, useUserInfoQuery} from './AppTabs.codegen';
 import {UserInfo} from './generated/graphqlBaseTypes';
@@ -29,7 +29,6 @@ const MyTheme = {
 };
 
 export default function AppTabs() {
-  //const [{card, text, primary, background}] = useContext(ThemeContext);
   const {info} = useContext(MyContext);
   const {token} = useContext(GetTokenProvider);
 

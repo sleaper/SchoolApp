@@ -16,7 +16,9 @@ export default function SettingsTabs({name}) {
         color={colorMode === 'dark' ? 'white' : 'black'}
       />
       <Text fontSize={25}>{name}</Text>
-      <Button onPress={toggleColorMode}>Toggle</Button>
+      <Button mt={3} onPress={toggleColorMode}>
+        Změna barev
+      </Button>
     </Flex>
   );
 }

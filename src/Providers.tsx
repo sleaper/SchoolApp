@@ -1,10 +1,10 @@
 import React from 'react';
-import Authprovider from './AuthProvider';
+import Authprovider from './providers/AuthProvider';
 import Routes from './Routes';
 import {ApolloProvider} from '@apollo/client';
 import {apoloCLient} from './apolo/ApolloClient';
 import {AppearanceProvider} from 'react-native-appearance';
-import TokenProvider from './TokenProvider';
+import TokenProvider from './providers/TokenProvider';
 import {NativeBaseProvider, ColorMode, extendTheme} from 'native-base';
 import type {StorageManager} from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';

@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import Schedule from './Calendar/Schedule';
 import Day from './Calendar/Day';
 import {TouchableOpacity} from 'react-native';
-import {getDate} from '../utilz';
+import {getDate} from '../util/utilz';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {ThemeContext} from './theme/ThemeProvider';
 import {useHeaderOptions} from '../hooks/useHeaderOptions';

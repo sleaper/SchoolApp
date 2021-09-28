@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Modal,
 } from 'react-native';
-import {MyContext} from '../../AuthProvider';
+import {MyContext} from '../../providers/AuthProvider';
 import {gql, useQuery} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
 import Center from '../Center';
@@ -68,7 +68,7 @@ export default function TabsMarksSubject({id, navigation, upperNavig}) {
         data={data.AvarageMarks.AvarageMarks}
         renderItem={renderItemSubject}
         initialNumToRender={7}
-        keyExtractor={(item) => item.Id}
+        keyExtractor={item => item.Id}
         ItemSeparatorComponent={() => {
           return <View style={{height: 5, backgroundColor: card}} />;
         }}

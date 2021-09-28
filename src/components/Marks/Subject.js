@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Text, View, FlatList, StyleSheet, Modal} from 'react-native';
-import {MyContext} from '../../AuthProvider';
+import {MyContext} from '../../providers/AuthProvider';
 import {gql, useQuery} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
 import Center from '../Center';

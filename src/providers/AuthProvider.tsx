@@ -3,7 +3,7 @@ import React, {useState, useEffect, createContext, useContext} from 'react';
 import {gql, useLazyQuery, useMutation} from '@apollo/client';
 import base64 from 'react-native-base64';
 import {ActivityIndicator, Text} from 'react-native';
-import Center from './components/Center';
+import Center from '../components/Center';
 import {useApolloClient} from '@apollo/client';
 import SInfo from 'react-native-sensitive-info';
 //import messaging from '@react-native-firebase/messaging';

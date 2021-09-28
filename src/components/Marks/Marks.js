@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   Modal,
 } from 'react-native';
-import {MyContext} from '../../AuthProvider';
+import {MyContext} from '../../providers/AuthProvider';
 import {gql, useQuery} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
 import Center from '../Center';
 import {useTheme} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {getLastWeek, getLastMonth, getLastTwoMonths} from '../../utilz';
+import {getLastWeek, getLastMonth, getLastTwoMonths} from '../../util/utilz';
 
 const getMarksbyDate = gql`
   query($date: [String]!, $key: String!) {
@@ -46,7 +46,7 @@ export default function Marks({id, navigation}) {
     refetch: marksByDateRefetch,
   } = useQuery(getMarksbyDate, {
     variables: {date: date, key: info.key},
-    onCompleted: (test) => {
+    onCompleted: test => {
       setData(test.Marks.MarksByDate);
     },
   });
@@ -228,7 +228,7 @@ export default function Marks({id, navigation}) {
         data={data}
         renderItem={selected ? renderItemMark : renderItemSubject}
         initialNumToRender={7}
-        keyExtractor={(item) => item.Id}
+        keyExtractor={item => item.Id}
         ItemSeparatorComponent={
           selected
             ? null

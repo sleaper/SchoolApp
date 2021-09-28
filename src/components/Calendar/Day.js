@@ -12,14 +12,14 @@ import {
 import {gql, useQuery} from '@apollo/client';
 
 import {ActivityIndicator} from 'react-native';
-import {MyContext} from '../../AuthProvider';
+import {MyContext} from '../../providers/AuthProvider';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DayItem from './DayItem';
 import Arrows from './Arrows';
 import HTMLView from 'react-native-htmlview';
 import {ThemeContext} from '../theme/ThemeProvider';
 import Emoji from 'react-native-emoji';
-import {getDate} from '../../utilz';
+import {getDate} from '../../util/utilz';
 import {NetworkStatus} from '@apollo/client';
 
 const getData = gql`

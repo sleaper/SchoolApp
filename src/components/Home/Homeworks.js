@@ -12,13 +12,13 @@ import {
   Animated,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
-import {editTime} from '../../utilz';
+import {editTime} from '../../util/utilz';
 import Swipable from 'react-native-gesture-handler/Swipeable';
 import {gql, useMutation} from '@apollo/client';
 import {ThemeContext} from '../theme/ThemeProvider';
-import {GetTokenProvider} from '../../TokenProvider';
+import {GetTokenProvider} from '../../providers/TokenProvider';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {MyContext} from '../../AuthProvider';
+import {MyContext} from '../../providers/AuthProvider';
 
 const UPDATE_DATA = gql`
   mutation($data: String!, $token: String!, $key: String!) {

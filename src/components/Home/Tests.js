@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {MyContext} from '../../AuthProvider';
+import {MyContext} from '../../providers/AuthProvider';
 import {
   Text,
   FlatList,
@@ -72,7 +72,7 @@ export default function Tests({data}) {
         initialNumToRender={2}
         data={test}
         renderItem={renderItem}
-        keyExtractor={(item) => item.UKOL_ID}
+        keyExtractor={item => item.UKOL_ID}
       />
     </View>
   );

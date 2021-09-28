@@ -5,7 +5,7 @@ import {Text, View, TouchableOpacity, StyleSheet, Button} from 'react-native';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {gql, useQuery} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
-import {MyContext} from '../../AuthProvider';
+import {MyContext} from '../../providers/AuthProvider';
 import AddButton from '../Calendar/AddButton';
 import {ThemeContext} from '../theme/ThemeProvider';
 
@@ -133,7 +133,7 @@ export default function Schedule({id, navigation}) {
     <View style={styles.container}>
       <Calendar
         enableSwipeMonths={true}
-        onDayPress={(day) => {
+        onDayPress={day => {
           console.log(day);
           navigation.navigate('Day', {
             date: [day.year, day.month, day.day],

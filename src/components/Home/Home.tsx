@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {MyContext} from '../../AuthProvider';
+import {MyContext} from '../../providers/AuthProvider';
 import {ActivityIndicator} from 'react-native';
 import DaySchedule from './DaySchedule';
 import Homeworks from './Homeworks';

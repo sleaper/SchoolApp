@@ -2,11 +2,11 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useContext} from 'react';
 import {TouchableOpacity} from 'react-native';
-import {MyContext} from '../AuthProvider';
+import {MyContext} from '../providers/AuthProvider';
 import Home from './Home/Home';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SettingsTabs from './Home/SettingsTabs';
-import {Button, Flex, Text, useColorMode} from 'native-base';
+import {Button, Flex, Text, useColorMode, useColorModeValue} from 'native-base';
 import {UserInfo} from '../generated/graphqlBaseTypes';
 
 const Stack = createStackNavigator();
@@ -18,20 +18,19 @@ export interface homeStackTmp {
 
 export default function HomeStack({userData, token}: homeStackTmp) {
   const {LogOut} = useContext(MyContext);
-  const {colorMode} = useColorMode();
 
   return (
     <Stack.Navigator
       screenOptions={{
         cardStyle: {
-          backgroundColor: colorMode === 'dark' ? 'black' : 'white',
+          backgroundColor: useColorModeValue('white', 'black'),
         },
         headerStyle: {
-          backgroundColor: colorMode === 'dark' ? 'black' : 'white',
+          backgroundColor: useColorModeValue('white', 'black'),
           height: 60,
-          shadowColor: colorMode === 'dark' ? 'white' : 'black',
+          shadowColor: useColorModeValue('black', 'white'),
         },
-        headerTintColor: colorMode === 'dark' ? 'white' : 'black',
+        headerTintColor: useColorModeValue('black', 'white'),
         headerTitle: '',
       }}
       initialRouteName="Home">
@@ -55,7 +54,8 @@ export default function HomeStack({userData, token}: homeStackTmp) {
                   <Icon
                     name="menu-outline"
                     size={30}
-                    color={'rgb(255, 255, 255)'}
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
+                    color={useColorModeValue('black', 'white')}
                   />
                 </Button>
                 <Text fontSize="lg">{userData.name}</Text>

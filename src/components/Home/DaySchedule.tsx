@@ -2,7 +2,7 @@ import React from 'react';
 import {FlatList} from 'react-native';
 import Emoji from 'react-native-emoji';
 import {Flex, Text} from 'native-base';
-import {dayInfo} from '../../types';
+import {dayInfo} from '../../util/types';
 
 export default function DaySchedule({data}: {data: [dayInfo]}) {
   const renderItem = ({item}: {item: dayInfo}) => {

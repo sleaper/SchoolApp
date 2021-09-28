@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Text, View, FlatList, StyleSheet} from 'react-native';
-import {MyContext} from '../../AuthProvider';
+import {MyContext} from '../../providers/AuthProvider';
 import {gql, useQuery} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
 import Center from '../Center';
@@ -48,7 +48,7 @@ export default function AvarageMarks({id}) {
       <FlatList
         data={data.Report.Report}
         renderItem={renderItem}
-        keyExtractor={(item) => item.Id}
+        keyExtractor={item => item.Id}
         initialNumToRender={7}
       />
     </View>

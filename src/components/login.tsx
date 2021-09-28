@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import {useState} from 'react';
 //import {Text, View, StyleSheet} from 'react-native';
 import {Text, Center, Flex, Input, Button, useColorMode} from 'native-base';
-import {MyContext} from '../AuthProvider';
+import {MyContext} from '../providers/AuthProvider';
 
 export default function login({}) {
   const {LogIn, wrongPass, resetStorage} = useContext(MyContext);

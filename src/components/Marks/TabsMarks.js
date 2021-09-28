@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   Modal,
 } from 'react-native';
-import {MyContext} from '../../AuthProvider';
+import {MyContext} from '../../providers/AuthProvider';
 import {gql, useQuery} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
 import Center from '../Center';
 import {useTheme, useIsFocused} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {getLastWeek, getLastMonth, getLastTwoMonths} from '../../utilz';
+import {getLastWeek, getLastMonth, getLastTwoMonths} from '../../util/utilz';
 import {ThemeContext} from '../theme/ThemeProvider';
 
 const getMarksbyDate = gql`
@@ -126,7 +126,7 @@ export default function Marks({id, navigation, upperNavig}) {
         data={data.Marks.MarksByDate}
         renderItem={renderItemMark}
         initialNumToRender={7}
-        keyExtractor={(item) => item.Id}
+        keyExtractor={item => item.Id}
       />
     </View>
   );
