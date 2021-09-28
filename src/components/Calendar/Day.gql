@@ -1,0 +1,23 @@
+query calendarDay($key: String!, $date: String!) {
+  user(key: $key) {
+    id
+    calendarDay(date: $date) {
+      id
+      name
+      teacher
+      from
+      to
+      class
+      order
+      notes {
+        note
+        order
+      }
+      events {
+        event
+        color
+        order
+      }
+    }
+  }
+}

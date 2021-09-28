@@ -28,12 +28,12 @@ const UPDATE_DATA = gql`
   }
 `;
 
-export default function Homeworks({data}) {
+export default function Homeworks({id, data}: {id: string; data: any}) {
   const [updateData] = useMutation(UPDATE_DATA, {
     ignoreResults: true,
   });
   const {token} = useContext(GetTokenProvider);
-  const [{card, text, background, notification}] = useContext(ThemeContext);
+  // const [{card, text, background, notification}] = useContext(ThemeContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalData, setModalData] = useState('');
@@ -46,7 +46,11 @@ export default function Homeworks({data}) {
   useEffect(() => {
     async function update() {
       updateData({
-        variables: {data: JSON.stringify(items), token: token, key: info.key},
+        variables: {
+          data: JSON.stringify(items),
+          token: token,
+          key: info?.key,
+        },
       });
       setSwiped(false);
     }

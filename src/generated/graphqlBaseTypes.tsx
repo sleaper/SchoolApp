@@ -19,8 +19,28 @@ export type AvarageMark = {
   teacher: Scalars['String'];
 };
 
+export type CalendarDay = {
+  __typename?: 'CalendarDay';
+  class: Scalars['String'];
+  events?: Maybe<Events>;
+  from: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  notes?: Maybe<Notes>;
+  order: Scalars['String'];
+  teacher: Scalars['String'];
+  to: Scalars['String'];
+};
+
 export type Date = {
   date: Array<Scalars['String']>;
+};
+
+export type Events = {
+  __typename?: 'Events';
+  color?: Maybe<Scalars['String']>;
+  event?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['String']>;
 };
 
 export type Marks = {
@@ -55,6 +75,12 @@ export type MutationRemoveUserArgs = {
 
 export type MutationUserArgs = {
   key: Scalars['String'];
+};
+
+export type Notes = {
+  __typename?: 'Notes';
+  note?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -130,6 +156,7 @@ export type UserMutationSaveHomeworksArgs = {
 export type UserQuery = {
   __typename?: 'UserQuery';
   avarageMarks: Array<AvarageMark>;
+  calendarDay: Array<CalendarDay>;
   daySchedule: Array<ScheduleEvent>;
   firebaseToken: Scalars['String'];
   homeworks: Array<Scalars['String']>;
@@ -140,6 +167,12 @@ export type UserQuery = {
   name: Scalars['String'];
   report: Array<Report>;
   subjectMarks: Array<Marks>;
+};
+
+
+/** Object representing user */
+export type UserQueryCalendarDayArgs = {
+  date: Scalars['String'];
 };
 
 

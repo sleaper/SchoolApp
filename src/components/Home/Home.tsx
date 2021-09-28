@@ -7,10 +7,11 @@ import {Center, Flex, useColorMode} from 'native-base';
 import {UserInfo} from '../../generated/graphqlBaseTypes';
 import {useHomeQuery} from './Home.codegen';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Home({userData}: {userData: UserInfo; token: string}) {
   const {info} = useContext(MyContext);
   const {colorMode} = useColorMode();
-  const {loading, error, data} = useHomeQuery({
+  const {loading, data} = useHomeQuery({
     variables: {
       key: info?.key as string,
     },
@@ -28,7 +29,7 @@ export default function Home({userData}: {userData: UserInfo; token: string}) {
     <Flex backgroundColor={colorMode === 'dark' ? 'black' : 'white'} h="100%">
       <DaySchedule data={data?.user.daySchedule} />
       {/* <Tests /> */}
-      {/* <Homeworks data={data.Home.homeworks} id={id} /> */}
+      {/* <Homeworks data={data.Home.homeworks} id={userData.id} /> */}
     </Flex>
   );
 }

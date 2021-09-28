@@ -116,19 +116,16 @@ export default function AppTabs() {
             />
           )}
         </Tabs.Screen>
-        {/* <Tabs.Screen
+        <Tabs.Screen
           name="Calendar"
           options={{title: 'Kalendář'}}
           children={() => (
-            <CalendarStack
-              name={data.UserInfo.Name}
-              id={data.UserInfo.PersonId}
-            />
+            <CalendarStack id={data?.user.info.personId as string} />
           )}
         />
-        <Tabs.Screen name="Marks" options={{title: 'Hodnocení'}}>
+        {/* <Tabs.Screen name="Marks" options={{title: 'Hodnocení'}}>
           {props => <MarksStack {...props} id={data.UserInfo.PersonId} />}
-        </Tabs.Screen> */}
+        </Tabs.Screen>  */}
       </Tabs.Navigator>
     </NavigationContainer>
   );
