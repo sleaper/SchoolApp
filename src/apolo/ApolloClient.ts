@@ -35,7 +35,7 @@ const makeApolloClient = () => {
     }
   });
 
-  const cache = new InMemoryCache();
+  const cache = new InMemoryCache({});
 
   const client = new ApolloClient({
     //@ts-expect-error

@@ -47,7 +47,7 @@ export default function DayItem({
       backgroundColor={useColorModeValue('white', 'muted.700')}
       w="90%"
       m={5}
-      mb={1}
+      mb={0.5}
       pl={8}
       p={4}
       pt={2}

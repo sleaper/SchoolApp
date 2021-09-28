@@ -5,7 +5,7 @@ import Day from './Calendar/Day';
 import {getDate} from '../util/utilz';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useHeaderOptions} from '../hooks/useHeaderOptions';
-import {Button, Pressable, useColorModeValue} from 'native-base';
+import {Pressable, useColorModeValue} from 'native-base';
 
 const Stack = createStackNavigator();
 

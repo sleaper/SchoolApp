@@ -31,7 +31,7 @@ export default function Day({route}) {
       key: info?.key as string,
     },
     notifyOnNetworkStatusChange: true,
-    fetchPolicy: 'cache-first',
+    nextFetchPolicy: 'cache-first',
   });
   const {colorMode} = useColorMode();
 
@@ -79,9 +79,9 @@ export default function Day({route}) {
   } else if (error) {
     console.error(error);
   }
-
+  console.log(loading, networkStatus);
   return (
-    <Flex width="auto">
+    <Flex flex={1}>
       <Arrows leftArr={leftArrow} rightArr={rightArrow} date={date} />
       <Modal
         //animationType="slide"
@@ -143,7 +143,7 @@ export default function Day({route}) {
             />
           )}
           keyExtractor={item => item.id + item.order}
-          extraData={data}
+          //extraData={data?.user.calendarDay}
           refreshing={loading}
         />
       )}
