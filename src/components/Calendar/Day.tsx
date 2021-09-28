@@ -25,13 +25,14 @@ export default function Day({route}) {
   const [modalTitle, setModalTitle] = useState('');
   const [modalData, setModalData] = useState('');
   const {date} = route.params;
+
   const {loading, error, data, refetch, networkStatus} = useCalendarDayQuery({
     variables: {
       date: date[0] + '-' + date[1] + '-' + date[2],
       key: info?.key as string,
     },
     notifyOnNetworkStatusChange: true,
-    nextFetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
   });
   const {colorMode} = useColorMode();
 
@@ -79,7 +80,16 @@ export default function Day({route}) {
   } else if (error) {
     console.error(error);
   }
-  console.log(loading, networkStatus);
+
+  const renderItem = ({item}) => (
+    <DayItem
+      item={item}
+      setModalVisible={setModalVisible}
+      setModalTitle={setModalTitle}
+      setModalData={setModalData}
+    />
+  );
+
   return (
     <Flex flex={1}>
       <Arrows leftArr={leftArrow} rightArr={rightArrow} date={date} />
@@ -133,17 +143,9 @@ export default function Day({route}) {
       ) : (
         <FlatList
           data={data?.user.calendarDay}
-          renderItem={({item}) => (
-            <DayItem
-              //@ts-expect-error
-              item={item}
-              setModalVisible={setModalVisible}
-              setModalTitle={setModalTitle}
-              setModalData={setModalData}
-            />
-          )}
-          keyExtractor={item => item.id + item.order}
-          //extraData={data?.user.calendarDay}
+          renderItem={renderItem}
+          keyExtractor={item => item.order + item.id}
+          extraData={data}
           refreshing={loading}
         />
       )}
