@@ -32,7 +32,7 @@ export default function Day({route}) {
       key: info?.key as string,
     },
     notifyOnNetworkStatusChange: true,
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'network-only', // NEED CACHE HERE
   });
   const {colorMode} = useColorMode();
 
