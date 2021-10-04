@@ -5,7 +5,6 @@ import RNSInfo from 'react-native-sensitive-info';
 
 const makeApolloClient = () => {
   const httpLink = createHttpLink({
-    //uri: 'https://api.skola-offline.tk/graphql',
     uri: 'http://localhost:3000/graphql',
   });
   //@ts-expect-error
