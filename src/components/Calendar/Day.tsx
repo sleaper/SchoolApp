@@ -32,7 +32,6 @@ export default function Day({route}) {
       key: info?.key as string,
     },
     notifyOnNetworkStatusChange: true,
-    fetchPolicy: 'network-only', // NEED CACHE HERE
   });
   const {colorMode} = useColorMode();
 
@@ -50,7 +49,7 @@ export default function Day({route}) {
       }
       refetch({date: date[0] + '-' + date[1] + '-' + date[2], key: info?.key});
     }
-    console.log('left', data);
+    console.log('left');
   };
 
   const rightArrow = () => {
@@ -67,7 +66,7 @@ export default function Day({route}) {
       }
       refetch({date: date[0] + '-' + date[1] + '-' + date[2], key: info?.key});
     }
-    console.log('right', date);
+    console.log('right');
   };
 
   if (loading || networkStatus === NetworkStatus.refetch) {
@@ -144,7 +143,7 @@ export default function Day({route}) {
         <FlatList
           data={data?.user.calendarDay}
           renderItem={renderItem}
-          keyExtractor={item => item.order + item.id}
+          keyExtractor={item => item.id}
           extraData={data}
           refreshing={loading}
         />

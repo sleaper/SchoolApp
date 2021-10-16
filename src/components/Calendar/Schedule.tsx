@@ -1,13 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useContext, useEffect} from 'react';
-import Center from '../Center';
-import {Text, View, TouchableOpacity, StyleSheet, Button} from 'react-native';
+import React from 'react';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
-import {gql, useQuery} from '@apollo/client';
-import {ActivityIndicator} from 'react-native';
-import {MyContext} from '../../providers/AuthProvider';
-import AddButton from '../Calendar/AddButton';
-import {ThemeContext} from '../theme/ThemeProvider';
+import {gql} from '@apollo/client';
+import {useColorModeValue, View} from 'native-base';
 
 const getData = gql`
   query($id: String!, $key: String!) {
@@ -61,38 +56,12 @@ LocaleConfig.locales['cz'] = {
 
 LocaleConfig.defaultLocale = 'cz';
 
-const light = {
-  calendarBackground: 'white',
-  backgroundColor: 'white',
-  selectedDayBackgroundColor: 'rgb(0,183,163)',
-  selectedDayTextColor: 'white',
-  dotColor: 'purple',
-  selectedDotColor: 'white',
-  textDisabledColor: 'lightgray',
-  dayTextColor: 'black',
-  monthTextColor: 'black',
-  textSectionTitleColor: 'black',
-};
-
-const dark = {
-  calendarBackground: '#000000',
-  backgroundColor: '#2a2a2a',
-  selectedDayBackgroundColor: 'brown',
-  selectedDayTextColor: 'white',
-  dotColor: 'purple',
-  selectedDotColor: 'white',
-  textDisabledColor: 'gray',
-  dayTextColor: 'white',
-  monthTextColor: 'white',
-  textSectionTitleColor: 'white',
-};
-
 export default function Schedule({id, navigation}) {
-  const {theme} = useContext(ThemeContext);
-  const {info} = useContext(MyContext);
-  const [{card, text, primary, background, notification}] = useContext(
-    ThemeContext,
-  );
+  //const {info} = useContext(MyContext);
+
+  // const [{card, text, primary, background, notification}] = useContext(
+  //   ThemeContext,
+  // );
   /*const {loading, error, data} = useQuery(getData, {
     variables: {id: id, key: info.key},
   });*/
@@ -130,7 +99,7 @@ export default function Schedule({id, navigation}) {
   //   );
   // }
   return (
-    <View style={styles.container}>
+    <View flex={1}>
       <Calendar
         enableSwipeMonths={true}
         onDayPress={day => {
@@ -140,20 +109,20 @@ export default function Schedule({id, navigation}) {
           });
         }}
         theme={{
-          backgroundColor: background,
-          calendarBackground: background,
-          textSectionTitleColor: text,
+          backgroundColor: useColorModeValue('white', 'black'),
+          calendarBackground: useColorModeValue('white', 'black'),
+          textSectionTitleColor: useColorModeValue('black', 'white'),
           textSectionTitleDisabledColor: '#d9e1e8',
           selectedDayBackgroundColor: '#00adf5',
           selectedDayTextColor: '#ffffff',
-          todayTextColor: primary,
-          dayTextColor: notification,
-          textDisabledColor: '#d9e1e8',
+          todayTextColor: '#00adf5',
+          dayTextColor: useColorModeValue('black', 'white'),
+          textDisabledColor: '#e8e4d9',
           dotColor: '#00adf5',
           selectedDotColor: '#ffffff',
           arrowColor: 'orange',
           disabledArrowColor: '#d9e1e8',
-          monthTextColor: primary,
+          monthTextColor: '#00adf5',
           indicatorColor: 'blue',
           textDayFontFamily: 'monospace',
           textMonthFontFamily: 'monospace',
@@ -170,13 +139,3 @@ export default function Schedule({id, navigation}) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  calendar: {
-    height: 300,
-  },
-  day: {},
-});

@@ -62,7 +62,7 @@ export default function AppTabs() {
       });
     }
   }, [token, addUser, info]);
-  console.log(data);
+
   if (loading) {
     return (
       <Center>

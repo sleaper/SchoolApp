@@ -44,7 +44,7 @@ export default function DayItem({
         setModalTitle('Poznámka');
         setModalData(item.notes?.note as string);
       }}
-      backgroundColor={useColorModeValue('white', 'muted.700')}
+      backgroundColor={useColorModeValue('white', 'muted.800')}
       w="90%"
       m={5}
       mb={0.5}
