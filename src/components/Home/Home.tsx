@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import {MyContext} from '../../providers/AuthProvider';
 import {ActivityIndicator} from 'react-native';
 import DaySchedule from './DaySchedule';
-import Homeworks from './Homeworks';
 import {Center, Flex, useColorMode} from 'native-base';
 import {UserInfo} from '../../generated/graphqlBaseTypes';
 import {useHomeQuery} from './Home.codegen';

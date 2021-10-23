@@ -5,7 +5,7 @@ import {useState} from 'react';
 import {Text, Center, Flex, Input, Button, useColorMode} from 'native-base';
 import {MyContext} from '../providers/AuthProvider';
 
-export default function login({}) {
+export function Login() {
   const {LogIn, wrongPass, resetStorage} = useContext(MyContext);
   const {colorMode, toggleColorMode} = useColorMode();
   //const [{card, text, background, primary}, colors] = useContext(ThemeContext);

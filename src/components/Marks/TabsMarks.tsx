@@ -16,7 +16,7 @@ import {
 } from 'native-base';
 import {ActivityIndicator} from 'react-native';
 
-export default function Marks({upperNavig}) {
+export default function TabsMarks({upperNavig}) {
   const iconColor = useColorModeValue('black', 'white');
   const bgColor = useColorModeValue('white', 'black');
   const itemBgColor = useColorModeValue('#d1d1d1', '#262626');
