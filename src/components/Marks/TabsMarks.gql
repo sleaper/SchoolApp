@@ -1,0 +1,17 @@
+query marksByDate($key: String!, $dateFrom: String!, $dateTo: String!) {
+  user(key: $key) {
+    id
+    marks(dateFrom: $dateFrom, dateTo: $dateTo) {
+      name
+      mark
+      value {
+        NAZEV
+      }
+      id
+      date
+      subject {
+        ZKRATKA
+      }
+    }
+  }
+}

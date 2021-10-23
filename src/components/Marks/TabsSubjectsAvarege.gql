@@ -1,0 +1,11 @@
+query avarageMarks($key: String!) {
+  user(key: $key) {
+    id
+    avarageMarks {
+      subject
+      teacher
+      marks
+      id
+    }
+  }
+}

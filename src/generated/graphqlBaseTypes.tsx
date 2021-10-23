@@ -21,19 +21,16 @@ export type AvarageMark = {
 
 export type CalendarDay = {
   __typename?: 'CalendarDay';
+  backUp: Scalars['Boolean'];
   class: Scalars['String'];
   events?: Maybe<Events>;
   from: Scalars['String'];
-  id: Scalars['String'];
+  id: Scalars['ID'];
   name: Scalars['String'];
   notes?: Maybe<Notes>;
   order: Scalars['String'];
   teacher: Scalars['String'];
   to: Scalars['String'];
-};
-
-export type Date = {
-  date: Array<Scalars['String']>;
 };
 
 export type Events = {
@@ -47,7 +44,7 @@ export type Marks = {
   __typename?: 'Marks';
   date: Scalars['String'];
   id: Scalars['String'];
-  mark: Scalars['String'];
+  mark?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   subject: Subject;
   value: Value;
@@ -108,6 +105,7 @@ export type Report = {
 
 export type ScheduleEvent = {
   __typename?: 'ScheduleEvent';
+  backUp: Scalars['Boolean'];
   color: Scalars['String'];
   id: Scalars['String'];
   name: Scalars['String'];
@@ -178,7 +176,8 @@ export type UserQueryCalendarDayArgs = {
 
 /** Object representing user */
 export type UserQueryMarksArgs = {
-  date: Date;
+  dateFrom: Scalars['String'];
+  dateTo: Scalars['String'];
 };
 
 

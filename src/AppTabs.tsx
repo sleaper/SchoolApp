@@ -20,14 +20,6 @@ import {UserInfo} from './generated/graphqlBaseTypes';
 
 const Tabs = createBottomTabNavigator();
 
-const MyTheme = {
-  dark: true,
-  colors: {
-    ...DarkTheme.colors,
-    background: 'rgb(0, 0, 0)',
-  },
-};
-
 export default function AppTabs() {
   const {info} = useContext(MyContext);
   const {token} = useContext(GetTokenProvider);
@@ -123,9 +115,9 @@ export default function AppTabs() {
             <CalendarStack id={data?.user.info.personId as string} />
           )}
         />
-        {/* <Tabs.Screen name="Marks" options={{title: 'Hodnocení'}}>
-          {props => <MarksStack {...props} id={data.UserInfo.PersonId} />}
-        </Tabs.Screen>  */}
+        <Tabs.Screen name="Marks" options={{title: 'Hodnocení'}}>
+          {props => <MarksStack {...props} id={data?.user.info.id as string} />}
+        </Tabs.Screen>
       </Tabs.Navigator>
     </NavigationContainer>
   );

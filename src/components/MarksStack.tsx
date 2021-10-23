@@ -1,24 +1,62 @@
-import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-import React, {useContext} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import Marks from './Marks/Marks';
+import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react';
 import AvarageMarks from './Marks/AvarageMarks';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useTheme} from '@react-navigation/native';
 import Subject from './Marks/Subject';
 import TabStackMarks from './Marks/TabStackMarks';
-import {useHeaderOptions} from '../hooks/useHeaderOptions';
-import {ThemeContext} from './theme/ThemeProvider';
+import {Button, useColorModeValue} from 'native-base';
 
 const Stack = createStackNavigator();
 
-export default function HomeStack({id, name}) {
-  const [{text, background, card}] = useContext(ThemeContext);
+export default function HomeStack({id}: {id: string}) {
+  const iconColor = useColorModeValue('black', 'white');
   return (
     <Stack.Navigator
       mode="modal"
       initialRouteName="Marks"
-      screenOptions={
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: useColorModeValue('white', 'black'),
+          height: 60,
+          shadowColor: useColorModeValue('black', 'white'),
+        },
+      }}>
+      <Stack.Screen
+        options={({navigation}) => ({
+          headerRight: () => (
+            <Button
+              backgroundColor="transparent"
+              ml={2}
+              onPress={() => navigation.navigate('Settings')}>
+              <Icon name={'school-outline'} size={35} color={iconColor} />
+            </Button>
+          ),
+          headerTitle: 'Známky',
+        })}
+        name="Marks">
+        {props => <TabStackMarks {...props} />}
+      </Stack.Screen>
+
+      <Stack.Screen
+        options={{
+          title: 'Předmět',
+        }}
+        name="Subject">
+        {props => <Subject {...props} />}
+      </Stack.Screen>
+
+      <Stack.Screen
+        options={{
+          title: 'Vysvědčení',
+        }}
+        name="AvarageMarks">
+        {props => <AvarageMarks {...props} id={id} />}
+      </Stack.Screen>
+    </Stack.Navigator>
+  );
+}
+/*
+screenOptions={
         ({
           gestureEnabled: true,
           cardOverlayEnabled: true,
@@ -28,42 +66,7 @@ export default function HomeStack({id, name}) {
           headerTintColor: text,
         },
         useHeaderOptions())
-      }>
-      <Stack.Screen
-        options={({navigation}) => ({
-          headerRight: () => (
-            <TouchableOpacity
-              style={{marginRight: 10}}
-              onPress={() => navigation.navigate('AvarageMarks')}>
-              <Icon name={'school-outline'} size={35} color={text} />
-            </TouchableOpacity>
-          ),
-          headerTitle: 'Známky',
-        })}
-        name="Marks">
-        {(props) => <TabStackMarks {...props} id={id} />}
-      </Stack.Screen>
-
-      <Stack.Screen
-        options={{
-          title: 'Předmět',
-        }}
-        name="Subject">
-        {(props) => <Subject {...props} id={id} />}
-      </Stack.Screen>
-
-      <Stack.Screen
-        options={{
-          title: 'Vysvědčení',
-        }}
-        name="AvarageMarks">
-        {(props) => <AvarageMarks {...props} id={id} />}
-      </Stack.Screen>
-    </Stack.Navigator>
-  );
-}
-/*
-
+      }
 <Modal
         animationType="slide"
         transparent={true}

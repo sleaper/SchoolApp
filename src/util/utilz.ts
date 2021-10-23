@@ -9,7 +9,7 @@ export const getDate = () => {
 };
 
 //Use in homewroks
-export const editTime = (time) => {
+export const editTime = time => {
   const month = time.substring(6, 7);
   const day = time.substring(8, 10);
   const nameOfDay = new Date(time).toString().split(' ')[0];
@@ -95,7 +95,7 @@ export function shadeColor(color, amount) {
     '#' +
     color
       .replace(/^#/, '')
-      .replace(/../g, (color) =>
+      .replace(/../g, color =>
         (
           '0' +
           Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)
