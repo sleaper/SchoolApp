@@ -1,16 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
-import {gql} from '@apollo/client';
 import {useColorModeValue, View} from 'native-base';
-
-const getData = gql`
-  query($id: String!, $key: String!) {
-    Calendar(id: $id, key: $key) {
-      schedule
-    }
-  }
-`;
 
 LocaleConfig.locales['cz'] = {
   monthNames: [
@@ -56,7 +47,7 @@ LocaleConfig.locales['cz'] = {
 
 LocaleConfig.defaultLocale = 'cz';
 
-export default function Schedule({id, navigation}) {
+export default function Schedule({navigation}) {
   //const {info} = useContext(MyContext);
 
   // const [{card, text, primary, background, notification}] = useContext(
@@ -103,7 +94,6 @@ export default function Schedule({id, navigation}) {
       <Calendar
         enableSwipeMonths={true}
         onDayPress={day => {
-          console.log(day);
           navigation.navigate('Day', {
             date: [day.year, day.month, day.day],
           });

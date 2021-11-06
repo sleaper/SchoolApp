@@ -30,22 +30,6 @@ export const MyContext = createContext<{
   resetStorage: () => void;
 }>({} as any);
 
-const AUTH_USER = gql`
-  query($name: String!, $key: String!) {
-    UserAuth(name: $name, key: $key) {
-      AuthStatus
-    }
-  }
-`;
-
-const REMOVE_DATA = gql`
-  mutation($id: String!, $token: String!) {
-    RemoveData(id: $id, token: $token) {
-      Data
-    }
-  }
-`;
-
 export default function AuthProvider({children}) {
   // const [callData, {loading, data, error}] = useLazyQuery(AUTH_USER, {
   //   fetchPolicy: 'no-cache',
@@ -68,26 +52,15 @@ export default function AuthProvider({children}) {
   const [info, setInfo] = useState<Info | null>(null);
   const [wrongPass, setWrongPass] = useState(false);
 
-  /*const resetStorage = async () => {
-    await AsyncStorage.removeItem('user', (err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-    console.log('cleared');
-  };*/
-
   const resetStorage = async () => {
     try {
       await SInfo.deleteItem('user', {});
     } catch (err) {
       console.error(err);
     }
-    console.log('cleared');
   };
 
   useEffect(() => {
-    console.log('1', data);
     if (data) {
       if (data.UserAuth === true) {
         setUser(true);
@@ -171,8 +144,3 @@ export default function AuthProvider({children}) {
     </MyContext.Provider>
   );
 }
-
-// const {data} = await apoloCLient.query({
-//   query: GET_USER,
-//   variables: {name: HashedName, key: key},
-// });

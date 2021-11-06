@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useContext} from 'react';
-import {TouchableOpacity} from 'react-native';
 import {MyContext} from '../providers/AuthProvider';
 import Home from './Home/Home';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -39,9 +38,9 @@ export default function HomeStack({userData, token}: homeStackTmp) {
         options={({navigation}) => ({
           headerRight: () => {
             return (
-              <TouchableOpacity onPress={() => LogOut()}>
-                <Text pr={8}>LOGOUT</Text>
-              </TouchableOpacity>
+              <Button mr={4} onPress={() => LogOut()}>
+                <Text fontWeight={800}>Odhlásit se</Text>
+              </Button>
             );
           },
           headerLeft: () => {
@@ -68,9 +67,6 @@ export default function HomeStack({userData, token}: homeStackTmp) {
       <Stack.Screen name="Settings">
         {props => <SettingsTabs {...props} name={userData.name} />}
       </Stack.Screen>
-      {/* <Stack.Screen name="Themes">
-        {props => <ChangeTheme {...props} />}
-      </Stack.Screen> */}
     </Stack.Navigator>
   );
 }

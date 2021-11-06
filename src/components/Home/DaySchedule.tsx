@@ -14,7 +14,12 @@ export default function DaySchedule({data}: {data: [dayInfo] | undefined}) {
         ml={5}
         mt={5}
         borderRadius={20}>
-        <Text textAlign="center">{item.timeFrom.substring(11, 16)}</Text>
+        <Text textAlign="center">
+          {
+            //@ts-expect-error
+            item.timeFrom.substring(11, 16)
+          }
+        </Text>
         <Flex flex={6} pt={2.5} flexDirection="column" alignItems="center">
           <Text fontWeight="bold">{item.name.substring(0, 3)}</Text>
           <Text marginTop={2.5} fontSize={15}>
@@ -26,10 +31,11 @@ export default function DaySchedule({data}: {data: [dayInfo] | undefined}) {
     );
   };
   //@ts-expect-error
-  if (data[0] == null) {
+  if (!data[0]) {
     return (
       <Flex alignItems="center">
         <Emoji name=":man-shrugging:" style={{fontSize: 50}} />
+        <Text>Dnes máš volno!</Text>
       </Flex>
     );
   } else {

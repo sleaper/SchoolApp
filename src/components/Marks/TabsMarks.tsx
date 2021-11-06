@@ -1,25 +1,27 @@
 import React, {useContext, useState} from 'react';
 import {MyContext} from '../../providers/AuthProvider';
-import Center from '../Center';
 import {useIsFocused} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getLastWeek, getLastMonth} from '../../util/utilz';
 import {useMarksByDateQuery} from './TabsMarks.codegen';
 import {
+  Box,
   Button,
+  Center,
   FlatList,
   Modal,
   Pressable,
   Text,
+  useColorMode,
   useColorModeValue,
   View,
 } from 'native-base';
 import {ActivityIndicator} from 'react-native';
 
 export default function TabsMarks({upperNavig}) {
+  const {colorMode} = useColorMode();
   const iconColor = useColorModeValue('black', 'white');
   const bgColor = useColorModeValue('white', 'black');
-  const itemBgColor = useColorModeValue('#d1d1d1', '#262626');
   const isFocused = useIsFocused();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {info} = useContext(MyContext);
@@ -62,28 +64,32 @@ export default function TabsMarks({upperNavig}) {
   const renderItemMark = ({item}) => {
     return (
       <View
-        backgroundColor={itemBgColor}
-        h={115}
-        w={'90%'}
-        m="3"
-        borderRadius={20}
-        flexDirection={'row'}
-        alignItems={'center'}
-        justifyContent={'space-between'}>
-        <View>
-          <Text pl={10} fontSize={17} fontWeight={'bold'}>
+        height="auto"
+        p={3}
+        w="90%"
+        m={'auto'}
+        mb={2}
+        mt={8}
+        borderRadius={'2xl'}
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between"
+        backgroundColor={colorMode === 'light' ? '#f5f5f5' : '#2f2f2f'}>
+        <Box pl={5}>
+          <Text fontSize={17} fontWeight={'bold'}>
             {item.subject.ZKRATKA} - {item.name}
           </Text>
-          <Text mt={0.5} pl={10} fontSize={14}>
+          <Text mt={0.5} fontSize={14}>
             {item.value.NAZEV}
           </Text>
-          <Text mt={0.5} pl={10} fontSize={14}>
+          <Text mt={0.5} fontSize={14}>
             {item.date}
           </Text>
-        </View>
-        <View pt={5} fontSize={20} fontWeight={'bold'} mr={10}>
-          <Text fontSize={17}>{item.mark ? item.mark : '-'}</Text>
-        </View>
+        </Box>
+
+        <Text fontSize={20} fontWeight={'bold'} mr={5}>
+          {item.mark ? item.mark : '-'}
+        </Text>
       </View>
     );
   };

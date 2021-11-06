@@ -49,7 +49,6 @@ export default function Day({route}) {
       }
       refetch({date: date[0] + '-' + date[1] + '-' + date[2], key: info?.key});
     }
-    console.log('left');
   };
 
   const rightArrow = () => {
@@ -66,7 +65,6 @@ export default function Day({route}) {
       }
       refetch({date: date[0] + '-' + date[1] + '-' + date[2], key: info?.key});
     }
-    console.log('right');
   };
 
   if (loading || networkStatus === NetworkStatus.refetch) {

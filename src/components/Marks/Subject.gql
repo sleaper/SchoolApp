@@ -1,0 +1,14 @@
+query subjectMarks($key: String!, $subject: String!) {
+  user(key: $key) {
+    id
+    subjectMarks(subject: $subject) {
+      id
+      name
+      mark
+      date
+      value {
+        NAZEV
+      }
+    }
+  }
+}

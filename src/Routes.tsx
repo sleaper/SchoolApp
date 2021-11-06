@@ -10,7 +10,6 @@ export default function Routes() {
   let {user, setUser, data, setInfo} = useContext(MyContext);
 
   useEffect(() => {
-    console.log('3');
     //check if the user is logged in or not
     if (!data) {
       RNSInfo.getItem('user', {})
@@ -27,15 +26,3 @@ export default function Routes() {
   }, []);
   return <>{user ? <AppTabs /> : <AuthTabs />}</>;
 }
-
-/*AsyncStorage.getItem('user')
-        .then((userToken) => {
-          if (userToken) {
-            console.log('userToken ', userToken);
-            setInfo(JSON.parse(userToken));
-            setUser(true);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });*/
