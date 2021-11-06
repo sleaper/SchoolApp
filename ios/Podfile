@@ -19,17 +19,17 @@ target 'skolaoffline' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable these next few lines.
-  use_flipper!
-  post_install do |installer|
-    flipper_post_install(installer)
-  end
+  # use_flipper!
+  # post_install do |installer|
+  #   flipper_post_install(installer)
+  # end
 end
 
-target 'skolaoffline-tvOS' do
-  # Pods for skolaoffline-tvOS
+# target 'skolaoffline-tvOS' do
+#   # Pods for skolaoffline-tvOS
 
-  target 'skolaoffline-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-end
+#   target 'skolaoffline-tvOSTests' do
+#     inherit! :search_paths
+#     # Pods for testing
+#   end
+# end
