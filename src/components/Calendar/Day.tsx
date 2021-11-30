@@ -91,7 +91,6 @@ export default function Day({route}) {
     <Flex flex={1}>
       <Arrows leftArr={leftArrow} rightArr={rightArrow} date={date} />
       <Modal
-        //animationType="slide"
         isOpen={modalVisible}
         onClose={() => {
           setModalVisible(!modalVisible);
@@ -120,9 +119,6 @@ export default function Day({route}) {
             <Button
               borderRadius={'20px'}
               padding="10px"
-              position="absolute"
-              right="30px"
-              bottom="30px"
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}>
@@ -133,6 +129,7 @@ export default function Day({route}) {
           </Modal.Footer>
         </Modal.Content>
       </Modal>
+
       {data?.user.calendarDay.length === 0 ? (
         <Center>
           <Emoji name=":man-shrugging:" style={{fontSize: 50}} />

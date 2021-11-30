@@ -1,12 +1,21 @@
 import React, {useContext} from 'react';
 import {MyContext} from '../../providers/AuthProvider';
 import {ActivityIndicator} from 'react-native';
-import {Text, Flex, useColorMode, Box, FlatList, Center} from 'native-base';
+import {
+  Text,
+  Flex,
+  useColorMode,
+  Box,
+  FlatList,
+  useColorModeValue,
+} from 'native-base';
 import {useSubjectMarksQuery} from './Subject.codegen';
+import MyCenter from '../MyCenter';
 
 export default function Subject({route}) {
   const {info} = useContext(MyContext);
   const {name} = route.params;
+  const itemBg = useColorModeValue('white', 'muted.800');
 
   const {data, loading, error} = useSubjectMarksQuery({
     variables: {subject: name, key: info?.key as string},
@@ -15,9 +24,9 @@ export default function Subject({route}) {
 
   if (loading) {
     return (
-      <Center>
+      <MyCenter>
         <ActivityIndicator size="large" color="#0000ff" />
-      </Center>
+      </MyCenter>
     );
   } else if (error) {
     console.error(error);
@@ -36,7 +45,8 @@ export default function Subject({route}) {
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
-        backgroundColor={colorMode === 'light' ? '#f5f5f5' : '#2f2f2f'}>
+        shadow={5}
+        backgroundColor={itemBg}>
         <Flex pl={5}>
           <Text fontSize={17} fontWeight="bold">
             {item.name}
@@ -57,7 +67,7 @@ export default function Subject({route}) {
   };
 
   return (
-    <Flex backgroundColor={colorMode === 'light' ? 'white' : 'black'} h="100%">
+    <Flex h="100%">
       <Box
         h="80px"
         borderBottomLeftRadius={35}

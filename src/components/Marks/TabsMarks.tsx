@@ -7,21 +7,21 @@ import {useMarksByDateQuery} from './TabsMarks.codegen';
 import {
   Box,
   Button,
-  Center,
   FlatList,
+  Flex,
   Modal,
   Pressable,
   Text,
-  useColorMode,
   useColorModeValue,
-  View,
 } from 'native-base';
 import {ActivityIndicator} from 'react-native';
+import MyCenter from '../MyCenter';
 
 export default function TabsMarks({upperNavig}) {
-  const {colorMode} = useColorMode();
   const iconColor = useColorModeValue('black', 'white');
-  const bgColor = useColorModeValue('white', 'black');
+  const itemBg = useColorModeValue('white', 'muted.800');
+  //const bgColor = useColorModeValue('white', 'muted.800');
+
   const isFocused = useIsFocused();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {info} = useContext(MyContext);
@@ -53,9 +53,9 @@ export default function TabsMarks({upperNavig}) {
 
   if (loading) {
     return (
-      <Center>
+      <MyCenter>
         <ActivityIndicator size="large" color="#0000ff" />
-      </Center>
+      </MyCenter>
     );
   } else if (error) {
     console.error(error);
@@ -63,7 +63,7 @@ export default function TabsMarks({upperNavig}) {
 
   const renderItemMark = ({item}) => {
     return (
-      <View
+      <Flex
         height="auto"
         p={3}
         w="90%"
@@ -74,7 +74,8 @@ export default function TabsMarks({upperNavig}) {
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
-        backgroundColor={colorMode === 'light' ? '#f5f5f5' : '#2f2f2f'}>
+        shadow={5}
+        backgroundColor={itemBg}>
         <Box pl={5}>
           <Text fontSize={17} fontWeight={'bold'}>
             {item.subject.ZKRATKA} - {item.name}
@@ -90,12 +91,12 @@ export default function TabsMarks({upperNavig}) {
         <Text fontSize={20} fontWeight={'bold'} mr={5}>
           {item.mark ? item.mark : '-'}
         </Text>
-      </View>
+      </Flex>
     );
   };
 
   return (
-    <View flex={1} backgroundColor={bgColor}>
+    <Flex>
       <Modal
         size={'sm'}
         animationPreset="slide"
@@ -110,10 +111,10 @@ export default function TabsMarks({upperNavig}) {
             <Button
               backgroundColor={'lightBlue.600'}
               onPress={() => {
-                setDate(getLastWeek());
+                let tmpDate = getLastWeek();
                 refetch({
-                  dateFrom: date[0],
-                  dateTo: date[1],
+                  dateFrom: tmpDate[0],
+                  dateTo: tmpDate[1],
                   key: info?.key as string,
                 });
                 setIsModalOpen(!isModalOpen);
@@ -124,10 +125,10 @@ export default function TabsMarks({upperNavig}) {
               mt={2}
               backgroundColor={'lightBlue.600'}
               onPress={() => {
-                setDate(getLastMonth());
+                let tmpDate = getLastMonth();
                 refetch({
-                  dateFrom: date[0],
-                  dateTo: date[1],
+                  dateFrom: tmpDate[0],
+                  dateTo: tmpDate[1],
                   key: info?.key as string,
                 });
                 setIsModalOpen(!isModalOpen);
@@ -144,6 +145,6 @@ export default function TabsMarks({upperNavig}) {
         initialNumToRender={7}
         keyExtractor={item => item.id}
       />
-    </View>
+    </Flex>
   );
 }

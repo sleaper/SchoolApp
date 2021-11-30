@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {MyContext} from '../../providers/AuthProvider';
 import {ActivityIndicator} from 'react-native';
 import DaySchedule from './DaySchedule';
-import {Center, Flex, useColorMode} from 'native-base';
+import {Flex} from 'native-base';
 import {UserInfo} from '../../generated/graphqlBaseTypes';
 import {useHomeQuery} from './Home.codegen';
 import MyCenter from '../MyCenter';
@@ -15,7 +15,6 @@ export default function Home({
   token: string;
 }) {
   const {info} = useContext(MyContext);
-  const {colorMode} = useColorMode();
   const {loading, data} = useHomeQuery({
     variables: {
       key: info?.key as string,
@@ -31,7 +30,7 @@ export default function Home({
   }
 
   return (
-    <Flex backgroundColor={colorMode === 'dark' ? 'black' : 'white'} h="100%">
+    <Flex h="100%">
       <DaySchedule data={data?.user.daySchedule} />
       {/* <Tests /> */}
       {/* <Homeworks data={data.Home.homeworks} id={userData.id} /> */}

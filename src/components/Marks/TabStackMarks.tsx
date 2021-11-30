@@ -74,8 +74,6 @@ function MyTabBar({state, descriptors, navigation, position}) {
 export default function TabStackMarks({navigation: upperNavig}) {
   return (
     <Tab.Navigator
-      //tabBarOptions={useHeaderOptions()}
-      //sceneContainerStyle={{backgroundColor: background}}
       timingConfig={{duration: 1}}
       tabBar={props => <MyTabBar {...props} />}>
       <Tab.Screen name="Podle data">

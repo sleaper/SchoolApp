@@ -3,28 +3,34 @@ import {FlatList} from 'react-native';
 import Emoji from 'react-native-emoji';
 import {Flex, Text} from 'native-base';
 import {dayInfo} from '../../util/types';
+import {useColorModeValue} from 'native-base';
 
 export default function DaySchedule({data}: {data: any}) {
+  //useColorModeValue('white', 'muted.800')
+  const itemBg = useColorModeValue('white', 'muted.800');
   const renderItem = ({item}: {item: dayInfo}) => {
     return (
       <Flex
-        backgroundColor={item.color}
+        backgroundColor={itemBg}
         h={135}
         w={130}
         ml={5}
-        mt={5}
-        borderRadius={20}>
+        borderRadius={20}
+        p={2}
+        mt={4}
+        shadow={5}>
         <Text textAlign="center">
           {
             //@ts-expect-error
-            item.timeFrom.substring(11, 16)
+            item.timeFrom.substring(11, 16) +
+              ' - ' +
+              //@ts-expect-error
+              item.timeTo.substring(11, 16)
           }
         </Text>
-        <Flex flex={6} pt={2.5} flexDirection="column" alignItems="center">
+        <Flex flexDirection="column" alignItems="center" mt={2}>
           <Text fontWeight="bold">{item.name.substring(0, 3)}</Text>
-          <Text marginTop={2.5} fontSize={15}>
-            {item.teacher}
-          </Text>
+          <Text fontSize={15}>{item.teacher}</Text>
           <Text fontSize={15}>{item.room}</Text>
         </Flex>
       </Flex>
@@ -41,7 +47,7 @@ export default function DaySchedule({data}: {data: any}) {
   } else {
     return (
       <>
-        <Text paddingLeft={10} paddingTop={10} fontSize={22} fontWeight="bold">
+        <Text paddingLeft={10} paddingTop={6} fontSize={22} fontWeight="bold">
           Dnešní hodiny
         </Text>
         <FlatList

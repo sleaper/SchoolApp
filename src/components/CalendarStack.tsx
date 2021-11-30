@@ -22,7 +22,7 @@ export default function HomeStack({id}: {id: string}) {
         // },
         (useHeaderOptions(),
         {
-          cardStyle: {backgroundColor: useColorModeValue('#e5e5e5', 'black')},
+          cardStyle: {backgroundColor: useColorModeValue('white', 'black')},
           headerStyle: {backgroundColor: useColorModeValue('white', 'black')},
           headerTintColor: useColorModeValue('black', 'white'),
         })
@@ -48,7 +48,7 @@ export default function HomeStack({id}: {id: string}) {
         {props => <Day {...props} />}
       </Stack.Screen>
       <Stack.Screen name="Month" options={{title: 'Měsíc'}}>
-        {props => <Schedule {...props} id={id} />}
+        {props => <Schedule {...props} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

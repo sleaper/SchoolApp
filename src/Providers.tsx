@@ -30,6 +30,15 @@ const colorModeManager: StorageManager = {
 
 export default function Providers() {
   const theme = extendTheme({
+    // components: {
+    //   Flex: {
+    //     baseStyle: ({colorMode}) => {
+    //       return {
+    //         backgroundColor: colorMode === 'dark' ? 'black' : 'white',
+    //       };
+    //     },
+    //   },
+    // },
     config: {
       initialColorMode: 'light',
     },

@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
-import {useColorModeValue, View} from 'native-base';
+import {Flex, useColorModeValue} from 'native-base';
 
 LocaleConfig.locales['cz'] = {
   monthNames: [
@@ -90,7 +90,7 @@ export default function Schedule({navigation}) {
   //   );
   // }
   return (
-    <View flex={1}>
+    <Flex>
       <Calendar
         enableSwipeMonths={true}
         onDayPress={day => {
@@ -126,6 +126,6 @@ export default function Schedule({navigation}) {
         }}
       />
       {/* <AddButton /> Think about what you whant */}
-    </View>
+    </Flex>
   );
 }

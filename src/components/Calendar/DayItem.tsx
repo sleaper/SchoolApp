@@ -2,7 +2,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Dispatch, SetStateAction, useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {Flex, Pressable, Text, useColorModeValue} from 'native-base';
+import {Button, Flex, Pressable, Text, useColorModeValue} from 'native-base';
 import {CalendarDayTypes} from '../../util/types';
 
 function Event({item}: {item: CalendarDayTypes}) {
@@ -38,6 +38,7 @@ export default function DayItem({
 
   return (
     <Pressable
+      _pressed={{backgroundColor: useColorModeValue('light.200', 'muted.700')}}
       disabled={!active}
       onPress={() => {
         setModalVisible(true);

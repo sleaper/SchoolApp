@@ -15,11 +15,15 @@ export default function HomeStack({id}: {id: string}) {
       mode="modal"
       initialRouteName="Marks"
       screenOptions={{
+        cardStyle: {
+          backgroundColor: useColorModeValue('white', 'black'),
+        },
         headerStyle: {
           backgroundColor: useColorModeValue('white', 'black'),
           height: 60,
           shadowColor: useColorModeValue('black', 'white'),
         },
+        headerTintColor: useColorModeValue('black', 'white'),
       }}>
       <Stack.Screen
         options={({navigation}) => ({
