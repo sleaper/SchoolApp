@@ -5,9 +5,15 @@ import DaySchedule from './DaySchedule';
 import {Center, Flex, useColorMode} from 'native-base';
 import {UserInfo} from '../../generated/graphqlBaseTypes';
 import {useHomeQuery} from './Home.codegen';
+import MyCenter from '../MyCenter';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function Home({userData}: {userData: UserInfo; token: string}) {
+export default function Home({
+  userData,
+}: {
+  userData: UserInfo | undefined;
+  token: string;
+}) {
   const {info} = useContext(MyContext);
   const {colorMode} = useColorMode();
   const {loading, data} = useHomeQuery({
@@ -18,9 +24,9 @@ export default function Home({userData}: {userData: UserInfo; token: string}) {
 
   if (loading) {
     return (
-      <Center>
+      <MyCenter>
         <ActivityIndicator size="large" color="#0000ff" />
-      </Center>
+      </MyCenter>
     );
   }
 

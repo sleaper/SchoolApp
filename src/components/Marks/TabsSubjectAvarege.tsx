@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {MyContext} from '../../providers/AuthProvider';
 import {ActivityIndicator} from 'react-native';
-import Center from '../Center';
+import Center from '../MyCenter';
 import {useAvarageMarksQuery} from './TabsSubjectsAvarege.codegen';
 import {
   FlatList,

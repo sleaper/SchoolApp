@@ -1,17 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState, useEffect, createContext, useContext} from 'react';
-import {gql, useLazyQuery, useMutation} from '@apollo/client';
 import base64 from 'react-native-base64';
-import {ActivityIndicator, Text} from 'react-native';
-import Center from '../components/Center';
+import {ActivityIndicator} from 'react-native';
 import {useApolloClient} from '@apollo/client';
-import SInfo from 'react-native-sensitive-info';
+import RNSInfo from 'react-native-sensitive-info';
 //import messaging from '@react-native-firebase/messaging';
 import {GetTokenProvider} from './TokenProvider';
 import {
   useAuthUserLazyQuery,
   useRemoveUserMutation,
 } from './AuthProvider.codegen';
+import {Button, Text} from 'native-base';
+import MyCenter from '../components/MyCenter';
 
 interface Info {
   name: string;
@@ -31,14 +30,6 @@ export const MyContext = createContext<{
 }>({} as any);
 
 export default function AuthProvider({children}) {
-  // const [callData, {loading, data, error}] = useLazyQuery(AUTH_USER, {
-  //   fetchPolicy: 'no-cache',
-  // });
-  // const [removeData] = useMutation(REMOVE_DATA, {
-  //   ignoreResults: true,
-  // });
-
-  //Why no cache
   const [authUser, {loading, data, error}] = useAuthUserLazyQuery({
     fetchPolicy: 'no-cache',
   });
@@ -54,9 +45,9 @@ export default function AuthProvider({children}) {
 
   const resetStorage = async () => {
     try {
-      await SInfo.deleteItem('user', {});
+      await RNSInfo.deleteItem('user', {});
     } catch (err) {
-      console.error(err);
+      console.error('resetError', err);
     }
   };
 
@@ -71,21 +62,39 @@ export default function AuthProvider({children}) {
         setUser(false);
       }
     }
-  }, [data]);
+  }, [data, data?.UserAuth]);
 
   if (loading) {
     return (
-      <Center>
+      <MyCenter>
         <ActivityIndicator size="large" color="#0000ff" />
-      </Center>
+      </MyCenter>
     );
   }
 
   if (error) {
     return (
-      <Center>
+      <MyCenter>
         <Text>Nejsi připojený k internetu.</Text>
-      </Center>
+        <Button
+          colorScheme="blue"
+          onPress={() =>
+            RNSInfo.getItem('user', {})
+              .then(userToken => {
+                console.log('userToken', userToken);
+                if (userToken) {
+                  let tmp: {name: string; key: string} = JSON.parse(userToken);
+
+                  authUser({variables: {key: tmp.key}});
+                }
+              })
+              .catch(err => {
+                console.log('routeError', err);
+              })
+          }>
+          opakovat
+        </Button>
+      </MyCenter>
     );
   }
 
@@ -99,7 +108,6 @@ export default function AuthProvider({children}) {
         info,
         setInfo,
         LogIn: async (name, passw) => {
-          console.log('clicked');
           //Hashing logic
           let HashedName = base64.encode(name);
           let HashedPassw = base64.encode(passw);
@@ -110,33 +118,24 @@ export default function AuthProvider({children}) {
           const info = {name: HashedName, key: key};
 
           setInfo(info);
-          // storing UserInfo, because of authorization
-          /*await AsyncStorage.setItem('user', JSON.stringify(info), (err) => {
-            if (err) {
-              console.error(err);
-            }
-          });*/
+
           try {
-            await SInfo.setItem('user', JSON.stringify(info), {});
-          } catch (error) {
-            console.error(error);
+            await RNSInfo.setItem('user', JSON.stringify(info), {});
+          } catch (err) {
+            console.error('settingError', err);
           }
 
           authUser({
             variables: {key: key},
           });
-          console.log(data);
         },
         LogOut: async () => {
           await client.clearStore();
           setUser(null);
+
           removeData({variables: {firebaseToken: token as string}});
-          /*await AsyncStorage.removeItem('user', (err) => {
-            if (err) {
-              console.error(err);
-            }
-          });*/
-          await SInfo.deleteItem('user', {});
+
+          await RNSInfo.deleteItem('user', {});
         },
         resetStorage: resetStorage,
       }}>

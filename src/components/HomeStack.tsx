@@ -11,7 +11,7 @@ import {UserInfo} from '../generated/graphqlBaseTypes';
 const Stack = createStackNavigator();
 
 export interface homeStackTmp {
-  userData: UserInfo;
+  userData: UserInfo | undefined;
   token: string;
 }
 
@@ -57,7 +57,7 @@ export default function HomeStack({userData, token}: homeStackTmp) {
                     color={useColorModeValue('black', 'white')}
                   />
                 </Button>
-                <Text fontSize="lg">{userData.name}</Text>
+                <Text fontSize="lg">{userData?.name}</Text>
               </Flex>
             );
           },
@@ -65,7 +65,7 @@ export default function HomeStack({userData, token}: homeStackTmp) {
         {props => <Home {...props} userData={userData} token={token} />}
       </Stack.Screen>
       <Stack.Screen name="Settings">
-        {props => <SettingsTabs {...props} name={userData.name} />}
+        {props => <SettingsTabs {...props} name={userData?.name} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

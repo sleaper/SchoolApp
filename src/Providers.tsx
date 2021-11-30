@@ -15,7 +15,7 @@ const colorModeManager: StorageManager = {
       let val = await AsyncStorage.getItem('@my-app-color-mode');
       return val === 'dark' ? 'dark' : 'light';
     } catch (e) {
-      console.log(e);
+      console.log('themError', e);
       return 'light';
     }
   },
@@ -23,37 +23,12 @@ const colorModeManager: StorageManager = {
     try {
       await AsyncStorage.setItem('@my-app-color-mode', value as string);
     } catch (e) {
-      console.log(e);
+      console.log('themError', e);
     }
   },
 };
 
 export default function Providers() {
-  //const [client, setClient] = useState();
-
-  /*useEffect(() => {
-    async function init() {
-      await persistCache({
-        cache: apoloCLient.cache,
-        storage: AsyncStorage,
-        trigger: 'background',
-        debug: __DEV__,
-      });
-      setClient(apoloCLient);
-    }
-
-    init();
-  }, []);
-
-  if (!client) {
-    return (
-      <Center>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </Center>
-    );
-  }*/
-  //forceInset={{top: 'always', bottom: 'always'}}
-
   const theme = extendTheme({
     config: {
       initialColorMode: 'light',

@@ -15,8 +15,13 @@ import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
 import {GetTokenProvider} from './providers/TokenProvider';
 import {Text, useColorMode, Center, Flex} from 'native-base';
-import {useAddUserMutation, useUserInfoQuery} from './AppTabs.codegen';
+import {
+  useAddUserMutation,
+  useUserInfoLazyQuery,
+  useUserInfoQuery,
+} from './AppTabs.codegen';
 import {UserInfo} from './generated/graphqlBaseTypes';
+import MyCenter from './components/MyCenter';
 
 const Tabs = createBottomTabNavigator();
 
@@ -25,50 +30,58 @@ export default function AppTabs() {
   const {token} = useContext(GetTokenProvider);
 
   const {loading, data, error} = useUserInfoQuery({
-    variables: {
-      key: info?.key as string,
-    },
-  });
-
-  const [addUser] = useAddUserMutation({
-    ignoreResults: true,
+    variables: {key: info?.key as string},
   });
 
   const {colorMode} = useColorMode();
 
-  useEffect(() => {
-    // async function getToken() {
-    //   const Token = await messaging().getToken();
-    //   setToken(Token);
-    //   addToken({variables: {name: info.name, key: info.key, token: Token}});
-    // }
+  // useEffect(() => {
+  //   //  Solve this
+  //   //   User should be added and then called userInfo
+  //   let mounted = true;
+  //   if (token) {
+  //     addUser({
+  //       variables: {
+  //         name: info?.name as string,
+  //         key: info?.key as string,
+  //         firebaseToken: token,
+  //       },
+  //     });
+  //   }
 
-    // getToken();
-    if (token) {
-      addUser({
-        variables: {
-          name: info?.name as string,
-          key: info?.key as string,
-          firebaseToken: token,
-        },
-      });
-    }
-  }, [token, addUser, info]);
+  //   return function cleanup() {
+  //     mounted = false;
+  //   };
+  //   //eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [token]);
+
+  // useEffect(() => {
+  //   let mounted = true;
+  //   if (addUserData) {
+  //     getUserInfo({
+  //       variables: {key: info?.key as string},
+  //     });
+  //   }
+
+  //   return function cleanup() {
+  //     mounted = false;
+  //   };
+  // }, [addUserData]);
 
   if (loading) {
     return (
-      <Center>
+      <MyCenter>
         <ActivityIndicator size="large" color="blue" />
-      </Center>
+      </MyCenter>
     );
   }
 
   if (error) {
-    console.log(error);
+    console.log('ERRpr', error);
     return (
-      <Center>
+      <MyCenter>
         <Text>Nejsi připojený k internetu.</Text>
-      </Center>
+      </MyCenter>
     );
   }
 
@@ -76,7 +89,7 @@ export default function AppTabs() {
     <NavigationContainer
       theme={colorMode === 'dark' ? DarkTheme : DefaultTheme}>
       <Tabs.Navigator
-        initialRouteName={'Home'}
+        //initialRouteName={'Home'}
         screenOptions={({route}) => ({
           tabBarIcon: ({color, size}) => {
             let iconName;

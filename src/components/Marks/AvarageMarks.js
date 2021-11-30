@@ -3,7 +3,7 @@ import {Text, View, FlatList, StyleSheet} from 'react-native';
 import {MyContext} from '../../providers/AuthProvider';
 import {gql, useQuery} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
-import Center from '../Center';
+import Center from '../MyCenter';
 import {useTheme} from '@react-navigation/native';
 import {ThemeContext} from '../theme/ThemeProvider';
 

@@ -10,7 +10,7 @@ import {
 import {MyContext} from '../../providers/AuthProvider';
 import {gql, useQuery} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
-import Center from '../Center';
+import Center from '../MyCenter';
 import {useTheme} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getLastWeek, getLastMonth, getLastTwoMonths} from '../../util/utilz';

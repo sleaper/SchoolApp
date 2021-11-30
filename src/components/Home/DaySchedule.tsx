@@ -4,7 +4,7 @@ import Emoji from 'react-native-emoji';
 import {Flex, Text} from 'native-base';
 import {dayInfo} from '../../util/types';
 
-export default function DaySchedule({data}: {data: [dayInfo] | undefined}) {
+export default function DaySchedule({data}: {data: any}) {
   const renderItem = ({item}: {item: dayInfo}) => {
     return (
       <Flex
@@ -30,7 +30,7 @@ export default function DaySchedule({data}: {data: [dayInfo] | undefined}) {
       </Flex>
     );
   };
-  //@ts-expect-error
+
   if (!data[0]) {
     return (
       <Flex alignItems="center">

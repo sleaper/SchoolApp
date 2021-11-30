@@ -1,19 +1,28 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, {useContext} from 'react';
 import {useState} from 'react';
-//import {Text, View, StyleSheet} from 'react-native';
-import {Text, Center, Flex, Input, Button, useColorMode} from 'native-base';
+import {
+  Text,
+  Center,
+  Flex,
+  Input,
+  Button,
+  useColorMode,
+  useColorModeValue,
+  Pressable,
+} from 'native-base';
 import {MyContext} from '../providers/AuthProvider';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export function Login() {
-  const {LogIn, wrongPass, resetStorage} = useContext(MyContext);
-  const {colorMode, toggleColorMode} = useColorMode();
+  const {LogIn, wrongPass} = useContext(MyContext);
+  const {colorMode} = useColorMode();
   //const [{card, text, background, primary}, colors] = useContext(ThemeContext);
   //const {colors} = useContext(ThemeContext);
-  const [name, setName] = useState('');
-  const [passw, setPassw] = useState('');
+  const [name, setName] = useState('spac.petr');
+  const [passw, setPassw] = useState('n2a4RV33');
   const [show, setShow] = useState(false);
-
+  const iconColor = useColorModeValue('black', 'white');
   const handleClick = () => setShow(!show);
 
   return (
@@ -86,18 +95,18 @@ export function Login() {
           mx={3}
           type={show ? 'text' : 'password'}
           InputRightElement={
-            <Button
-              ml={1}
-              roundedLeft={0}
-              roundedRight="md"
-              onPress={handleClick}>
-              {show ? 'Hide' : 'Show'}
-            </Button>
+            <Pressable onPress={() => handleClick()} pr={2}>
+              <Icon
+                name={show ? 'eye-off-outline' : 'eye-outline'}
+                size={25}
+                color={iconColor}
+              />
+            </Pressable>
           }
           placeholder="Heslo"
           onChangeText={password => setPassw(password)}
           autoCompleteType={'password'}
-          secureTextEntry={true}
+          secureTextEntry={show ? false : true}
         />
       </Flex>
 
@@ -106,20 +115,6 @@ export function Login() {
           LogIn(name, passw);
         }}>
         Přihlásit se
-      </Button>
-
-      <Button
-        onPress={() => {
-          resetStorage();
-        }}>
-        test
-      </Button>
-
-      <Button
-        onPress={() => {
-          toggleColorMode();
-        }}>
-        color
       </Button>
     </Center>
   );
