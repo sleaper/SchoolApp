@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useContext, useEffect} from 'react';
+import React, {RefObject, useContext, useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   DarkTheme,
   DefaultTheme,
   NavigationContainer,
+  NavigationContainerRef,
 } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStack from './components/HomeStack';
@@ -22,12 +23,14 @@ import {
 } from './AppTabs.codegen';
 import {UserInfo} from './generated/graphqlBaseTypes';
 import MyCenter from './components/MyCenter';
+import {routingInstrumentation} from '../App';
 
 const Tabs = createBottomTabNavigator();
 
 export default function AppTabs() {
   const {info} = useContext(MyContext);
   const {token} = useContext(GetTokenProvider);
+  const navigation = React.useRef();
 
   const {loading, data, error} = useUserInfoQuery({
     variables: {key: info?.key as string},
@@ -87,6 +90,12 @@ export default function AppTabs() {
 
   return (
     <NavigationContainer
+      //@ts-expect-error
+      ref={navigation}
+      onReady={() => {
+        // Register the navigation container with the instrumentation
+        routingInstrumentation.registerNavigationContainer(navigation);
+      }}
       theme={colorMode === 'dark' ? DarkTheme : DefaultTheme}>
       <Tabs.Navigator
         //initialRouteName={'Home'}

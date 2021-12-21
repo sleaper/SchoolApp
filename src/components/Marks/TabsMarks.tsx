@@ -69,14 +69,14 @@ export default function TabsMarks({upperNavig}) {
         w="90%"
         m={'auto'}
         mb={2}
-        mt={8}
+        mt={5}
         borderRadius={'2xl'}
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
         shadow={5}
         backgroundColor={itemBg}>
-        <Box pl={5}>
+        <Box pl={3}>
           <Text fontSize={17} fontWeight={'bold'}>
             {item.subject.ZKRATKA} - {item.name}
           </Text>

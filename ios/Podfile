@@ -10,6 +10,8 @@ target 'skolaoffline' do
 
   pod 'CodePush', :path => '../node_modules/react-native-code-push'
 
+  pod 'RNSentry', :path => '../node_modules/@sentry/react-native'
+
   target 'skolaofflineTests' do
     inherit! :complete
     # Pods for testing

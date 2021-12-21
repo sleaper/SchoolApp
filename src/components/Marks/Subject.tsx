@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useContext} from 'react';
 import {MyContext} from '../../providers/AuthProvider';
 import {ActivityIndicator} from 'react-native';
@@ -40,26 +41,26 @@ export default function Subject({route}) {
         w="90%"
         m={'auto'}
         mb={2}
-        mt={8}
+        mt={5}
         borderRadius={'2xl'}
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
         shadow={5}
         backgroundColor={itemBg}>
-        <Flex pl={5}>
-          <Text fontSize={17} fontWeight="bold">
+        <Box pl={3}>
+          <Text fontSize={17} fontWeight={'bold'}>
             {item.name}
           </Text>
-          <Text mt={2.5} fontSize={14}>
+          <Text mt={0.5} fontSize={14}>
             {item.value.NAZEV}
           </Text>
-          <Text mt={2.5} fontSize={14}>
+          <Text mt={0.5} fontSize={14}>
             {item.date}
           </Text>
-        </Flex>
+        </Box>
 
-        <Text pt={5} mr={5} fontSize={20} fontWeight="bold">
+        <Text fontSize={20} fontWeight={'bold'} mr={5}>
           {item.mark ? item.mark : '-'}
         </Text>
       </Flex>
@@ -74,7 +75,7 @@ export default function Subject({route}) {
         borderBottomRightRadius={35}
         mb={15}
         justifyContent="center"
-        backgroundColor={colorMode === 'light' ? '#f5f5f5' : '#2f2f2f'}
+        //backgroundColor={colorMode === 'light' ? '#f5f5f5' : '#2f2f2f'}
         shadow={'4'}>
         <Text fontSize={25} fontWeight={'600'} pl={25}>
           {name}:
