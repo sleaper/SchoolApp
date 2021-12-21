@@ -57,11 +57,10 @@ export default function DayItem({
       borderRadius={'20'}
       shadow="5">
       <Flex flexDirection="row">
-        <Flex>
-          <Text fontSize="20px" pt="4">
-            {item.order}
-          </Text>
-        </Flex>
+        <Text fontSize="20px" pt="4">
+          {item.order}
+        </Text>
+
         <Flex pt={2} pl={5}>
           <Text fontWeight="bold" fontSize="16px">
             {item.name}
@@ -74,7 +73,7 @@ export default function DayItem({
         </Flex>
       </Flex>
       <Flex justifyContent="space-around" alignItems="flex-end" flexWrap="wrap">
-        <Text pr={4}>{item.from}</Text>
+        <Text pr={4}>{item.timeFrom + ' - ' + item.timeTo}</Text>
         <Text pr={4}>{item.class}</Text>
       </Flex>
     </Pressable>

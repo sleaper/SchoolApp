@@ -5,9 +5,10 @@ query calendarDay($key: String!, $date: String!) {
       id
       name
       teacher
-      from
-      to
+      timeFrom
+      timeTo
       class
+      type
       order
       notes {
         note

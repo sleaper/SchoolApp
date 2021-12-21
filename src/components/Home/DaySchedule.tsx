@@ -19,18 +19,23 @@ export default function DaySchedule({data}: {data: any}) {
         p={2}
         mt={4}
         shadow={5}>
-        <Text textAlign="center">
-          {
-            //@ts-expect-error
-            item.timeFrom.substring(11, 16) +
-              ' - ' +
+        <Flex flexDirection="column" alignItems="center">
+          <Text fontWeight="bold" fontSize={18}>
+            {item.order}
+          </Text>
+          <Text textAlign="center">
+            {
               //@ts-expect-error
-              item.timeTo.substring(11, 16)
-          }
-        </Text>
-        <Flex flexDirection="column" alignItems="center" mt={2}>
-          <Text fontWeight="bold">{item.name.substring(0, 3)}</Text>
-          <Text fontSize={15}>{item.teacher}</Text>
+              item.timeFrom.substring(11, 16) +
+                ' - ' +
+                //@ts-expect-error
+                item.timeTo.substring(11, 16)
+            }
+          </Text>
+          <Text fontWeight="bold" fontSize={18}>
+            {item.name.substring(0, 3)}
+          </Text>
+          {/* <Text fontSize={15}>{item.teacher}</Text> */}
           <Text fontSize={15}>{item.room}</Text>
         </Flex>
       </Flex>

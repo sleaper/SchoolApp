@@ -10,9 +10,10 @@ export interface dayInfo {
 }
 
 export interface CalendarDayTypes {
+  type: string;
   name: string;
-  from: string;
-  to: string;
+  timeFrom: string;
+  timeTo: string;
   class: string;
   teacher: string;
   id: string;

@@ -21,16 +21,17 @@ export type AvarageMark = {
 
 export type CalendarDay = {
   __typename?: 'CalendarDay';
-  backUp: Scalars['Boolean'];
-  class: Scalars['String'];
+  backUp?: Maybe<Scalars['Boolean']>;
+  class?: Maybe<Scalars['String']>;
   events?: Maybe<Events>;
-  from: Scalars['String'];
   id: Scalars['ID'];
   name: Scalars['String'];
   notes?: Maybe<Notes>;
   order: Scalars['String'];
-  teacher: Scalars['String'];
-  to: Scalars['String'];
+  teacher?: Maybe<Scalars['String']>;
+  timeFrom: Scalars['String'];
+  timeTo: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
 };
 
 export type Events = {

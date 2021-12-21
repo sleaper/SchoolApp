@@ -12,7 +12,7 @@ export type CalendarDayQueryVariables = Types.Exact<{
 }>;
 
 
-export type CalendarDayQuery = { __typename?: 'Query', user: { __typename?: 'UserQuery', id: string, calendarDay: Array<{ __typename?: 'CalendarDay', id: string, name: string, teacher: string, from: string, to: string, class: string, order: string, notes?: Types.Maybe<{ __typename?: 'Notes', note?: Types.Maybe<string>, order?: Types.Maybe<string> }>, events?: Types.Maybe<{ __typename?: 'Events', event?: Types.Maybe<string>, color?: Types.Maybe<string>, order?: Types.Maybe<string> }> }> } };
+export type CalendarDayQuery = { __typename?: 'Query', user: { __typename?: 'UserQuery', id: string, calendarDay: Array<{ __typename?: 'CalendarDay', id: string, name: string, teacher?: Types.Maybe<string>, timeFrom: string, timeTo: string, class?: Types.Maybe<string>, type?: Types.Maybe<string>, order: string, notes?: Types.Maybe<{ __typename?: 'Notes', note?: Types.Maybe<string>, order?: Types.Maybe<string> }>, events?: Types.Maybe<{ __typename?: 'Events', event?: Types.Maybe<string>, color?: Types.Maybe<string>, order?: Types.Maybe<string> }> }> } };
 
 
 export const CalendarDayDocument = gql`
@@ -23,9 +23,10 @@ export const CalendarDayDocument = gql`
       id
       name
       teacher
-      from
-      to
+      timeFrom
+      timeTo
       class
+      type
       order
       notes {
         note
