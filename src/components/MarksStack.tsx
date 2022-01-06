@@ -20,7 +20,7 @@ export default function HomeStack({id}: {id: string}) {
         },
         headerStyle: {
           backgroundColor: useColorModeValue('white', 'black'),
-          height: 60,
+          //height: 60,
           shadowColor: useColorModeValue('black', 'white'),
         },
         headerTintColor: useColorModeValue('black', 'white'),

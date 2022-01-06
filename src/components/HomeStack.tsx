@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useContext} from 'react';
 import {MyContext} from '../providers/AuthProvider';
 import Home from './Home/Home';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SettingsTabs from './Home/SettingsTabs';
-import {Button, Flex, Text, useColorMode, useColorModeValue} from 'native-base';
+import {Button, Flex, Text, useColorModeValue} from 'native-base';
 import {UserInfo} from '../generated/graphqlBaseTypes';
 
 const Stack = createStackNavigator();
@@ -15,6 +14,7 @@ export interface homeStackTmp {
   token: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function HomeStack({userData, token}: homeStackTmp) {
   const {LogOut} = useContext(MyContext);
 
@@ -26,7 +26,7 @@ export default function HomeStack({userData, token}: homeStackTmp) {
         },
         headerStyle: {
           backgroundColor: useColorModeValue('white', 'black'),
-          height: 60,
+          //height: 60,
           shadowColor: useColorModeValue('black', 'white'),
         },
         headerTintColor: useColorModeValue('black', 'white'),
@@ -62,7 +62,10 @@ export default function HomeStack({userData, token}: homeStackTmp) {
             );
           },
         })}>
-        {props => <Home {...props} userData={userData} token={token} />}
+        {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          props => <Home />
+        }
       </Stack.Screen>
       <Stack.Screen name="Settings">
         {props => <SettingsTabs {...props} name={userData?.name} />}
@@ -70,3 +73,5 @@ export default function HomeStack({userData, token}: homeStackTmp) {
     </Stack.Navigator>
   );
 }
+
+// userData={userData} token={token}

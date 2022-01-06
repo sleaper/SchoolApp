@@ -1,26 +1,19 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {RefObject, useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   DarkTheme,
   DefaultTheme,
   NavigationContainer,
-  NavigationContainerRef,
 } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStack from './components/HomeStack';
 import {MyContext} from './providers/AuthProvider';
-import {gql, useMutation} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
 import {GetTokenProvider} from './providers/TokenProvider';
-import {Text, useColorMode, Center, Flex} from 'native-base';
-import {
-  useAddUserMutation,
-  useUserInfoLazyQuery,
-  useUserInfoQuery,
-} from './AppTabs.codegen';
+import {useColorMode} from 'native-base';
+import {useUserInfoQuery} from './AppTabs.codegen';
 import {UserInfo} from './generated/graphqlBaseTypes';
 import MyCenter from './components/MyCenter';
 import {routingInstrumentation} from '../App';
@@ -32,7 +25,7 @@ export default function AppTabs() {
   const {token} = useContext(GetTokenProvider);
   const navigation = React.useRef();
 
-  const {loading, data, error} = useUserInfoQuery({
+  const {loading, data} = useUserInfoQuery({
     variables: {key: info?.key as string},
   });
 
@@ -79,15 +72,6 @@ export default function AppTabs() {
     );
   }
 
-  if (error) {
-    console.log('ERRpr', error);
-    return (
-      <MyCenter>
-        <Text>Nejsi připojený k internetu.</Text>
-      </MyCenter>
-    );
-  }
-
   return (
     <NavigationContainer
       //@ts-expect-error
@@ -98,7 +82,7 @@ export default function AppTabs() {
       }}
       theme={colorMode === 'dark' ? DarkTheme : DefaultTheme}>
       <Tabs.Navigator
-        //initialRouteName={'Home'}
+        initialRouteName={'Home'}
         screenOptions={({route}) => ({
           tabBarIcon: ({color, size}) => {
             let iconName;

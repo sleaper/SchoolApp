@@ -3,17 +3,10 @@ import {MyContext} from '../../providers/AuthProvider';
 import {ActivityIndicator} from 'react-native';
 import DaySchedule from './DaySchedule';
 import {Flex} from 'native-base';
-import {UserInfo} from '../../generated/graphqlBaseTypes';
 import {useHomeQuery} from './Home.codegen';
 import MyCenter from '../MyCenter';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function Home({
-  userData,
-}: {
-  userData: UserInfo | undefined;
-  token: string;
-}) {
+export default function Home() {
   const {info} = useContext(MyContext);
   const {loading, data} = useHomeQuery({
     variables: {

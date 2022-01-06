@@ -25,7 +25,7 @@ export default function Routes() {
           }
         })
         .catch(err => {
-          console.log('routeError', err);
+          console.error('routeError', err);
         });
     }
   }, []);
@@ -43,7 +43,7 @@ export default function Routes() {
   }, [user, token]);
 
   if (error) {
-    console.log('addUserError', error);
+    console.error('addUserError', error);
   }
 
   return <>{addUserData && user ? <AppTabs /> : <AuthTabs />}</>;

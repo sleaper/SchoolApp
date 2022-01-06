@@ -97,7 +97,7 @@ export function Login() {
           InputRightElement={
             <Pressable onPress={() => handleClick()} pr={2}>
               <Icon
-                name={show ? 'eye-off-outline' : 'eye-outline'}
+                name={show ? 'eye-outline' : 'eye-off-outline'}
                 size={25}
                 color={iconColor}
               />

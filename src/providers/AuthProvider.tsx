@@ -67,7 +67,7 @@ export default function AuthProvider({children}) {
   if (loading) {
     return (
       <MyCenter>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="red" />
       </MyCenter>
     );
   }

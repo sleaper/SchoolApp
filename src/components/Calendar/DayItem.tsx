@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-native/no-inline-styles */
 import React, {Dispatch, SetStateAction, useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {Button, Flex, Pressable, Text, useColorModeValue} from 'native-base';
+import {Flex, Pressable, Text, useColorModeValue} from 'native-base';
 import {CalendarDayTypes} from '../../util/types';
 
 function Event({item}: {item: CalendarDayTypes}) {
@@ -34,8 +32,9 @@ export default function DayItem({
   setModalTitle,
   setModalData,
 }: Props) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [active, setActive] = useState<boolean>(item.notes ? true : false);
-
+  console.log(item.notes);
   return (
     <Pressable
       _pressed={{backgroundColor: useColorModeValue('light.200', 'muted.700')}}
@@ -49,7 +48,7 @@ export default function DayItem({
       w="90%"
       m={5}
       mb={0.5}
-      pl={8}
+      pl={5}
       p={4}
       pt={2}
       flexDirection="row"
@@ -61,7 +60,7 @@ export default function DayItem({
           {item.order}
         </Text>
 
-        <Flex pt={2} pl={5}>
+        <Flex pt={2} pl={3}>
           <Text fontWeight="bold" fontSize="16px">
             {item.name}
           </Text>
@@ -73,8 +72,8 @@ export default function DayItem({
         </Flex>
       </Flex>
       <Flex justifyContent="space-around" alignItems="flex-end" flexWrap="wrap">
-        <Text pr={4}>{item.timeFrom + ' - ' + item.timeTo}</Text>
-        <Text pr={4}>{item.class}</Text>
+        <Text pr={2}>{item.timeFrom + ' - ' + item.timeTo}</Text>
+        <Text pr={2}>{item.class}</Text>
       </Flex>
     </Pressable>
   );
