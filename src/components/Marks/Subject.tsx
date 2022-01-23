@@ -48,18 +48,18 @@ export default function Subject({route}) {
         shadow={5}
         backgroundColor={itemBg}>
         <Box p={3}>
-          <Text fontSize={18} fontWeight={'bold'}>
+          <Text fontSize={20} fontWeight={'bold'}>
             {item.name}
           </Text>
-          <Text mt={0.5} fontSize={15}>
+          <Text mt={0.5} fontSize={17}>
             {item.value.NAZEV}
           </Text>
-          <Text mt={0.5} fontSize={15}>
+          <Text mt={0.5} fontSize={17}>
             {item.date}
           </Text>
         </Box>
 
-        <Text fontSize={20} fontWeight={'bold'} mr={5}>
+        <Text fontSize={25} fontWeight={'bold'} mr={5}>
           {item.mark ? item.mark : '-'}
         </Text>
       </Flex>
