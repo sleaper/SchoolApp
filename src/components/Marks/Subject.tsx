@@ -55,7 +55,12 @@ export default function Subject({route}) {
             {item.value.NAZEV}
           </Text>
           <Text mt={0.5} fontSize={17}>
-            {item.date}
+            {new Date(item.date)
+              .toISOString()
+              .replace(/T.*/, '')
+              .split('-')
+              .reverse()
+              .join('.')}
           </Text>
         </Box>
 

@@ -21,6 +21,7 @@ import messaging from '@react-native-firebase/messaging';
 import CodePushManager from './src/codePush/CodePushManager';
 import * as Sentry from '@sentry/react-native';
 import Config from 'react-native-config';
+import SplashScreen from 'react-native-splash-screen';
 
 export const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 Sentry.init({
@@ -48,6 +49,7 @@ const App = () => {
     if (enabled) {
       console.log('Authorization status:', authStatus);
     }
+    SplashScreen.hide();
   }
 
   useEffect(() => {
