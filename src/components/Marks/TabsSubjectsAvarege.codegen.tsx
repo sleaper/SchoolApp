@@ -11,7 +11,7 @@ export type AvarageMarksQueryVariables = Types.Exact<{
 }>;
 
 
-export type AvarageMarksQuery = { __typename?: 'Query', user: { __typename?: 'UserQuery', id: string, avarageMarks: Array<{ __typename?: 'AvarageMark', subject: string, teacher: string, marks: string, id: string }> } };
+export type AvarageMarksQuery = { __typename?: 'Query', user: { __typename?: 'UserQuery', id: string, avarageMarks: Array<{ __typename?: 'AvarageMark', subjectName: string, subjectNameShort: string, teacher: string, marks: string, id: string }> } };
 
 
 export const AvarageMarksDocument = gql`
@@ -19,7 +19,8 @@ export const AvarageMarksDocument = gql`
   user(key: $key) {
     id
     avarageMarks {
-      subject
+      subjectName
+      subjectNameShort
       teacher
       marks
       id

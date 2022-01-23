@@ -20,12 +20,11 @@ import Providers from './src/Providers';
 import messaging from '@react-native-firebase/messaging';
 import CodePushManager from './src/codePush/CodePushManager';
 import * as Sentry from '@sentry/react-native';
+import Config from 'react-native-config';
 
 export const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
-
 Sentry.init({
-  dsn:
-    'https://b6ff07f642b540c98dd19dbc51d4d56b@o997900.ingest.sentry.io/6086468',
+  dsn: Config.SENTRY_DSN,
   // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
   // We recommend adjusting this value in production.
   tracesSampleRate: 1.0,
@@ -33,7 +32,7 @@ Sentry.init({
     new Sentry.ReactNativeTracing({
       // Pass instrumentation to be used as `routingInstrumentation`
       routingInstrumentation,
-      tracingOrigins: ['localhost', 'my-site-url.com', /^\//],
+      tracingOrigins: ['localhost', 'api.skola-offline.tk/graphql', /^\//],
     }),
   ],
 });

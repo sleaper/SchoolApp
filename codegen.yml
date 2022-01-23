@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'E:\programovani\nodejs\proxy2.0\gqlSchemas\schoolApp.graphql'
+schema: 'E:\programovani\node\proxy-2.0\gqlSchemas\schoolApp.graphql'
 documents: 'src/**/*.gql'
 generates:
   src/generated/graphqlBaseTypes.tsx:

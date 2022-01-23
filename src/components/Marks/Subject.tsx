@@ -15,13 +15,12 @@ import MyCenter from '../MyCenter';
 
 export default function Subject({route}) {
   const {info} = useContext(MyContext);
-  const {name} = route.params;
+  const {name, shortName} = route.params;
   const itemBg = useColorModeValue('white', 'muted.800');
 
   const {data, loading, error} = useSubjectMarksQuery({
     variables: {subject: name, key: info?.key as string},
   });
-  const {colorMode} = useColorMode();
 
   if (loading) {
     return (
@@ -48,14 +47,14 @@ export default function Subject({route}) {
         justifyContent="space-between"
         shadow={5}
         backgroundColor={itemBg}>
-        <Box pl={3}>
-          <Text fontSize={17} fontWeight={'bold'}>
+        <Box p={3}>
+          <Text fontSize={18} fontWeight={'bold'}>
             {item.name}
           </Text>
-          <Text mt={0.5} fontSize={14}>
+          <Text mt={0.5} fontSize={15}>
             {item.value.NAZEV}
           </Text>
-          <Text mt={0.5} fontSize={14}>
+          <Text mt={0.5} fontSize={15}>
             {item.date}
           </Text>
         </Box>
@@ -77,7 +76,7 @@ export default function Subject({route}) {
         justifyContent="center"
         //backgroundColor={colorMode === 'light' ? '#f5f5f5' : '#2f2f2f'}
         shadow={'4'}>
-        <Text fontSize={25} fontWeight={'600'} pl={25}>
+        <Text fontSize={25} fontWeight={'bold'} pl={25}>
           {name}:
         </Text>
         <Text fontSize={14} pl={25}>

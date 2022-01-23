@@ -34,7 +34,7 @@ export default function DayItem({
 }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [active, setActive] = useState<boolean>(item.notes ? true : false);
-  console.log(item.notes);
+
   return (
     <Pressable
       _pressed={{backgroundColor: useColorModeValue('light.200', 'muted.700')}}
@@ -56,15 +56,15 @@ export default function DayItem({
       borderRadius={'20'}
       shadow="5">
       <Flex flexDirection="row">
-        <Text fontSize="20px" pt="4">
+        <Text fontSize="22px" pt="4">
           {item.order}
         </Text>
 
-        <Flex pt={2} pl={3}>
-          <Text fontWeight="bold" fontSize="16px">
+        <Flex pt={2} pl={4}>
+          <Text fontWeight="bold" fontSize="18px">
             {item.name}
           </Text>
-          <Text>{item.teacher}</Text>
+          <Text fontSize="15px">{item.teacher}</Text>
           {item.events && <Event item={item} />}
           {active && (
             <Icon name={'information-circle'} size={20} color={'#2A64FF'} />

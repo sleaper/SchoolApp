@@ -43,17 +43,20 @@ export default function TabsSubjectAvarege({upperNavig}) {
         borderColor="warmGray.400"
         onPress={() => {
           upperNavig.navigate('Subject', {
-            name: item.subject,
+            name: item.subjectName,
+            shortName: item.subjectNameShort,
           });
         }}>
         <View pl={5}>
-          <Text fontSize={17} fontWeight={'bold'}>
-            {item.subject}
+          <Text fontSize={18} fontWeight={'bold'}>
+            {item.subjectName.length > 30
+              ? item.subjectNameShort
+              : item.subjectName}
           </Text>
-          <Text fontSize={13}>{item.teacher}</Text>
+          <Text fontSize={15}>{item.teacher}</Text>
         </View>
         <View mr={10}>
-          <Text fontSize={20} fontWeight={'bold'}>
+          <Text fontSize={22} fontWeight={'bold'}>
             {item.marks}
           </Text>
         </View>

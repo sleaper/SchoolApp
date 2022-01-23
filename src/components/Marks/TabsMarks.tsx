@@ -25,6 +25,7 @@ export default function TabsMarks({upperNavig}) {
   const isFocused = useIsFocused();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {info} = useContext(MyContext);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [date, setDate] = useState(getLastWeek());
 
   const {data, loading, error, refetch} = useMarksByDateQuery({
@@ -76,15 +77,20 @@ export default function TabsMarks({upperNavig}) {
         justifyContent="space-between"
         shadow={5}
         backgroundColor={itemBg}>
-        <Box pl={3}>
-          <Text fontSize={17} fontWeight={'bold'}>
+        <Box p={3}>
+          <Text fontSize={18} fontWeight={'bold'}>
             {item.subject.ZKRATKA} - {item.name}
           </Text>
-          <Text mt={0.5} fontSize={14}>
+          <Text mt={0.5} fontSize={15}>
             {item.value.NAZEV}
           </Text>
-          <Text mt={0.5} fontSize={14}>
-            {item.date}
+          <Text mt={0.5} fontSize={15}>
+            {new Date(item.date)
+              .toISOString()
+              .replace(/T.*/, '')
+              .split('-')
+              .reverse()
+              .join('.')}
           </Text>
         </Box>
 

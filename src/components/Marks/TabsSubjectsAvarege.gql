@@ -2,7 +2,8 @@ query avarageMarks($key: String!) {
   user(key: $key) {
     id
     avarageMarks {
-      subject
+      subjectName
+      subjectNameShort
       teacher
       marks
       id

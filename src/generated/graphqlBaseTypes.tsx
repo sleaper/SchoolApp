@@ -15,7 +15,8 @@ export type AvarageMark = {
   __typename?: 'AvarageMark';
   id: Scalars['String'];
   marks: Scalars['String'];
-  subject: Scalars['String'];
+  subjectName: Scalars['String'];
+  subjectNameShort: Scalars['String'];
   teacher: Scalars['String'];
 };
 

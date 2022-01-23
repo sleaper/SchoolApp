@@ -3,7 +3,7 @@
   "version": "3",
   "private": true,
   "scripts": {
-    "android": "adb reverse tcp:3000 tcp:3000 && npx react-native run-android",
+    "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -35,6 +35,7 @@
     "react-native-base64": "^0.1.0",
     "react-native-calendars": "^1.1129.0",
     "react-native-code-push": "^7.0.0",
+    "react-native-config": "^1.4.5",
     "react-native-emoji": "^1.8.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-htmlview": "^0.16.0",

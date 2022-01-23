@@ -2,11 +2,11 @@ import {ApolloClient, InMemoryCache, ApolloLink} from '@apollo/client';
 import {createHttpLink} from 'apollo-link-http';
 import {onError} from '@apollo/client/link/error';
 import RNSInfo from 'react-native-sensitive-info';
+import Config from 'react-native-config';
 
 const makeApolloClient = () => {
   const httpLink = createHttpLink({
-    //uri: 'https://api.skola-offline.tk/graphql',
-    uri: 'http://localhost:3000/graphql',
+    uri: __DEV__ ? Config.DEV_API_URL : Config.PROD_API_URL,
   });
   //@ts-expect-error
   const middlewareLink = new ApolloLink(async (operation, forward) => {
@@ -47,13 +47,3 @@ const makeApolloClient = () => {
 };
 
 export const apoloCLient = makeApolloClient();
-
-/*
-
-await AsyncStorage.getItem('user', (err, result) => {
-            if (err) {
-              console.error(err);
-            }
-          }),
-
-*/
