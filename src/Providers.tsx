@@ -40,7 +40,7 @@ export default function Providers() {
     //   },
     // },
     config: {
-      initialColorMode: 'light',
+      initialColorMode: 'dark',
     },
   });
 

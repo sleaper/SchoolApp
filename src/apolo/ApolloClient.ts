@@ -6,7 +6,7 @@ import Config from 'react-native-config';
 
 const makeApolloClient = () => {
   const httpLink = createHttpLink({
-    uri: __DEV__ ? Config.DEV_API_URL : Config.PROD_API_URL,
+    uri: __DEV__ ? 'http://localhost:3000/graphql' : Config.PROD_API_URL,
   });
   //@ts-expect-error
   const middlewareLink = new ApolloLink(async (operation, forward) => {

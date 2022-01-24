@@ -48,47 +48,6 @@ LocaleConfig.locales['cz'] = {
 LocaleConfig.defaultLocale = 'cz';
 
 export default function Schedule({navigation}) {
-  //const {info} = useContext(MyContext);
-
-  // const [{card, text, primary, background, notification}] = useContext(
-  //   ThemeContext,
-  // );
-  /*const {loading, error, data} = useQuery(getData, {
-    variables: {id: id, key: info.key},
-  });*/
-
-  // if (theme === 'dark') {
-  //   return (
-  //     <View style={styles.container}>
-  //       <Calendar
-  //         enableSwipeMonths={true}
-  //         onDayPress={(day) => {
-  //           navigation.navigate('Day', {
-  //             date: [day.year, day.month, day.day],
-  //           });
-  //         }}
-  //         theme={dark}
-  //       />
-  //       {/* <AddButton /> */}
-  //     </View>
-  //   );
-  // } else {
-  //   return (
-  //     <View style={styles.container}>
-  //       <Calendar
-  //         enableSwipeMonths={true}
-  //         onDayPress={(day) => {
-  //           console.log(day);
-  //           navigation.navigate('Day', {
-  //             date: [day.year, day.month, day.day],
-  //           });
-  //         }}
-  //         theme={light}
-  //       />
-  //       {/* <AddButton /> Think about what you whant */}
-  //     </View>
-  //   );
-  // }
   return (
     <Flex>
       <Calendar
@@ -114,9 +73,6 @@ export default function Schedule({navigation}) {
           disabledArrowColor: '#d9e1e8',
           monthTextColor: '#00adf5',
           indicatorColor: 'blue',
-          textDayFontFamily: 'monospace',
-          textMonthFontFamily: 'monospace',
-          textDayHeaderFontFamily: 'monospace',
           textDayFontWeight: '300',
           textMonthFontWeight: 'bold',
           textDayHeaderFontWeight: '300',

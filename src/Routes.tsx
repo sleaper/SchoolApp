@@ -6,6 +6,7 @@ import {MyContext} from './providers/AuthProvider';
 import RNSInfo from 'react-native-sensitive-info';
 import {useAddUserMutation} from './AppTabs.codegen';
 import {GetTokenProvider} from './providers/TokenProvider';
+import SplashScreen from 'react-native-splash-screen';
 
 // YzNCaFl5NXdaWFJ5OmJqSmhORkpXTXpNPQ==
 export default function Routes() {
@@ -18,10 +19,11 @@ export default function Routes() {
     if (!data) {
       RNSInfo.getItem('user', {})
         .then(userToken => {
-          console.log('userToken', userToken);
           if (userToken) {
             setInfo(JSON.parse(userToken));
             setUser(true);
+          } else {
+            SplashScreen.hide();
           }
         })
         .catch(err => {

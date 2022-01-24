@@ -8,15 +8,14 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStack from './components/HomeStack';
 import {MyContext} from './providers/AuthProvider';
-import {ActivityIndicator} from 'react-native';
 import CalendarStack from './components/CalendarStack';
 import MarksStack from './components/MarksStack';
 import {GetTokenProvider} from './providers/TokenProvider';
 import {useColorMode} from 'native-base';
 import {useUserInfoQuery} from './AppTabs.codegen';
 import {UserInfo} from './generated/graphqlBaseTypes';
-import MyCenter from './components/MyCenter';
 import {routingInstrumentation} from '../App';
+import SplashScreen from 'react-native-splash-screen';
 
 const Tabs = createBottomTabNavigator();
 
@@ -31,45 +30,8 @@ export default function AppTabs() {
 
   const {colorMode} = useColorMode();
 
-  // useEffect(() => {
-  //   //  Solve this
-  //   //   User should be added and then called userInfo
-  //   let mounted = true;
-  //   if (token) {
-  //     addUser({
-  //       variables: {
-  //         name: info?.name as string,
-  //         key: info?.key as string,
-  //         firebaseToken: token,
-  //       },
-  //     });
-  //   }
-
-  //   return function cleanup() {
-  //     mounted = false;
-  //   };
-  //   //eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [token]);
-
-  // useEffect(() => {
-  //   let mounted = true;
-  //   if (addUserData) {
-  //     getUserInfo({
-  //       variables: {key: info?.key as string},
-  //     });
-  //   }
-
-  //   return function cleanup() {
-  //     mounted = false;
-  //   };
-  // }, [addUserData]);
-
-  if (loading) {
-    return (
-      <MyCenter>
-        <ActivityIndicator size="large" color="blue" />
-      </MyCenter>
-    );
+  if (!loading) {
+    SplashScreen.hide();
   }
 
   return (
