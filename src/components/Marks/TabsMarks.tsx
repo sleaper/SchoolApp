@@ -75,7 +75,7 @@ export default function TabsMarks({upperNavig}) {
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
-        shadow={5}
+        shadow={3}
         backgroundColor={itemBg}>
         <Box p={3}>
           <Text fontSize={18} fontWeight={'bold'}>

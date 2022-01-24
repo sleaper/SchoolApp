@@ -45,7 +45,7 @@ export default function Subject({route}) {
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
-        shadow={5}
+        shadow={3}
         backgroundColor={itemBg}>
         <Box p={3}>
           <Text fontSize={20} fontWeight={'bold'}>
