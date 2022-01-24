@@ -61,15 +61,6 @@ export default function ThemeProvider({children}) {
           }
         },
       }}>
-      <StatusBar
-        barStyle={
-          colors?.background === '#002B36'
-            ? 'light-content'
-            : scheme === 'dark'
-            ? 'light-content'
-            : 'dark-content'
-        }
-      />
       {children}
     </ThemeContext.Provider>
   );

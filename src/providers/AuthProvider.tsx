@@ -3,7 +3,6 @@ import base64 from 'react-native-base64';
 import {ActivityIndicator} from 'react-native';
 import {useApolloClient} from '@apollo/client';
 import RNSInfo from 'react-native-sensitive-info';
-//import messaging from '@react-native-firebase/messaging';
 import {GetTokenProvider} from './TokenProvider';
 import {
   useAuthUserLazyQuery,

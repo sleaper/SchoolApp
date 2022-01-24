@@ -18,7 +18,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* skolaofflineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* skolaofflineTests.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9D3A53B41C8DF1F016C030F9 /* libPods-skolaoffline.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EFBC4833E778C23909240CCD /* libPods-skolaoffline.a */; };
-		DFB9438F27725DAA0086C9DE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFB9438E27725DAA0086C9DE /* GoogleService-Info.plist */; };
+		DF346A1C279F1C3E0015320E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF346A1B279F1C3E0015320E /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +58,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = skolaoffline/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A5F98E4DF674943F58E32AA4 /* Pods-skolaoffline-skolaofflineTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-skolaoffline-skolaofflineTests.debug.xcconfig"; path = "Target Support Files/Pods-skolaoffline-skolaofflineTests/Pods-skolaoffline-skolaofflineTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DF0D2AB42772611300B663FB /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
-		DFB9438E27725DAA0086C9DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DF346A1B279F1C3E0015320E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EFBC4833E778C23909240CCD /* libPods-skolaoffline.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-skolaoffline.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +118,7 @@
 		13B07FAE1A68108700A75B9A /* skolaoffline */ = {
 			isa = PBXGroup;
 			children = (
+				DF346A1B279F1C3E0015320E /* GoogleService-Info.plist */,
 				DF0D2AB3277260D300B663FB /* Fonts */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -151,7 +152,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				DFB9438E27725DAA0086C9DE /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* skolaoffline */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* skolaofflineTests */,
@@ -287,9 +287,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = Y78HVSKDV6;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = Y78HVSKDV6;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -337,8 +339,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				DF346A1C279F1C3E0015320E /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				DFB9438F27725DAA0086C9DE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,6 +654,8 @@
 			baseConfigurationReference = A5F98E4DF674943F58E32AA4 /* Pods-skolaoffline-skolaofflineTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				DEVELOPMENT_TEAM = Y78HVSKDV6;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -675,7 +679,9 @@
 			baseConfigurationReference = 27482A6B10BB7A25F728FAA0 /* Pods-skolaoffline-skolaofflineTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = Y78HVSKDV6;
 				INFOPLIST_FILE = skolaofflineTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -697,6 +703,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y78HVSKDV6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = skolaoffline/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -705,7 +712,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.skolaoffline;
 				PRODUCT_NAME = skolaoffline;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -720,6 +727,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y78HVSKDV6;
 				INFOPLIST_FILE = skolaoffline/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -727,7 +735,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.skolaoffline;
 				PRODUCT_NAME = skolaoffline;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

@@ -8,6 +8,7 @@ import TokenProvider from './providers/TokenProvider';
 import {NativeBaseProvider, ColorMode, extendTheme} from 'native-base';
 import type {StorageManager} from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const colorModeManager: StorageManager = {
   get: async () => {
@@ -30,33 +31,24 @@ const colorModeManager: StorageManager = {
 
 export default function Providers() {
   const theme = extendTheme({
-    // components: {
-    //   Flex: {
-    //     baseStyle: ({colorMode}) => {
-    //       return {
-    //         backgroundColor: colorMode === 'dark' ? 'black' : 'white',
-    //       };
-    //     },
-    //   },
-    // },
     config: {
       initialColorMode: 'dark',
     },
   });
 
   return (
-    // <SafeAreaProvider>
-    <NativeBaseProvider theme={theme} colorModeManager={colorModeManager}>
-      <ApolloProvider client={apoloCLient}>
-        <TokenProvider>
-          <AppearanceProvider>
-            <Authprovider>
-              <Routes />
-            </Authprovider>
-          </AppearanceProvider>
-        </TokenProvider>
-      </ApolloProvider>
-    </NativeBaseProvider>
-    // </SafeAreaProvider>
+    <SafeAreaProvider>
+      <NativeBaseProvider theme={theme} colorModeManager={colorModeManager}>
+        <ApolloProvider client={apoloCLient}>
+          <TokenProvider>
+            <AppearanceProvider>
+              <Authprovider>
+                <Routes />
+              </Authprovider>
+            </AppearanceProvider>
+          </TokenProvider>
+        </ApolloProvider>
+      </NativeBaseProvider>
+    </SafeAreaProvider>
   );
 }
