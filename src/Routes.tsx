@@ -8,7 +8,6 @@ import {useAddUserMutation} from './AppTabs.codegen';
 import {GetTokenProvider} from './providers/TokenProvider';
 import SplashScreen from 'react-native-splash-screen';
 
-// YzNCaFl5NXdaWFJ5OmJqSmhORkpXTXpNPQ==
 export default function Routes() {
   let {user, setUser, data, setInfo, info} = useContext(MyContext);
   const [addUser, {data: addUserData, error}] = useAddUserMutation({});

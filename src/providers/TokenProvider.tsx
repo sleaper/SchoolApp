@@ -10,13 +10,12 @@ export default function TokenProvider({children}) {
 
   useEffect(() => {
     async function getToken() {
-      await messaging().onTokenRefresh(async fcm => {
+      messaging().onTokenRefresh(async fcm => {
         setToken(fcm);
         return;
       });
       const Token = await messaging().getToken();
       setToken(Token);
-      console.log(Token);
     }
 
     getToken();
@@ -28,4 +27,3 @@ export default function TokenProvider({children}) {
     </GetTokenProvider.Provider>
   );
 }
-//{theme, toggleTheme}
