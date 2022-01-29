@@ -46,6 +46,7 @@ export default function Routes() {
 
   if (error) {
     console.error('addUserError', error);
+    SplashScreen.hide();
   }
 
   return <>{addUserData && user ? <AppTabs /> : <AuthTabs />}</>;

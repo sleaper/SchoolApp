@@ -9,6 +9,7 @@ import {
   Button,
   FlatList,
   Flex,
+  HStack,
   Modal,
   Pressable,
   Text,
@@ -64,20 +65,18 @@ export default function TabsMarks({upperNavig}) {
 
   const renderItemMark = ({item}) => {
     return (
-      <Flex
+      <HStack
         height="auto"
-        p={3}
+        p={2}
         w="90%"
         m={'auto'}
-        mb={2}
         mt={5}
         borderRadius={'2xl'}
-        flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
         shadow={3}
         backgroundColor={itemBg}>
-        <Box p={3}>
+        <Box p={1}>
           <Text fontSize={18} fontWeight={'bold'}>
             {item.subject.ZKRATKA} - {item.name}
           </Text>
@@ -94,10 +93,10 @@ export default function TabsMarks({upperNavig}) {
           </Text>
         </Box>
 
-        <Text fontSize={20} fontWeight={'bold'} mr={5}>
+        <Text fontSize={20} fontWeight={'bold'} mr={4}>
           {item.mark ? item.mark : '-'}
         </Text>
-      </Flex>
+      </HStack>
     );
   };
 
