@@ -9,6 +9,7 @@ import {
   Box,
   FlatList,
   useColorModeValue,
+  Divider,
 } from 'native-base';
 import {useSubjectMarksQuery} from './Subject.codegen';
 import MyCenter from '../MyCenter';
@@ -16,7 +17,7 @@ import MyCenter from '../MyCenter';
 export default function Subject({route}) {
   const {info} = useContext(MyContext);
   const {name, shortName} = route.params;
-  const itemBg = useColorModeValue('white', 'muted.800');
+  const itemBg = useColorModeValue('#ffffff', 'muted.800');
 
   const {data, loading, error} = useSubjectMarksQuery({
     variables: {subject: name, key: info?.key as string},
@@ -74,19 +75,16 @@ export default function Subject({route}) {
   return (
     <Flex h="100%">
       <Box
-        h="80px"
-        borderBottomLeftRadius={35}
-        borderBottomRightRadius={35}
-        mb={15}
         justifyContent="center"
-        //backgroundColor={colorMode === 'light' ? '#f5f5f5' : '#2f2f2f'}
-        shadow={'4'}>
+        //backgroundColor={itemBg === 'light' ? '#f5f5f5' : '#2f2f2f'}
+      >
         <Text fontSize={25} fontWeight={'bold'} pl={25}>
           {name}:
         </Text>
         <Text fontSize={14} pl={25}>
           Počet známek: {data?.user.subjectMarks.length}
         </Text>
+        <Divider my={2} />
       </Box>
       <FlatList
         data={data?.user.subjectMarks}

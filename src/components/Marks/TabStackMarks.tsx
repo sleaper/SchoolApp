@@ -9,10 +9,9 @@ import TabsSubjectAvarege from './TabsSubjectAvarege';
 const Tab = createMaterialTopTabNavigator();
 
 function MyTabBar({state, descriptors, navigation, position}) {
-  const bgColor = useColorModeValue('white', 'black');
   const textColor = useColorModeValue('black', 'white');
   return (
-    <View flexDirection="row" backgroundColor={bgColor}>
+    <View flexDirection="row">
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const label =

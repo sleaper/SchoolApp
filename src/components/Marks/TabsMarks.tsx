@@ -21,7 +21,7 @@ import MyCenter from '../MyCenter';
 export default function TabsMarks({upperNavig}) {
   const iconColor = useColorModeValue('black', 'white');
   const itemBg = useColorModeValue('white', 'muted.800');
-  //const bgColor = useColorModeValue('white', 'muted.800');
+  const bgColor = useColorModeValue('white', 'black');
 
   const isFocused = useIsFocused();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,6 +71,7 @@ export default function TabsMarks({upperNavig}) {
         w="90%"
         m={'auto'}
         mt={5}
+        mb={1}
         borderRadius={'2xl'}
         alignItems="center"
         justifyContent="space-between"
@@ -101,7 +102,7 @@ export default function TabsMarks({upperNavig}) {
   };
 
   return (
-    <Flex>
+    <Flex flex={1} backgroundColor={bgColor}>
       <Modal
         size={'sm'}
         animationPreset="slide"
