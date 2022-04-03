@@ -40,7 +40,7 @@
     "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "^2.18.1",
     "react-native-sensitive-info": "^6.0.0-alpha.9",
-    "react-native-tab-view": "^2.15.2",
+    "react-native-tab-view": "^2.16.0",
     "react-native-vector-icons": "^9.1.0",
     "rn-placeholder": "^3.0.3"
   },
