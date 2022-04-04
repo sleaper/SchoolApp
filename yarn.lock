@@ -5946,19 +5946,6 @@ metro-runtime@0.70.0:
   resolved "https://registry.yarnpkg.com/metro-runtime/-/metro-runtime-0.70.0.tgz#4b86f168b65853a20125a24605ef83aae3abe192"
   integrity sha512-Pe+hOJSigq/oiZI0y80DZdQcStvMXXvx1d5+QXLR9pH3iROvW/ozc3jE1xu/Au3Bv7jPDPvyJZ3Ac04D5KiO4g==
 
-metro-source-map@0.58.0:
-  version "0.58.0"
-  resolved "https://registry.npmjs.org/metro-source-map/-/metro-source-map-0.58.0.tgz"
-  integrity sha512-yvN1YPmejmgiiS7T1aKBiiUTHPw2Vcm3r2TZ+DY92z/9PR4alysIywrCs/fTHs8rbDcKM5VfPCKGLpkBrbKeOw==
-  dependencies:
-    "@babel/traverse" "^7.0.0"
-    "@babel/types" "^7.0.0"
-    invariant "^2.2.4"
-    metro-symbolicate "0.58.0"
-    ob1 "0.58.0"
-    source-map "^0.5.6"
-    vlq "^1.0.0"
-
 metro-source-map@0.64.0:
   version "0.64.0"
   resolved "https://registry.yarnpkg.com/metro-source-map/-/metro-source-map-0.64.0.tgz#4310e17c3d4539c6369688022494ad66fa4d39a1"
@@ -5987,17 +5974,6 @@ metro-source-map@0.70.0:
     source-map "^0.5.6"
     vlq "^1.0.0"
 
-metro-symbolicate@0.58.0, metro-symbolicate@^0.58.0:
-  version "0.58.0"
-  resolved "https://registry.npmjs.org/metro-symbolicate/-/metro-symbolicate-0.58.0.tgz"
-  integrity sha512-uIVxUQC1E26qOMj13dKROhwAa2FmZk5eR0NcBqej/aXmQhpr8LjJg2sondkoLKUp827Tf/Fm9+pS4icb5XiqCw==
-  dependencies:
-    invariant "^2.2.4"
-    metro-source-map "0.58.0"
-    source-map "^0.5.6"
-    through2 "^2.0.1"
-    vlq "^1.0.0"
-
 metro-symbolicate@0.64.0:
   version "0.64.0"
   resolved "https://registry.yarnpkg.com/metro-symbolicate/-/metro-symbolicate-0.64.0.tgz#405c21438ab553c29f6841da52ca76ee87bb06ac"
@@ -6010,7 +5986,7 @@ metro-symbolicate@0.64.0:
     through2 "^2.0.1"
     vlq "^1.0.0"
 
-metro-symbolicate@0.70.0:
+metro-symbolicate@0.70.0, metro-symbolicate@^0.70.0:
   version "0.70.0"
   resolved "https://registry.yarnpkg.com/metro-symbolicate/-/metro-symbolicate-0.70.0.tgz#b9ddb699859c042b6a0a16dd0e2a390093461f40"
   integrity sha512-JGyG9Ty8yr5RCBsaaqvDobDCoKdySYUJytdUHLi8XRimltPLcxtuhN52NarSU+BXJXjeQGZ7q6aspzTPRcmZFA==
@@ -6505,11 +6481,6 @@ oauth-sign@~0.9.0:
   version "0.9.0"
   resolved "https://registry.npmjs.org/oauth-sign/-/oauth-sign-0.9.0.tgz"
   integrity sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ==
-
-ob1@0.58.0:
-  version "0.58.0"
-  resolved "https://registry.npmjs.org/ob1/-/ob1-0.58.0.tgz"
-  integrity sha512-uZP44cbowAfHafP1k4skpWItk5iHCoRevMfrnUvYCfyNNPPJd3rfDCyj0exklWi2gDXvjlj2ObsfiqP/bs/J7Q==
 
 ob1@0.64.0:
   version "0.64.0"
