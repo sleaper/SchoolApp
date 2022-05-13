@@ -4,10 +4,14 @@ import Emoji from 'react-native-emoji';
 import {Flex, Text} from 'native-base';
 import {dayInfo} from '../../util/types';
 import {useColorModeValue} from 'native-base';
+import {pickColor} from '../../util/pickColor';
 
 export default function DaySchedule({data}: {data: any}) {
-  //useColorModeValue('white', 'muted.800')
-  const itemBg = useColorModeValue('white', 'muted.800');
+  console.log(data.color);
+  const itemBg = useColorModeValue(
+    pickColor(data.color) ? 'light.200' : 'red.200',
+    pickColor(data.color) ? 'muted.800' : 'red.800',
+  );
   const renderItem = ({item}: {item: dayInfo}) => {
     return (
       <Flex

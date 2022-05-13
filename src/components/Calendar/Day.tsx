@@ -25,6 +25,7 @@ export default function Day({route}) {
     },
     notifyOnNetworkStatusChange: true,
   });
+
   const {colorMode} = useColorMode();
 
   const leftArrow = () => {

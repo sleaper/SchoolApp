@@ -9,6 +9,7 @@ import {
   VStack,
 } from 'native-base';
 import {CalendarDayTypes} from '../../util/types';
+import {pickColor} from '../../util/pickColor';
 
 function Event({item}: {item: CalendarDayTypes}) {
   return (
@@ -51,7 +52,10 @@ export default function DayItem({
         setModalTitle('Poznámka');
         setModalData(item.notes?.note as string);
       }}
-      backgroundColor={useColorModeValue('white', 'muted.800')}
+      backgroundColor={useColorModeValue(
+        pickColor(item.color) ? 'light.200' : 'red.200',
+        pickColor(item.color) ? 'muted.800' : 'red.800',
+      )}
       borderRadius={'20'}
       m={2}
       shadow="5">

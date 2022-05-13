@@ -10,6 +10,7 @@ query calendarDay($key: String!, $date: String!) {
       class
       type
       order
+      color
       notes {
         note
         order

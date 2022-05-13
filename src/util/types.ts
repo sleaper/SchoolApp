@@ -18,6 +18,7 @@ export interface CalendarDayTypes {
   teacher: string;
   id: string;
   order: string;
+  color: string;
   notes: Notes | undefined;
   events: Events | undefined;
   __typename?: 'CalendarDay' | undefined;

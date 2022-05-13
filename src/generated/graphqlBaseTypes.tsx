@@ -22,8 +22,8 @@ export type AvarageMark = {
 
 export type CalendarDay = {
   __typename?: 'CalendarDay';
-  backUp?: Maybe<Scalars['Boolean']>;
   class?: Maybe<Scalars['String']>;
+  color?: Maybe<Scalars['String']>;
   events?: Maybe<Events>;
   id: Scalars['ID'];
   name: Scalars['String'];
