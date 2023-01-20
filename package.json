@@ -24,7 +24,7 @@
     "apollo-link-http": "^1.5.17",
     "apollo3-cache-persist": "^0.14.0",
     "graphql": "^15.4.0",
-    "metro-symbolicate": "^0.58.0",
+    "metro-symbolicate": "^0.74.1",
     "react": "17.0.1",
     "react-native": "0.64.2",
     "react-native-appearance": "^0.3.4",
