@@ -1,8 +1,12 @@
+# DEPRECATED
+- Škola online made a new app, which contains most of the features I added to my app.
+- For this reason, the repo is just a showcase of tools I worked with.
+
 # Škola offline
-This is so far android (IOS in progress) mobile app for students that are using system Škola online (https://www.skolaonline.cz/). App is build on top of Škola online API.
+This is so far android (IOS in progress) mobile app for students that are using system Škola online (https://www.skolaonline.cz/). App is built on top of Škola online API.
 
 ### Why?
-- Notifications on new mark or homework
+- Notifications on new marks or homework
 - Faster loading
 - Plainer UI
 
@@ -13,5 +17,3 @@ This is so far android (IOS in progress) mobile app for students that are using 
 * GraphQL
 * React navigation
 
-### Google Play
-https://play.google.com/store/apps/details?id=com.skolaoffline&hl=cs
